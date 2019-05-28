@@ -1,0 +1,55 @@
+{
+    "fabrics": [
+        {
+            "id": "fabric_001",
+            "color": ["black", "blue", "red"],
+            "code": "fabric_001",
+            "name": "Subiaco",
+            "type": ["TWEET", "LINEN"],
+            "price": 240,
+            "catalog_img": "https://d2w9m16hs9jc37.cloudfront.net/dimg/fabric/suit/894_huge_c300.jpg",
+            "detailed_img": "https://d2w9m16hs9jc37.cloudfront.net/dimg/fabric/suit/894_huge.jpg"
+        },
+        {
+            "id": "fabric_002",
+            "color": ["black", "blue"],
+            "code": "fabric_002",
+            "name": "Perth",
+            "type": ["LINEN"],
+            "price": 320,
+            "catalog_img": "https://d2w9m16hs9jc37.cloudfront.net/dimg/fabric/suit/141_huge_c300.jpg",
+            "detailed_img": "https://d2w9m16hs9jc37.cloudfront.net/dimg/fabric/suit/141_huge.jpg"
+        },
+        {
+            "id": "fabric_003",
+            "color": ["green", "blue", "gray"],
+            "code": "fabric_003",
+            "name": "Butler",
+            "type": ["TWEET", "WOOL"],
+            "price": 330,
+            "catalog_img": "https://d2w9m16hs9jc37.cloudfront.net/dimg/fabric/suit/1801_huge_c300.jpg",
+            "detailed_img": "https://d2w9m16hs9jc37.cloudfront.net/dimg/fabric/suit/1801_huge.jpg"
+        },
+        {
+            "id": "fabric_004",
+            "color": ["yellow", "orange"],
+            "code": "fabric_004",
+            "name": "Joondalup",
+            "type": ["WOOL", "LINEN"],
+            "price": 280,
+            "catalog_img": "https://d2w9m16hs9jc37.cloudfront.net/dimg/fabric/suit/1804_huge_c300.jpg",
+            "detailed_img": "https://d2w9m16hs9jc37.cloudfront.net/dimg/fabric/suit/1804_huge.jpg"
+        }
+    ],
+
+    "products": [
+        {
+            "code": "suit",
+            "name": "suit"
+        },
+        {
+            "code": "shirt",
+            "name": "shirt"
+        }
+    ]
+}
