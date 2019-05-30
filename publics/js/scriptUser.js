@@ -72,6 +72,34 @@ $(document).ready(function () {
         $('.preview_fabric').css("display", "none");
     });
 
+    // Handle resize model image
+    $(window).resize(function () {
+        // var t=$(window).height(), e= .54 *t 
+        // $(".image_render .layers").css("width",e+"px")
+        let t = $(window).width();
+        let s = 233 - ((1440 - t) / 2)
+                        
+        if ($(window).width() > 1440) {
+            $(".image_render .layers").css("left", "10%");    
+            // $(".image_render .layers").css("width", 393 - (914-t)+"px");
+            $(".image_render .layers").css("height", "100%");
+            $(".image_render .layers").css("width", $(window).height()/3*2 + "px");
+            // $(".image_render .layers").css("max-width", "90%");
+        } else {
+            // $(".image_render .layers").css("left", "10%");
+            $(".image_render .layers").css("left",s+"px");
+            $(".image_render .layers").css("height", "100%");
+            $(".image_render .layers").css("width", $(window).height()/3*2 + "px");
+            if ($(window).width() < 914 && $(window).width() > 860) {
+                $(".image_render .layers").css("left", "0px");
+                $(".image_render .layers").css("width", 393 - (914-t)+"px");
+            } else if ($(window).width() <= 860) {
+                $(".image_render .layers").css("left", "0px");
+                
+                $(".image_render .layers").css("width", 385 - (860-t)+"px");
+            }
+        }
+    });
     /*
      * Author: Nathan Tran
      * Content: Handle related action to fabric
