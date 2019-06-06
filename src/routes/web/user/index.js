@@ -25,6 +25,7 @@ router.get('/', function (req, res) {
 //     else    
 //     res.render('user/web/design-suit');
 // });
+
 router.get('/design-suit', FabricController.list);
 // router.use('/users', passport.notUserWeb, usersRoute);
 // router.use('/employees', employeeRoute);

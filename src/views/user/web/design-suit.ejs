@@ -48,10 +48,13 @@
 
 <body class="popup man body_en ">
     <script type="text/javascript">
-        var fabrics = <%- JSON.stringify(fabrics) %>
-        var fabric = 'shit';
-        var style = null;
-        var measurement = null;
+        var fabrics = <%- JSON.stringify(fabrics) %>;
+        var fabric =  <%- JSON.stringify(fabrics[0]) %>;
+        var components = <%- JSON.stringify(components) %>;
+        var currentDesign = <%- JSON.stringify(currentDesign) %>;
+        var styleImg = <%- JSON.stringify(images) %>;
+        var modelImg = <%- JSON.stringify(modelImg) %>;
+        var imageRenderFlag = true;
         var region_url = '/en-au/';
         // var cdn_host = 'https://d2w9m16hs9jc37.cloudfront.net/';
         var backoffice_store = 0;
@@ -64,8 +67,8 @@
         var tablet_enabled = false;
         var dataLayer = [{ "contentGroup1": "Configurador", "contentGroup2": "Configurador_man_suit", "config_version": "man_suit_desktop_1fabric", "region": "en-au", "lang": "en", "currency": { "iso": "AUD", "symbol": "$" }, "length_units": "cm", "weigth_units": "kg", "gender": "man", "menu_item": "man_suit_personalize", "isAdmin": null, "mobile_device": false, "tablet_device": false, "mobile_ready": true, "mobile_enabled": false, "customer_logged": 0, "swiss_site": 0, "device_type": "desktop" }];
     </script>
-    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-WQMRNX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-WQMRNX');</script>
+    <!-- <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-WQMRNX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript> -->
+    <!-- <script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-WQMRNX');</script> -->
 
     <div id="header_config">
         <div class="container_margins">
@@ -79,10 +82,6 @@
                 <div class="step_inside">
 
                     <a id="link_fabric" class="fabric active" href="?step=fabric" rel='fabric'>
-                        <div class="multi">
-                            <div>Fabric</div>
-                            <div>blazer</div>
-                        </div>
 
                         <div class="simple active">
                             <div>Fabric</div>
@@ -93,18 +92,8 @@
 
                     <a id="link_configure" class="config " href="?step=config" rel='config'>Style</a>
 
-                    <div class="header_multifabric">
-                        <div class="step_separator">f</div>
-                        <a id="link_fabric_pants" class="fabric_pants  multi" href="?step=fabric" rel='fabric_pants'>
-                            <div class="multi active">
-                                <div class="fabric">Fabric</div>
-                                <div class="fabric second">PANTS</div>
-                            </div>
-                        </a>
-                    </div>
-
                     <div class="step_separator">f</div>
-                    <a id="link_extras" class="extra  " href="?step=extra" rel='extra'>Accents</a>
+                    <a id="link_measure" class="measure  " href="?step=measure" rel='measure'>Measure</a>
 
                 </div>
             </div>
@@ -444,7 +433,6 @@
         <!--TOOLBAR-->
     </div>
     <div id="available_window_zoom" class="image_render_full man_suit ">
-        <!-- <div class="loading"><img src="https://d2w9m16hs9jc37.cloudfront.net/images/garment/loading.svg" onerror="this.src='https://d2w9m16hs9jc37.cloudfront.net/images/garment/loading.gif'"></div> -->
         <a class="close">v</a>
         <div class="layers viewport"></div>
     </div>
@@ -600,11 +588,27 @@
             <div class="sidebar-options block" id="config">
                 <div class="container_options">
                     <ul class="options_list" id="style_menu">
-                        <li class="jacket_style_combined" product="man_jacket"><span href="#jacket_style_combined"
+                        <% for(let i = 0 ; i < components.length; i++) { %>
+                        <li class="jacket_style_combined" product="man_jacket">
+                            <span href="#jacket_style_combined" class="<%= components[i].code%>" rel="front,without_model"
+                                product="man_jacket">
+                                <div class="icon option_icon man_jacket icon_3f" title="Style"></div>
+                                <div data-key="jacket_style_clean_tip(man_jacket)" data-shorttext="jacket_style_clean_tip"
+                                    class="option_title">
+                                    <%= components[i].name %>
+                                </div>
+                                <div class="shorttext">
+                                    <%= components[i].name %>
+                                </div>
+                            </span>
+                        </li>
+                        <% } %>
+                        <!-- <li class="jacket_style_combined" product="man_jacket"><span href="#jacket_style_combined"
                                 class="jacket_style_combined" rel="front,without_model" product="man_jacket">
                                 <div class="icon option_icon man_jacket icon_3f" title="Style"></div>
                                 <div data-key="jacket_style_clean_tip(man_jacket)" data-shorttext="jacket_style_clean_tip"
                                     class="option_title">Style</div>
+                                <div class="shorttext">Style</div>
                             </span></li>
                         <li class="jacket_fit " product="man_jacket"><span href="#jacket_fit" class="jacket_fit" rel="front,without_model"
                                 product="man_jacket">
@@ -641,12 +645,37 @@
                                 <div class="icon option_icon man_jacket icon_21" title="Breast Pocket"></div>
                                 <div data-key="jacket_chest_pocket_tip(man_jacket)" data-shorttext="_tip" class="option_title">Breast
                                     Pocket</div>
-                            </span></li>
+                            </span></li> -->
                     </ul>
                 </div>
                 <div class="box_opts">
-                    <div class="box_opt col2  " id="jacket_style_combined" icon-fixed=""><a href="javascript:;" class="back">h</a><input
-                            id="input_jacket_style_combined" class="option_input" type="hidden" name="jacket_style_combined"
+                    <% for(let i = 0; i < components.length; i++) { %>
+                    <div class="box_opt col2 " id=<%=components[i].code %> icon-fixed="">
+                        <a href="javascript:;" class="back">x</a>
+                        <p class="title">
+                            <%= components[i].name %>
+                        </p>
+                        <% for(let j = 0; j < components[i].componentItems.length; j++) {
+                                    var styleFlag = "";
+                                    if(!!currentDesign) {
+                                        if(components[i].componentItems[j].code == currentDesign.style[`${components[i].code}`]) {
+                                            styleFlag = "active";
+                                        }
+                                    } else if (components[i].componentItems[j].code == components[i].componentItems[0].code) {                                        
+                                        styleFlag = "active"
+                                    }
+                                %>
+                        <div class="option_trigger pos_0 <%=styleFlag %>"  id=<%=components[i].componentItems[j].code%>>
+                            <img class="icon man_jacket medium " src="<%=components[i].componentItems[j].icon_img %>">
+                            <span class="text">
+                                <%= components[i].componentItems[j].name %></span>
+                        </div>
+                        <% } %>
+                    </div>
+                    <% } %>
+                    <!-- <div class="box_opt col2  " id="jacket_style_combined" icon-fixed="">
+                        <a href="javascript:;" class="back">h</a>
+                        <input id="input_jacket_style_combined" class="option_input" type="hidden" name="jacket_style_combined"
                             value="">
                         <p class="title">Style</p>
                         <div class="option_trigger pos_0 " href="javascript:;" equival="" rel="simple_1" option_name="jacket_style_combined"
@@ -1040,7 +1069,7 @@
                         <div class="option_trigger pos_0 " href="javascript:;" equival="" rel="1" option_name="waistcoat_wedding"
                             rel-icon="icon_62" views="" price=""><span class="icon man_waistcoat icon_62 normal "></span><span
                                 class="text">waistcoat_wedding_1</span></div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <div class="filters fabric_step">
@@ -1220,908 +1249,98 @@
                     data-block-name='' value=''>
                 <div class="empty_fabrics">No fabric matches your selection criteria. <br />Please select new
                     parameters.</div>
-                <div class="arrow_scroll"><span>@</span></div>
+
                 <div style="position:relative; height:100%;">
                     <!--list fabric -->
                     <div class="fabric_list grid fabric_container_lazy">
                         <% fabrics.forEach(function(fabric) { %>
-                            <div class="fabric_box active grid-item  man_suit <% if(fabric.code == fabrics[0].code) {%> checked <%}%>">
-                                <div class="image <%= fabric.code%>" id=<%= fabric.code %> rel=<%= fabric.code %>>
-                                    <span rel=<%= fabric.code %> class="fabric select">
-                                        <img src=<%= fabric.catalog_img %>
-                                            alt=<%= fabric.name %>></span>
-                                    <span class="thumb_preview"></span>
-                                    <div class="info">
-                                        <div class="prices_block">
-                                            <div class="price price_part man_suit2 general visible ">$<%= fabric.price %></div>                                            
+                        <% 
+                                var fabricFlag = "";
+                                if(!!currentDesign) {
+                                    if(fabric.code == currentDesign.fabric) {
+                                        fabricFlag = "checked"
+                                    }
+                                } else if (fabric.code == fabrics[0].code) {
+                                    fabricFlag = "checked"
+                                }
+                            %>
+                        <div class="fabric_box active grid-item  man_suit <%=fabricFlag %>">
+                            <div class="image <%= fabric.code%>" id=<%=fabric.code %> rel=
+                                <%= fabric.code %>>
+                                <span rel=<%=fabric.code %> class="fabric select">
+                                    <img src=<%=fabric.catalog_img %>
+                                    alt=
+                                    <%= fabric.name %>></span>
+                                <span class="thumb_preview"></span>
+                                <div class="info">
+                                    <div class="prices_block">
+                                        <div class="price price_part man_suit2 general visible ">$
+                                            <%= fabric.price %>
                                         </div>
-                                        <div class="title_compo">
-                                            <div class="title "><%= fabric.name %></div>
-                                            <div class="composition visible"><span class="trad"><%= fabric.type[0] %></span></div>
+                                    </div>
+                                    <div class="title_compo">
+                                        <div class="title ">
+                                            <%= fabric.name %>
                                         </div>
+                                        <div class="composition visible"><span class="trad">
+                                                <%= fabric.type[0] %></span></div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
                         <% }); %>
                     </div>
                     <!--googleon: all -->
                 </div>
             </div>
+            <style type="text/css">
+                #extra .measure {
+                    margin-bottom: 15px;
+                    box-sizing: border-box;
+                }
+
+                #extra .title {
+                    text-align: center;
+                    display: block;
+                    color: #5F5F5F;
+                    text-transform: uppercase;
+                    font-size: 12px;
+                    /* font-weight: 300;
+                    margin-bottom: 4px; */
+                }
+
+                #extra .value_box {
+                    border: 1px solid #dbdbdb;
+                    color: #000;
+                    text-align: center;
+                    padding: 8px 0px;
+                    margin: 5px 0;
+                    width: 80%;
+                    margin-left: 10%;
+                }
+            </style>
+
             <div class='sidebar-options block' id='extra'>
                 <div class="container_options">
-                    <ul class="options_list">
-                        <li class="extras title_combined man_jacket"><span class="submenu" href="" rel="man_jacket">
-                                <p>Jacket</p>
-                            </span></li>
-                        <li class="lining " product="man_jacket"><span href="lining" class="lining" rel="without_model"
-                                product="man_jacket">
-                                <div class="option table">
-                                    <div class="icon option_icon man_jacket icon_42"></div>
-                                    <div class="option_title" data-key="jacket_lining_tip(personalize)" data-shorttext="Lining">Internal
-                                        lining</div>
-                                    <div class="tags">
-                                        <div class="tag">+$20</div>
-                                    </div>
-                                </div>
-                            </span></li>
-                        <li class="initials " product="man_jacket"><span href="initials" class="initials" rel="front,without_model"
-                                product="man_jacket">
-                                <div class="option table">
-                                    <div class="icon option_icon man_jacket icon_46"></div>
-                                    <div class="option_title" data-key="jacket_initials_tip(personalize)"
-                                        data-shorttext="Monogram">Monogram</div>
-                                    <div class="tags">
-                                        <div class="tag">+$12.5</div>
-                                    </div>
-                                </div>
-                            </span></li>
-                        <li class="handkerchief " product="man_jacket"><span href="handkerchief" class="handkerchief"
-                                rel="front,without_model" product="man_jacket">
-                                <div class="option table">
-                                    <div class="icon option_icon man_jacket icon_45"></div>
-                                    <div class="option_title" data-key="handkerchief_tip(personalize)" data-shorttext="Pocketsquare">Pocket
-                                        Square</div>
-                                    <div class="tags">
-                                        <div class="tag">+$18</div>
-                                    </div>
-                                </div>
-                            </span></li>
-                        <li class="metal_buttons " product="man_jacket"><span href="metal_buttons" class="metal_buttons"
-                                rel="front,without_model" product="man_jacket">
-                                <div class="option table">
-                                    <div class="icon option_icon man_jacket icon_44"></div>
-                                    <div class="option_title" data-key="jacket_metal_button_tip(personalize)"
-                                        data-shorttext="Buttons">Type of Buttons</div>
-                                    <div class="tags">
-                                        <div class="tag">+$8</div>
-                                    </div>
-                                </div>
-                            </span></li>
-                        <li class="button_holes_threads " product="man_jacket"><span href="button_holes_threads" class="button_holes_threads"
-                                rel="front,without_model" product="man_jacket">
-                                <div class="option table">
-                                    <div class="icon option_icon man_jacket icon_43"></div>
-                                    <div class="option_title" data-key="button_holes_threads_tip(personalize)"
-                                        data-shorttext="Threads">Button threads/ holes</div>
-                                    <div class="tags">
-                                        <div class="tag">+$8</div>
-                                    </div>
-                                </div>
-                            </span></li>
-                        <li class="neck_lining " product="man_jacket"><span href="neck_lining" class="neck_lining" rel="back"
-                                product="man_jacket">
-                                <div class="option table">
-                                    <div class="icon option_icon man_jacket icon_56"></div>
-                                    <div class="option_title" data-key="jacket_neck_tip(personalize)" data-shorttext="_tip">Neck
-                                        lining</div>
-                                    <div class="tags">
-                                        <div class="tag">+$6</div>
-                                    </div>
-                                </div>
-                            </span></li>
-                        <li class="extras title_combined man_waistcoat"><span class="submenu" href="" rel="man_waistcoat">
-                                <p>Waistcoat</p>
-                            </span></li>
-                        <li class="waistcoat_lining " product="man_waistcoat"><span href="waistcoat_lining" class="lining"
-                                rel="without_model" product="man_waistcoat">
-                                <div class="option table">
-                                    <div class="icon option_icon man_waistcoat icon_63"></div>
-                                    <div class="option_title" data-key="jacket_lining_tip(personalize)" data-shorttext="Lining">Internal
-                                        lining</div>
-                                    <div class="tags">
-                                        <div class="tag">+$20</div>
-                                    </div>
-                                </div>
-                            </span></li>
-                        <li class="waistcoat_lining_back " product="man_waistcoat"><span href="waistcoat_lining_back"
-                                class="waistcoat_lining_back" rel="back" product="man_waistcoat">
-                                <div class="option table">
-                                    <div class="icon option_icon man_waistcoat icon_64"></div>
-                                    <div class="option_title" data-key="waistcoat_lining_back_tip(personalize)"
-                                        data-shorttext="Backlining">Back lining</div>
-                                    <div class="tags">
-                                        <div class="tag">+$8</div>
-                                    </div>
-                                </div>
-                            </span></li>
-                        <li class="waistcoat_initials " product="man_waistcoat"><span href="waistcoat_initials" class="initials"
-                                rel="front,without_model" product="man_waistcoat">
-                                <div class="option table">
-                                    <div class="icon option_icon man_waistcoat icon_6d"></div>
-                                    <div class="option_title" data-key="waistcoat_initials_tip(personalize)"
-                                        data-shorttext="Monogram">Monogram</div>
-                                    <div class="tags">
-                                        <div class="tag">+$12.5</div>
-                                    </div>
-                                </div>
-                            </span></li>
-                        <li class="waistcoat_metal_buttons " product="man_waistcoat"><span href="waistcoat_metal_buttons"
-                                class="waistcoat_metal_buttons" rel="front,without_model" product="man_waistcoat">
-                                <div class="option table">
-                                    <div class="icon option_icon man_waistcoat icon_43"></div>
-                                    <div class="option_title" data-key="jacket_metal_button_tip(personalize)"
-                                        data-shorttext="Buttons">Type of Buttons</div>
-                                    <div class="tags">
-                                        <div class="tag">+$8</div>
-                                    </div>
-                                </div>
-                            </span></li>
-                        <li class="waistcoat_button_holes_threads " product="man_waistcoat"><span href="waistcoat_button_holes_threads"
-                                class="button_holes_threads" rel="front,without_model" product="man_waistcoat">
-                                <div class="option table">
-                                    <div class="icon option_icon man_waistcoat icon_71"></div>
-                                    <div class="option_title" data-key="button_holes_threads_tip(personalize)"
-                                        data-shorttext="Threads">Button threads/ holes</div>
-                                    <div class="tags">
-                                        <div class="tag">+$8</div>
-                                    </div>
-                                </div>
-                            </span></li>
-                    </ul>
+                    <div class="measure" rel="sleeves_length">
+                        <div class="title">Sleeves length</div>
+                        <input name="sleeves" type="number" class="value_box sleeves_length">
+                    </div>
+
+                    <div class="measure" rel="sleeves_length">
+                        <div class="title">Sleeves length</div>
+                        <input name="sleeves" type="number" class="value_box sleeves_length">
+                    </div>
+
+
+
+                    <div class="measure" rel="sleeves_length">
+                        <div class="title">Chest length</div>
+                        <input name="chest" type="number" class="value_box sleeves_length">
+                    </div>
+
                 </div>
-                <div class="box_opts">
-                    <div class="box_opt jacket_lapel_satin col2" id="jacket_lapel_satin" data-extra-type="colors"
-                        data-price="17.95"><a href="javascript:;" class="back">h</a>
-                        <p class="title">Shiny lapels</p>
-                        <div class="extra_options"><input class="option_input" type="hidden" name="jacket_lapel_satin[contrast]"
-                                name_current="contrast" value="">
-                            <div class="option_trigger zero_value  pos_0 " href="javascript:;" rel=""><span class="icon man_jacket icon_4d"></span><span
-                                    class="text">By default</span></div>
-                            <div class="option_trigger  fabric_activator pos_1 " href="javascript:;" rel="custom"><span
-                                    class="icon man_jacket icon_7c"></span><span class="text">Custom colour<span class="price">(+
-                                        $17.95)</span></span></div>
-                        </div>
-                        <div class="colors_section left">
-                            <div class="box_title">Shiny lapels</div>
-                            <div class="list_common_color"><input class="option_input" type="hidden" name="jacket_lapel_satin[color]"
-                                    name_current="color" value="">
-                                <div class="common_color" href="javascript:;" rel="1" satin="1" style="background: url(https://d2w9m16hs9jc37.cloudfront.net/dimg/satin/1.jpg)"><a
-                                        class="box_color" href="javascript:;"></a></div>
-                                <div class="common_color" href="javascript:;" rel="2" satin="2" style="background: url(https://d2w9m16hs9jc37.cloudfront.net/dimg/satin/2.jpg)"><a
-                                        class="box_color" href="javascript:;"></a></div>
-                                <div class="common_color" href="javascript:;" rel="3" satin="3" style="background: url(https://d2w9m16hs9jc37.cloudfront.net/dimg/satin/3.jpg)"><a
-                                        class="box_color" href="javascript:;"></a></div>
-                                <div class="common_color" href="javascript:;" rel="4" satin="4" style="background: url(https://d2w9m16hs9jc37.cloudfront.net/dimg/satin/4.jpg)"><a
-                                        class="box_color" href="javascript:;"></a></div>
-                                <div class="common_color" href="javascript:;" rel="5" satin="5" style="background: url(https://d2w9m16hs9jc37.cloudfront.net/dimg/satin/5.jpg)"><a
-                                        class="box_color" href="javascript:;"></a></div>
-                                <div class="common_color" href="javascript:;" rel="6" satin="6" style="background: url(https://d2w9m16hs9jc37.cloudfront.net/dimg/satin/6.jpg)"><a
-                                        class="box_color" href="javascript:;"></a></div>
-                                <div class="common_color" href="javascript:;" rel="7" satin="7" style="background: url(https://d2w9m16hs9jc37.cloudfront.net/dimg/satin/7.jpg)"><a
-                                        class="box_color" href="javascript:;"></a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="box_opt quilted_waistcoat col2" id="quilted_waistcoat" data-extra-type="colors"
-                        data-price="65.00"><a href="javascript:;" class="back">h</a>
-                        <p class="title">detachable padded Gilet<a class="tooltip_info" href="javascript:;">$</a></p>
-                        <div class="extra_options"><input class="option_input" type="hidden" name="quilted_waistcoat[contrast]"
-                                name_current="contrast" value="">
-                            <div class="option_trigger zero_value  pos_0 " href="javascript:;" rel=""><span class="icon man_jacket icon_5c"></span><span
-                                    class="text">Without</span></div>
-                            <div class="option_trigger  fabric_activator pos_1 " href="javascript:;" rel="personalizado"><span
-                                    class="icon man_jacket icon_7e"></span><span class="text">with<span class="price">(+
-                                        $65)</span></span></div>
-                        </div>
-                        <div class="colors_section left quilted_waistcoat patches">
-                            <div class="box_title">COLOURS</div>
-                            <div class="list_common_color"><input class="option_input" type="hidden" name="quilted_waistcoat[color]"
-                                    name_current="color" value="">
-                                <div class="common_color" href="javascript:;" rel="134"><a class="box_color" href="javascript:;"><span
-                                            class="image" style="background: url(https://d2w9m16hs9jc37.cloudfront.net/dimg/lining/default/134_thumb.jpg)"></span>
-                                        <div class="title"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="100"><a class="box_color" href="javascript:;"><span
-                                            class="image" style="background: url(https://d2w9m16hs9jc37.cloudfront.net/dimg/lining/default/100_thumb.jpg)"></span>
-                                        <div class="title"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="101"><a class="box_color" href="javascript:;"><span
-                                            class="image" style="background: url(https://d2w9m16hs9jc37.cloudfront.net/dimg/lining/default/101_thumb.jpg)"></span>
-                                        <div class="title"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="132"><a class="box_color" href="javascript:;"><span
-                                            class="image" style="background: url(https://d2w9m16hs9jc37.cloudfront.net/dimg/lining/default/132_thumb.jpg)"></span>
-                                        <div class="title"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="104"><a class="box_color" href="javascript:;"><span
-                                            class="image" style="background: url(https://d2w9m16hs9jc37.cloudfront.net/dimg/lining/default/104_thumb.jpg)"></span>
-                                        <div class="title"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="133"><a class="box_color" href="javascript:;"><span
-                                            class="image" style="background: url(https://d2w9m16hs9jc37.cloudfront.net/dimg/lining/default/133_thumb.jpg)"></span>
-                                        <div class="title"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="103"><a class="box_color" href="javascript:;"><span
-                                            class="image" style="background: url(https://d2w9m16hs9jc37.cloudfront.net/dimg/lining/default/103_thumb.jpg)"></span>
-                                        <div class="title"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="102"><a class="box_color" href="javascript:;"><span
-                                            class="image" style="background: url(https://d2w9m16hs9jc37.cloudfront.net/dimg/lining/default/102_thumb.jpg)"></span>
-                                        <div class="title"></div>
-                                    </a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="box_opt lining col2" id="lining" data-extra-type="lining" data-price="20.00"><a href="javascript:;"
-                            class="back">h</a><input class="option_input" type="hidden" name="lining[contrast]"
-                            name_current="contrast" value=""><input class="option_input" type="hidden" name="lining[lining_id]"
-                            name_current="lining_id" value="">
-                        <p class="title">Internal lining</p>
-                        <div class="option_trigger zero_value  pos_0" href="javascript:;" rel="default" data-price=""
-                            filter=""><span class="icon man_jacket icon_27"></span><span class="text">By default</span></div>
-                        <div class="option_trigger  lining_activator pos_0" href="javascript:;" rel="personalizado"
-                            data-price="20.00" filter="personalizado"><span class="icon man_jacket icon_29"></span><span
-                                class="text">Custom colour<span class="price">(+ $20 )</span></span></div>
-                        <div class="option_trigger  lining_unlined pos_0" href="javascript:;" rel="unlined" data-price="39.00"
-                            filter="personalizado"><span class="icon man_jacket icon_26"></span><span class="text">Unlined<span
-                                    class="price">(+ $39 )</span></span></div>
-                        <div class="option_trigger  lining_activator pos_0" href="javascript:;" rel="padded" data-price="35.00"
-                            filter="padded"><span class="icon man_jacket icon_28"></span><span class="text">Quilted
-                                lining<span class="price">(+ $35 )</span></span></div>
-                    </div>
-                    <div class="box_opt initials col2" id="initials" data-extra-type="initials" data-price="12.50"><a
-                            href="javascript:;" class="back">h</a>
-                        <div class="op_initials">
-                            <div class="title">Blazer initials <span class="price">(+ $12.5)</span></div><input size="4"
-                                class="txt_initial" type="text" name="initials[text]" maxlength="5" value=""
-                                placeholder="Type your initials"><a class="icon remove" data-icon="v"></a>
-                        </div>
-                        <div class="op_initials">
-                            <div class="box_title">
-                                <p>Font:</p>
-                            </div>
-                            <div class='box_font_initial'><label class='left check_button checked'><span class='check'></span><input
-                                        rel='Arial' class='uniform' checked type='radio' value='24' name='initials[type]'
-                                        rev='initials_type'><span class='initial_img arial'>U</span></label><label
-                                    class='left check_button '><span class='check'></span><input rel='Monotype Corsiva'
-                                        class='uniform' type='radio' value='19' name='initials[type]' rev='initials_type'><span
-                                        class='initial_img monotype'>V</span></label><label class='left check_button '><span
-                                        class='check'></span><input rel='Times new Roman' class='uniform' type='radio'
-                                        value='74' name='initials[type]' rev='initials_type'><span class='initial_img times'>W</span></label><label
-                                    class='left check_button '><span class='check'></span><input rel='Rockwell' class='uniform'
-                                        type='radio' value='77' name='initials[type]' rev='initials_type'><span class='initial_img rockwell'>X</span></label></div>
-                        </div>
-                        <div class="op_initials">
-                            <div class="box_title">
-                                <p>Monogram Thread Color:</p>
-                            </div>
-                            <div class="list_common_color" rel="initials"><input class="option_input" type="hidden"
-                                    name="initials[color_custom]" value="9">
-                                <div class="common_color checked href=" javascript:;" rel="9" color="2361ad"><a class="box_color"
-                                        href="javascript:;" style="background:#ffcf10">
-                                        <div style="width: 36px; height:49px; background: #ffcf10 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color  href=" javascript:;" rel="12" color="2361ad"><a class="box_color"
-                                        href="javascript:;" style="background:#ffffff">
-                                        <div style="width: 36px; height:49px; background: #ffffff url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color  href=" javascript:;" rel="13" color="2361ad"><a class="box_color"
-                                        href="javascript:;" style="background:#a48239">
-                                        <div style="width: 36px; height:49px; background: #a48239 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color  href=" javascript:;" rel="14" color="2361ad"><a class="box_color"
-                                        href="javascript:;" style="background:#4d020d">
-                                        <div style="width: 36px; height:49px; background: #4d020d url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color  href=" javascript:;" rel="15" color="2361ad"><a class="box_color"
-                                        href="javascript:;" style="background:#b3b3b3">
-                                        <div style="width: 36px; height:49px; background: #b3b3b3 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color  href=" javascript:;" rel="16" color="2361ad"><a class="box_color"
-                                        href="javascript:;" style="background:#331b00">
-                                        <div style="width: 36px; height:49px; background: #331b00 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color  href=" javascript:;" rel="17" color="2361ad"><a class="box_color"
-                                        href="javascript:;" style="background:#000000">
-                                        <div style="width: 36px; height:49px; background: #000000 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color  href=" javascript:;" rel="18" color="2361ad"><a class="box_color"
-                                        href="javascript:;" style="background:#b80e58">
-                                        <div style="width: 36px; height:49px; background: #b80e58 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color  href=" javascript:;" rel="19" color="2361ad"><a class="box_color"
-                                        href="javascript:;" style="background:#0ba133">
-                                        <div style="width: 36px; height:49px; background: #0ba133 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color  href=" javascript:;" rel="25" color="2361ad"><a class="box_color"
-                                        href="javascript:;" style="background:#c20000">
-                                        <div style="width: 36px; height:49px; background: #c20000 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color  href=" javascript:;" rel="31" color="2361ad"><a class="box_color"
-                                        href="javascript:;" style="background:#ff7912">
-                                        <div style="width: 36px; height:49px; background: #ff7912 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color  href=" javascript:;" rel="32" color="2361ad"><a class="box_color"
-                                        href="javascript:;" style="background:#5f1970">
-                                        <div style="width: 36px; height:49px; background: #5f1970 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color  href=" javascript:;" rel="33" color="2361ad"><a class="box_color"
-                                        href="javascript:;" style="background:#b8f2f2">
-                                        <div style="width: 36px; height:49px; background: #b8f2f2 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color  href=" javascript:;" rel="34" color="2361ad"><a class="box_color"
-                                        href="javascript:;" style="background:#4477cf">
-                                        <div style="width: 36px; height:49px; background: #4477cf url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="box_opt handkerchief col2" id="handkerchief" data-extra-type="colors" data-price="18.00"><a
-                            href="javascript:;" class="back">h</a>
-                        <p class="title">Pocket Square</p>
-                        <div class="extra_options"><input class="option_input" type="hidden" name="handkerchief[contrast]"
-                                name_current="contrast" value="">
-                            <div class="option_trigger zero_value  pos_0 " href="javascript:;" rel=""><span class="icon man_jacket icon_31"></span><span
-                                    class="text">Without</span></div>
-                            <div class="option_trigger  fabric_activator pos_1 " href="javascript:;" rel="personalizado"><span
-                                    class="icon man_jacket icon_45"></span><span class="text">Custom colour<span class="price">(+
-                                        $18)</span></span></div>
-                        </div>
-                        <div class="colors_section left">
-                            <div class="box_title">Pocket Square</div>
-                            <div class="list_common_color"><input class="option_input" type="hidden" name="handkerchief[color]"
-                                    name_current="color" value="">
-                                <div class="common_color" href="javascript:;" rel="2" style="background: url(https://d2w9m16hs9jc37.cloudfront.net/images/man/jacket/handkerchief/2.jpg)"><a
-                                        class="box_color" href="javascript:;"></a></div>
-                                <div class="common_color" href="javascript:;" rel="3" style="background: url(https://d2w9m16hs9jc37.cloudfront.net/images/man/jacket/handkerchief/3.jpg)"><a
-                                        class="box_color" href="javascript:;"></a></div>
-                                <div class="common_color" href="javascript:;" rel="4" style="background: url(https://d2w9m16hs9jc37.cloudfront.net/images/man/jacket/handkerchief/4.jpg)"><a
-                                        class="box_color" href="javascript:;"></a></div>
-                                <div class="common_color" href="javascript:;" rel="5" style="background: url(https://d2w9m16hs9jc37.cloudfront.net/images/man/jacket/handkerchief/5.jpg)"><a
-                                        class="box_color" href="javascript:;"></a></div>
-                                <div class="common_color" href="javascript:;" rel="6" style="background: url(https://d2w9m16hs9jc37.cloudfront.net/images/man/jacket/handkerchief/6.jpg)"><a
-                                        class="box_color" href="javascript:;"></a></div>
-                                <div class="common_color" href="javascript:;" rel="7" style="background: url(https://d2w9m16hs9jc37.cloudfront.net/images/man/jacket/handkerchief/7.jpg)"><a
-                                        class="box_color" href="javascript:;"></a></div>
-                                <div class="common_color" href="javascript:;" rel="8" style="background: url(https://d2w9m16hs9jc37.cloudfront.net/images/man/jacket/handkerchief/8.jpg)"><a
-                                        class="box_color" href="javascript:;"></a></div>
-                                <div class="common_color" href="javascript:;" rel="10" style="background: url(https://d2w9m16hs9jc37.cloudfront.net/images/man/jacket/handkerchief/10.jpg)"><a
-                                        class="box_color" href="javascript:;"></a></div>
-                                <div class="common_color" href="javascript:;" rel="11" style="background: url(https://d2w9m16hs9jc37.cloudfront.net/images/man/jacket/handkerchief/11.jpg)"><a
-                                        class="box_color" href="javascript:;"></a></div>
-                                <div class="common_color" href="javascript:;" rel="12" style="background: url(https://d2w9m16hs9jc37.cloudfront.net/images/man/jacket/handkerchief/12.jpg)"><a
-                                        class="box_color" href="javascript:;"></a></div>
-                                <div class="common_color" href="javascript:;" rel="13" style="background: url(https://d2w9m16hs9jc37.cloudfront.net/images/man/jacket/handkerchief/13.jpg)"><a
-                                        class="box_color" href="javascript:;"></a></div>
-                                <div class="common_color" href="javascript:;" rel="14" style="background: url(https://d2w9m16hs9jc37.cloudfront.net/images/man/jacket/handkerchief/14.jpg)"><a
-                                        class="box_color" href="javascript:;"></a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="box_opt metal_buttons col2" id="metal_buttons" data-extra-type="colors" data-price="8.00"><a
-                            href="javascript:;" class="back">h</a>
-                        <p class="title">Type of Buttons</p>
-                        <div class="extra_options"><input class="option_input" type="hidden" name="metal_buttons[contrast]"
-                                name_current="contrast" value="">
-                            <div class="option_trigger zero_value  pos_0 " href="javascript:;" rel=""><span class="icon man_jacket icon_43"></span><span
-                                    class="text">By default</span></div>
-                            <div class="option_trigger  fabric_activator pos_1 " href="javascript:;" rel="personalizado"><span
-                                    class="icon man_jacket icon_44"></span><span class="text">Brass Buttons<span class="price">(+
-                                        $8)</span></span></div>
-                        </div>
-                        <div class="colors_section left metal_button">
-                            <div class="box_title">Type of Buttons</div>
-                            <div class="list_common_color"><input class="option_input" type="hidden" name="metal_buttons[type]"
-                                    name_current="type" value="">
-                                <div class="common_color" href="javascript:;" rel="50"><a class="box_color" href="javascript:;"><img
-                                            src="https://d2w9m16hs9jc37.cloudfront.net/images/man/jacket/metal_buttons/50.jpg" /></a></div>
-                                <div class="common_color" href="javascript:;" rel="51"><a class="box_color" href="javascript:;"><img
-                                            src="https://d2w9m16hs9jc37.cloudfront.net/images/man/jacket/metal_buttons/51.jpg" /></a></div>
-                                <div class="common_color" href="javascript:;" rel="52"><a class="box_color" href="javascript:;"><img
-                                            src="https://d2w9m16hs9jc37.cloudfront.net/images/man/jacket/metal_buttons/52.jpg" /></a></div>
-                                <div class="common_color" href="javascript:;" rel="53"><a class="box_color" href="javascript:;"><img
-                                            src="https://d2w9m16hs9jc37.cloudfront.net/images/man/jacket/metal_buttons/53.jpg" /></a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="box_opt button_holes_threads col2" id="button_holes_threads" data-extra-type="threads"
-                        data-price="8.00"><a href="javascript:;" class="back">h</a>
-                        <p class="title">Button threads/ holes</p>
-                        <div class="extra_options"><input class="option_input" type="hidden" name="button_holes_threads[contrast]"
-                                name_current="contrast" value="">
-                            <div class="option_trigger zero_value  pos_0" href="javascript:;" rel=""><span class="icon man_jacket icon_4d"></span><span
-                                    class="text">By default</span></div>
-                            <div class="option_trigger  fabric_activator pos_0" href="javascript:;" rel="all"><span
-                                    class="icon man_jacket icon_61"></span><span class="text">All<span class="price">(+
-                                        $8 )</span></span></div>
-                            <div class="option_trigger  fabric_activator pos_0" href="javascript:;" rel="cuff"><span
-                                    class="icon man_jacket icon_69"></span><span class="text">Only cuffs<span class="price">(+
-                                        $8 )</span></span></div>
-                            <div class="option_trigger  fabric_activator pos_0" href="javascript:;" rel="lapel"><span
-                                    class="icon man_jacket icon_63"></span><span class="text">Lapel only<span class="price">(+
-                                        $8 )</span></span></div>
-                        </div>
-                        <div class="buttonholes_color button_holes_section color_section left">
-                            <div class="box_title">Button holes</div>
-                            <div class="list_common_color" rel="cuff"><input class="option_input" type="hidden" name="button_holes_threads[holes][color]"
-                                    name_current="holes-color" value="">
-                                <div class="common_color" href="javascript:;" rel="9" color="ffcf10"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #ffcf10 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="12" color="ffffff"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #ffffff url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="13" color="a48239"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #a48239 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="14" color="4d020d"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #4d020d url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="15" color="b3b3b3"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #b3b3b3 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="16" color="331b00"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #331b00 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="17" color="000000"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #000000 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="18" color="b80e58"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #b80e58 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="19" color="0ba133"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #0ba133 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="25" color="c20000"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #c20000 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="31" color="ff7912"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #ff7912 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="32" color="5f1970"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #5f1970 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="33" color="b8f2f2"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #b8f2f2 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="34" color="4477cf"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #4477cf url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                            </div>
-                        </div>
-                        <div class="buttonthreads_color button_holes_section thread_section left">
-                            <div class="box_title">Button threads</div>
-                            <div class="list_common_color" rel="all"><input class="option_input" type="hidden" name="button_holes_threads[threads][color]"
-                                    name_current="threads-color" value="">
-                                <div class="common_color" href="javascript:;" rel="9" color="ffcf10"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #ffcf10 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="12" color="ffffff"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #ffffff url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="13" color="a48239"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #a48239 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="14" color="4d020d"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #4d020d url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="15" color="b3b3b3"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #b3b3b3 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="16" color="331b00"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #331b00 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="17" color="000000"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #000000 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="18" color="b80e58"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #b80e58 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="19" color="0ba133"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #0ba133 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="25" color="c20000"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #c20000 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="31" color="ff7912"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #ff7912 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="32" color="5f1970"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #5f1970 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="33" color="b8f2f2"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #b8f2f2 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="34" color="4477cf"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #4477cf url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="box_opt patches col2" id="patches" data-extra-type="colors" data-price="18.00"><a href="javascript:;"
-                            class="back">h</a>
-                        <p class="title">Elbow patches </p>
-                        <div class="extra_options"><input class="option_input" type="hidden" name="patches[contrast]"
-                                name_current="contrast" value="">
-                            <div class="option_trigger zero_value  pos_0 " href="javascript:;" rel=""><span class="icon man_jacket icon_35"></span><span
-                                    class="text">Without</span></div>
-                            <div class="option_trigger  fabric_activator pos_1 " href="javascript:;" rel="personalizado"><span
-                                    class="icon man_jacket icon_36"></span><span class="text">Custom colour<span class="price">(+
-                                        $18)</span></span></div>
-                        </div>
-                        <div class="colors_section left patches">
-                            <div class="box_title">Elbow patches</div>
-                            <div class="list_common_color"><input class="option_input" type="hidden" name="patches[color]"
-                                    name_current="patches" value="">
-                                <div class="common_color" href="javascript:;" rel="55"><a class="box_color" href="javascript:;"><span
-                                            class="image" style="background: url(https://d2w9m16hs9jc37.cloudfront.net/dimg/patches/default/55_thumb.jpg)"></span>
-                                        <div class="title"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="56"><a class="box_color" href="javascript:;"><span
-                                            class="image" style="background: url(https://d2w9m16hs9jc37.cloudfront.net/dimg/patches/default/56_thumb.jpg)"></span>
-                                        <div class="title"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="57"><a class="box_color" href="javascript:;"><span
-                                            class="image" style="background: url(https://d2w9m16hs9jc37.cloudfront.net/dimg/patches/default/57_thumb.jpg)"></span>
-                                        <div class="title"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="58"><a class="box_color" href="javascript:;"><span
-                                            class="image" style="background: url(https://d2w9m16hs9jc37.cloudfront.net/dimg/patches/default/58_thumb.jpg)"></span>
-                                        <div class="title"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="59"><a class="box_color" href="javascript:;"><span
-                                            class="image" style="background: url(https://d2w9m16hs9jc37.cloudfront.net/dimg/patches/default/59_thumb.jpg)"></span>
-                                        <div class="title"></div>
-                                    </a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="box_opt neck_lining col2" id="neck_lining" data-extra-type="colors" data-price="6.00"><a
-                            href="javascript:;" class="back">h</a>
-                        <p class="title">Neck lining</p>
-                        <div class="extra_options"><input class="option_input" type="hidden" name="neck_lining[contrast]"
-                                name_current="contrast" value="">
-                            <div class="option_trigger zero_value  pos_0 " href="javascript:;" rel=""><span class="icon man_jacket icon_4d"></span><span
-                                    class="text">By default</span></div>
-                            <div class="option_trigger  fabric_activator pos_1 " href="javascript:;" rel="personalizado"><span
-                                    class="icon man_jacket icon_56"></span><span class="text">Custom colour<span class="price">(+
-                                        $6)</span></span></div>
-                        </div>
-                        <div class="colors_section left">
-                            <div class="box_title">Neck Lining</div>
-                            <div class="list_common_color"><input class="option_input" type="hidden" name="neck_lining[color]"
-                                    name_current="color" value="">
-                                <div class="common_color" href="javascript:;" rel="1" color="d89f6b" style="background-color:#d89f6b"><a
-                                        class="box_color" href="javascript:;"></a></div>
-                                <div class="common_color" href="javascript:;" rel="2" color="ea1c1e" style="background-color:#ea1c1e"><a
-                                        class="box_color" href="javascript:;"></a></div>
-                                <div class="common_color" href="javascript:;" rel="3" color="b2a995" style="background-color:#b2a995"><a
-                                        class="box_color" href="javascript:;"></a></div>
-                                <div class="common_color" href="javascript:;" rel="4" color="212534" style="background-color:#212534"><a
-                                        class="box_color" href="javascript:;"></a></div>
-                                <div class="common_color" href="javascript:;" rel="5" color="34322c" style="background-color:#34322c"><a
-                                        class="box_color" href="javascript:;"></a></div>
-                                <div class="common_color" href="javascript:;" rel="6" color="e7e7e7" style="background-color:#e7e7e7"><a
-                                        class="box_color" href="javascript:;"></a></div>
-                                <div class="common_color" href="javascript:;" rel="7" color="1f1f1f" style="background-color:#1f1f1f"><a
-                                        class="box_color" href="javascript:;"></a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="box_opt lining col2" id="waistcoat_lining" data-extra-type="lining" data-price="20.00"><a
-                            href="javascript:;" class="back">h</a><input class="option_input" type="hidden" name="waistcoat_lining[contrast]"
-                            name_current="contrast" value=""><input class="option_input" type="hidden" name="waistcoat_lining[lining_id]"
-                            name_current="lining_id" value="">
-                        <p class="title">Internal lining</p>
-                        <div class="option_trigger zero_value  pos_0" href="javascript:;" rel="default" data-price=""
-                            filter=""><span class="icon man_waistcoat icon_72"></span><span class="text">By default</span></div>
-                        <div class="option_trigger  lining_activator pos_0" href="javascript:;" rel="personalizado"
-                            data-price="20.00" filter="personalizado"><span class="icon man_waistcoat icon_63"></span><span
-                                class="text">Custom colour<span class="price">(+ $20 )</span></span></div>
-                    </div>
-                    <div class="box_opt waistcoat_lining_back col2" id="waistcoat_lining_back" data-extra-type="lining"
-                        data-price="8.00"><a href="javascript:;" class="back">h</a><input class="option_input" type="hidden"
-                            name="waistcoat_lining_back[contrast]" name_current="contrast" value=""><input class="option_input"
-                            type="hidden" name="waistcoat_lining_back[lining_id]" name_current="lining_id" value="">
-                        <p class="title">Back lining</p>
-                        <div class="option_trigger zero_value  pos_0" href="javascript:;" rel="default" data-price=""
-                            filter=""><span class="icon man_waistcoat icon_72"></span><span class="text">By default</span></div>
-                        <div class="option_trigger  lining_activator pos_0" href="javascript:;" rel="personalizado"
-                            data-price="8.00" filter="personalizado"><span class="icon man_waistcoat icon_64"></span><span
-                                class="text">Custom colour<span class="price">(+ $8 )</span></span></div>
-                        <div class="option_trigger  same_as_front pos_0" href="javascript:;" rel="same_as_front"
-                            data-price="12.00" filter=""><span class="icon man_waistcoat icon_64"></span><span class="text">Same
-                                fabric as the front<span class="price">(+ $12 )</span></span></div>
-                    </div>
-                    <div class="box_opt initials col2" id="waistcoat_initials" data-extra-type="initials" data-price="12.50"><a
-                            href="javascript:;" class="back">h</a>
-                        <div class="op_initials">
-                            <div class="title">Vest initials <span class="price">(+ $12.5)</span></div><input size="4"
-                                class="txt_initial" type="text" name="waistcoat_initials[text]" maxlength="5" value=""
-                                placeholder="Type your initials"><a class="icon remove" data-icon="v"></a>
-                        </div>
-                        <div class="op_initials">
-                            <div class="box_title">
-                                <p>Font:</p>
-                            </div>
-                            <div class='box_font_initial'><label class='left check_button checked'><span class='check'></span><input
-                                        rel='Arial' class='uniform' checked type='radio' value='24' name='waistcoat_initials[type]'
-                                        rev='initials_type'><span class='initial_img arial'>U</span></label><label
-                                    class='left check_button '><span class='check'></span><input rel='Monotype Corsiva'
-                                        class='uniform' type='radio' value='19' name='waistcoat_initials[type]' rev='initials_type'><span
-                                        class='initial_img monotype'>V</span></label><label class='left check_button '><span
-                                        class='check'></span><input rel='Times new Roman' class='uniform' type='radio'
-                                        value='74' name='waistcoat_initials[type]' rev='initials_type'><span class='initial_img times'>W</span></label><label
-                                    class='left check_button '><span class='check'></span><input rel='Rockwell' class='uniform'
-                                        type='radio' value='77' name='waistcoat_initials[type]' rev='initials_type'><span
-                                        class='initial_img rockwell'>X</span></label></div>
-                        </div>
-                        <div class="op_initials">
-                            <div class="box_title">
-                                <p>Monogram Thread Color:</p>
-                            </div>
-                            <div class="list_common_color" rel="initials"><input class="option_input" type="hidden"
-                                    name="waistcoat_initials[color_custom]" value="9">
-                                <div class="common_color checked href=" javascript:;" rel="9" color="2361ad"><a class="box_color"
-                                        href="javascript:;" style="background:#ffcf10">
-                                        <div style="width: 36px; height:49px; background: #ffcf10 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color  href=" javascript:;" rel="12" color="2361ad"><a class="box_color"
-                                        href="javascript:;" style="background:#ffffff">
-                                        <div style="width: 36px; height:49px; background: #ffffff url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color  href=" javascript:;" rel="13" color="2361ad"><a class="box_color"
-                                        href="javascript:;" style="background:#a48239">
-                                        <div style="width: 36px; height:49px; background: #a48239 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color  href=" javascript:;" rel="14" color="2361ad"><a class="box_color"
-                                        href="javascript:;" style="background:#4d020d">
-                                        <div style="width: 36px; height:49px; background: #4d020d url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color  href=" javascript:;" rel="15" color="2361ad"><a class="box_color"
-                                        href="javascript:;" style="background:#b3b3b3">
-                                        <div style="width: 36px; height:49px; background: #b3b3b3 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color  href=" javascript:;" rel="16" color="2361ad"><a class="box_color"
-                                        href="javascript:;" style="background:#331b00">
-                                        <div style="width: 36px; height:49px; background: #331b00 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color  href=" javascript:;" rel="17" color="2361ad"><a class="box_color"
-                                        href="javascript:;" style="background:#000000">
-                                        <div style="width: 36px; height:49px; background: #000000 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color  href=" javascript:;" rel="18" color="2361ad"><a class="box_color"
-                                        href="javascript:;" style="background:#b80e58">
-                                        <div style="width: 36px; height:49px; background: #b80e58 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color  href=" javascript:;" rel="19" color="2361ad"><a class="box_color"
-                                        href="javascript:;" style="background:#0ba133">
-                                        <div style="width: 36px; height:49px; background: #0ba133 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color  href=" javascript:;" rel="25" color="2361ad"><a class="box_color"
-                                        href="javascript:;" style="background:#c20000">
-                                        <div style="width: 36px; height:49px; background: #c20000 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color  href=" javascript:;" rel="31" color="2361ad"><a class="box_color"
-                                        href="javascript:;" style="background:#ff7912">
-                                        <div style="width: 36px; height:49px; background: #ff7912 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color  href=" javascript:;" rel="32" color="2361ad"><a class="box_color"
-                                        href="javascript:;" style="background:#5f1970">
-                                        <div style="width: 36px; height:49px; background: #5f1970 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color  href=" javascript:;" rel="33" color="2361ad"><a class="box_color"
-                                        href="javascript:;" style="background:#b8f2f2">
-                                        <div style="width: 36px; height:49px; background: #b8f2f2 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color  href=" javascript:;" rel="34" color="2361ad"><a class="box_color"
-                                        href="javascript:;" style="background:#4477cf">
-                                        <div style="width: 36px; height:49px; background: #4477cf url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="box_opt waistcoat_metal_buttons col2" id="waistcoat_metal_buttons" data-extra-type="colors"
-                        data-price="8.00"><a href="javascript:;" class="back">h</a>
-                        <p class="title">Type of Buttons</p>
-                        <div class="extra_options"><input class="option_input" type="hidden" name="waistcoat_metal_buttons[contrast]"
-                                name_current="contrast" value="">
-                            <div class="option_trigger zero_value  pos_0 " href="javascript:;" rel=""><span class="icon man_waistcoat icon_70"></span><span
-                                    class="text">By default</span></div>
-                            <div class="option_trigger  fabric_activator pos_1 " href="javascript:;" rel="personalizado"><span
-                                    class="icon man_waistcoat icon_43"></span><span class="text">Brass Buttons<span
-                                        class="price">(+ $8)</span></span></div>
-                        </div>
-                        <div class="colors_section left metal_button">
-                            <div class="box_title">Type of Buttons</div>
-                            <div class="list_common_color"><input class="option_input" type="hidden" name="waistcoat_metal_buttons[type]"
-                                    name_current="type" value="">
-                                <div class="common_color" href="javascript:;" rel="50"><a class="box_color" href="javascript:;"><img
-                                            src="https://d2w9m16hs9jc37.cloudfront.net/images/man/jacket/metal_buttons/50.jpg" /></a></div>
-                                <div class="common_color" href="javascript:;" rel="51"><a class="box_color" href="javascript:;"><img
-                                            src="https://d2w9m16hs9jc37.cloudfront.net/images/man/jacket/metal_buttons/51.jpg" /></a></div>
-                                <div class="common_color" href="javascript:;" rel="52"><a class="box_color" href="javascript:;"><img
-                                            src="https://d2w9m16hs9jc37.cloudfront.net/images/man/jacket/metal_buttons/52.jpg" /></a></div>
-                                <div class="common_color" href="javascript:;" rel="53"><a class="box_color" href="javascript:;"><img
-                                            src="https://d2w9m16hs9jc37.cloudfront.net/images/man/jacket/metal_buttons/53.jpg" /></a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="box_opt button_holes_threads col2" id="waistcoat_button_holes_threads" data-extra-type="threads"
-                        data-price="8.00"><a href="javascript:;" class="back">h</a>
-                        <p class="title">Button threads/ holes</p>
-                        <div class="extra_options"><input class="option_input" type="hidden" name="waistcoat_button_holes_threads[contrast]"
-                                name_current="contrast" value="">
-                            <div class="option_trigger zero_value  pos_0" href="javascript:;" rel=""><span class="icon man_waistcoat icon_72"></span><span
-                                    class="text">By default</span></div>
-                            <div class="option_trigger  fabric_activator pos_0" href="javascript:;" rel="all"><span
-                                    class="icon man_waistcoat icon_71"></span><span class="text">All<span class="price">(+
-                                        $8 )</span></span></div>
-                        </div>
-                        <div class="buttonholes_color button_holes_section color_section left">
-                            <div class="box_title">Button holes</div>
-                            <div class="list_common_color" rel="cuff"><input class="option_input" type="hidden" name="waistcoat_button_holes_threads[holes][color]"
-                                    name_current="holes-color" value="">
-                                <div class="common_color" href="javascript:;" rel="9" color="ffcf10"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #ffcf10 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="12" color="ffffff"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #ffffff url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="13" color="a48239"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #a48239 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="14" color="4d020d"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #4d020d url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="15" color="b3b3b3"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #b3b3b3 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="16" color="331b00"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #331b00 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="17" color="000000"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #000000 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="18" color="b80e58"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #b80e58 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="19" color="0ba133"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #0ba133 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="25" color="c20000"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #c20000 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="31" color="ff7912"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #ff7912 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="32" color="5f1970"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #5f1970 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="33" color="b8f2f2"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #b8f2f2 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="34" color="4477cf"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #4477cf url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                            </div>
-                        </div>
-                        <div class="buttonthreads_color button_holes_section thread_section left">
-                            <div class="box_title">Button threads</div>
-                            <div class="list_common_color" rel="all"><input class="option_input" type="hidden" name="waistcoat_button_holes_threads[threads][color]"
-                                    name_current="threads-color" value="">
-                                <div class="common_color" href="javascript:;" rel="9" color="ffcf10"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #ffcf10 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="12" color="ffffff"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #ffffff url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="13" color="a48239"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #a48239 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="14" color="4d020d"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #4d020d url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="15" color="b3b3b3"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #b3b3b3 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="16" color="331b00"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #331b00 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="17" color="000000"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #000000 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="18" color="b80e58"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #b80e58 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="19" color="0ba133"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #0ba133 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="25" color="c20000"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #c20000 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="31" color="ff7912"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #ff7912 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="32" color="5f1970"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #5f1970 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="33" color="b8f2f2"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #b8f2f2 url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                                <div class="common_color" href="javascript:;" rel="34" color="4477cf"><a class="box_color"
-                                        href="javascript:;">
-                                        <div style="width: 36px; height:49px; background: #4477cf url('https://d2w9m16hs9jc37.cloudfront.net/images/threads/shadow_extras_thread.png');"></div>
-                                    </a></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
                 <div class="box_opt extra_linings extra_container_lazy">
                     <div class="fabric_options_fix">
                         <div class="fabric_options">
@@ -3632,8 +2851,12 @@
                         <div class="details">
                             <div class="more_info"><span>Z</span></div>
                             <div class="header">
-                                <div class="title"><%= fabrics[0].name %></div>
-                                <div class="composition"> - <%= fabrics[0].type %></div>
+                                <div class="title">
+                                    <%= fabrics[0].name %>
+                                </div>
+                                <div class="composition"> -
+                                    <%= fabrics[0].type %>
+                                </div>
                                 <div class="new" style="display: none;">NEW</div>
                             </div>
 
@@ -3824,7 +3047,7 @@
                         </div>
                     </div>
                     <div class="image">
-                        <img src=<%= fabrics[0].detailed_img %>>
+                        <img src=<%=fabrics[0].detailed_img %>>
                     </div>
                 </div>
             </div>
@@ -3843,11 +3066,28 @@
                     <img src="https://d2w9m16hs9jc37.cloudfront.net/images/garment/loading.svg" onerror="this.src='https://d2w9m16hs9jc37.cloudfront.net/images/garment/loading.gif'">
                 </div>
 
-                <div class="layers viewport">
-                    <div class="pocket_square" style="display:none;"></div>
-                    <!-- <img onerror="" src="https://d2w9m16hs9jc37.cloudfront.net/3d/new_man/shirt/STD/697_fabric/front/sleeves_long+cuffs_classic.png" alt="" render="false" style="z-index: 1004;" class="shirt">
-                    <img onerror="" src="https://d2w9m16hs9jc37.cloudfront.net/3d/new_man/shirt/STD/699_fabric/front/shirt_to_jacket.png" alt=""> -->
-                    <img onerror="" src="https://d2w9m16hs9jc37.cloudfront.net/3d/new_man/shirt/STD/699_fabric/front/shirt_to_pants.png" alt="">
+                <div class="layers viewport images_render">
+                    <% modelImg.front.forEach(image => { %>
+                        <img src="<%= image%>" alt="front" class="model front">
+                    <%  }); 
+                        modelImg.back.forEach(image => { %>
+                        <img src="<%= image%>" alt="back" class="model back" style="display: none;">
+                    <%  });
+                        let currentStyle = currentDesign.style;
+                        Object.keys(currentStyle).forEach(key => {
+                                                         
+                            let componentImgs = images.find(component => component.fabric_id == fabrics[0].id)                            
+                            let componentImg = componentImgs.component_item.find(img => img.item_id == currentStyle[key]);
+                            
+                            if(!!componentImg.img_url_front) { %>
+                                <img src="<%= componentImg.img_url_front %>" parent="" id="<%=key %>" class="front">
+                                <%  } 
+                            if(!!componentImg.img_url_back) { %>
+                                <img src="<%= componentImg.img_url_back %>" parent="" id="<%=key %>" class="back" style="display: none;">
+                                <%  } 
+                        }) %>
+
+
 
                 </div>
                 <ul class="options_render">
@@ -3855,7 +3095,6 @@
                     <li class="plus pack"><a href="" class="plus" rel="nofollow"><span>a</span>
                             <div class="title">ZOOM</div>
                         </a></li>
-                    <li class="less"><a href="" class="less" rel="nofollow"><span>b</span></a></li>
 
 
                     <li class="movement">
@@ -4133,7 +3372,7 @@
         </form>
         <div id="disable_popup"></div>
     </div>
-    </div>
+    
     <!-- <script type="text/javascript">
         var id_cart_product = "";
         var id_crossell_feed_product = 0;
@@ -4215,6 +3454,10 @@
 
 
     <style type="text/css">
+        .option_trigger img {
+            height: 100%
+        }
+
         .chat-trigger,
         .ladesk_chat {
             z-index: 1000 !important;
@@ -4359,7 +3602,7 @@
 
 
 
-    <script type="text/html" id="chat-welcome">
+    <!-- <script type="text/html" id="chat-welcome">
     <div class="chat_welcome">
         <div class="chat_welcome_header">
             <div class="chat_welcome_agent">
@@ -4386,7 +3629,7 @@
             </div>
         </form>
     </div>
-</script>
+</script> -->
 
     <script type="text/javascript">
 
@@ -4411,105 +3654,105 @@
                 }
             };
 
-            var ChatHandler = {
-                ladesk_button: null,
-                chat_config: null,
-                chatbot: null,
-                chatEnabled: null,
-                customer: null,
-                Init: function (ladesk_button, chatbot, chat_config, customer) {
-                    this.customer = customer;
-                    this.ladesk_button = ladesk_button;
-                    this.chat_config = chat_config;
-                    this.chatbot = chatbot;
-                    this.chatEnabled = null;
+            // var ChatHandler = {
+            //     ladesk_button: null,
+            //     chat_config: null,
+            //     chatbot: null,
+            //     chatEnabled: null,
+            //     customer: null,
+            //     Init: function (ladesk_button, chatbot, chat_config, customer) {
+            //         this.customer = customer;
+            //         this.ladesk_button = ladesk_button;
+            //         this.chat_config = chat_config;
+            //         this.chatbot = chatbot;
+            //         this.chatEnabled = null;
 
-                    //var currentTime = new Date();
-                    //var utcDateHour = currentTime.getUTCHours();
-                    //var utcDateMinute = currentTime.getUTCMinutes();
-                    //var weekDay = currentTime.getUTCDay();
+            //         //var currentTime = new Date();
+            //         //var utcDateHour = currentTime.getUTCHours();
+            //         //var utcDateMinute = currentTime.getUTCMinutes();
+            //         //var weekDay = currentTime.getUTCDay();
 
-                    if (chatbot) {
-                        if (this.chatEnabled == null) {
-                            if (lang === 'en' || lang === 'es') {
-                                this.initChatBot();
-                            }
-                        }
-                    }
+            //         if (chatbot) {
+            //             if (this.chatEnabled == null) {
+            //                 if (lang === 'en' || lang === 'es') {
+            //                     this.initChatBot();
+            //                 }
+            //             }
+            //         }
 
-                    if (ladesk_button) {
-                        if (this.chatEnabled == null) {
-                            this.initLadesk();
-                        }
-                    }
-                },
+            //         if (ladesk_button) {
+            //             if (this.chatEnabled == null) {
+            //                 this.initLadesk();
+            //             }
+            //         }
+            //     },
 
-                initLadesk: function () {
-                    this.chatEnabled = 'ladesk';
-                    var ladesk_button = this.ladesk_button;
-                    (function (d, src, c) {
-                        var t = d.scripts[d.scripts.length - 1], s = d.createElement('script');
-                        s.id = 'la_x2s6df8d';
-                        s.async = true;
-                        s.src = src;
-                        s.onload = s.onreadystatechange = function () {
-                            var rs = this.readyState;
-                            if (rs && (rs != 'complete') && (rs != 'loaded')) {
-                                return;
-                            }
-                            c(this);
-                        };
-                        t.parentElement.insertBefore(s, t.nextSibling);
-                    })(document,
-                        '//hockerty.ladesk.com/scripts/track.js',
-                        function (e) {
-                            var lButton = LiveAgent.createButton(ladesk_button, e);
+            //     initLadesk: function () {
+            //         this.chatEnabled = 'ladesk';
+            //         var ladesk_button = this.ladesk_button;
+            //         (function (d, src, c) {
+            //             var t = d.scripts[d.scripts.length - 1], s = d.createElement('script');
+            //             s.id = 'la_x2s6df8d';
+            //             s.async = true;
+            //             s.src = src;
+            //             s.onload = s.onreadystatechange = function () {
+            //                 var rs = this.readyState;
+            //                 if (rs && (rs != 'complete') && (rs != 'loaded')) {
+            //                     return;
+            //                 }
+            //                 c(this);
+            //             };
+            //             t.parentElement.insertBefore(s, t.nextSibling);
+            //         })(document,
+            //             '//hockerty.ladesk.com/scripts/track.js',
+            //             function (e) {
+            //                 var lButton = LiveAgent.createButton(ladesk_button, e);
 
-                            if (this.customer) {
-                                LiveAgent.setUserDetails(customer.email, customer.fullname);
-                            }
-                            LiveAgent.addTicketField('Region', region_url.split('/')[1]);
-                            LiveAgent.addTicketField('Domain', window.document.location.host);
+            //                 if (this.customer) {
+            //                     LiveAgent.setUserDetails(customer.email, customer.fullname);
+            //                 }
+            //                 LiveAgent.addTicketField('Region', region_url.split('/')[1]);
+            //                 LiveAgent.addTicketField('Domain', window.document.location.host);
 
-                            if (this.ladeskButtonCallback) {
-                                lButton.onOnline = ladeskButtonCallback;
-                            }
-                        });
-                },
+            //                 if (this.ladeskButtonCallback) {
+            //                     lButton.onOnline = ladeskButtonCallback;
+            //                 }
+            //             });
+            //     },
 
-                //     loadRemoteScript: function (sScriptSrc, cb) {
-                //         var oHead = document.getElementsByTagName("HEAD")[0];
-                //         var oScript = document.createElement('script');
-                //         oScript.type = 'text/javascript';
-                //         oScript.src = sScriptSrc;
-                //         oHead.appendChild(oScript);
-                //         if (typeof cb === "function") {
-                //             oScript.onload = cb;
-                //         }
-                //     },
+            //         loadRemoteScript: function (sScriptSrc, cb) {
+            //             var oHead = document.getElementsByTagName("HEAD")[0];
+            //             var oScript = document.createElement('script');
+            //             oScript.type = 'text/javascript';
+            //             oScript.src = sScriptSrc;
+            //             oHead.appendChild(oScript);
+            //             if (typeof cb === "function") {
+            //                 oScript.onload = cb;
+            //             }
+            //         },
 
-                //     loadRemoteStyle: function (sStyleSrc, cb) {
-                //         var oHead = document.getElementsByTagName("HEAD")[0];
-                //         var oScript = document.createElement('link');
-                //         oScript.rel = 'stylesheet';
-                //         oScript.href = sStyleSrc;
-                //         oHead.appendChild(oScript);
-                //         if (typeof cb === "function") {
-                //             oScript.onload = cb;
-                //         }
-                //     },
+            //         loadRemoteStyle: function (sStyleSrc, cb) {
+            //             var oHead = document.getElementsByTagName("HEAD")[0];
+            //             var oScript = document.createElement('link');
+            //             oScript.rel = 'stylesheet';
+            //             oScript.href = sStyleSrc;
+            //             oHead.appendChild(oScript);
+            //             if (typeof cb === "function") {
+            //                 oScript.onload = cb;
+            //             }
+            //         },
 
-                //     initChatBot: function () {
-                //         this.chatEnabled = 'chatBot';
-                //         var conversationID = localStorage.getItem("conversationID");
-                //         var that = this;
-                //         this.loadRemoteScript(linkJS, function () {
-                //             that.loadRemoteStyle(linkCSS, function () {
-                //                 new ChatContainer(that.chat_config, conversationID);
-                //             });
-                //         });
-                //     }
-            };
+            //         initChatBot: function () {
+            //             this.chatEnabled = 'chatBot';
+            //             var conversationID = localStorage.getItem("conversationID");
+            //             var that = this;
+            //             this.loadRemoteScript(linkJS, function () {
+            //                 that.loadRemoteStyle(linkCSS, function () {
+            //                     new ChatContainer(that.chat_config, conversationID);
+            //                 });
+            //             });
+            //         }
+            // };
 
             // ChatHandler.Init(ladeskButton, chatbot, chat_config, customer);
         });
@@ -4519,7 +3762,7 @@
     <script type="text/javascript" src="/js/default.js" charset="utf-8"></script>
     <script type="text/javascript" src="/js/perfect-scrollbar.jquery.min.js" charset="utf-8"></script>
     <script type="text/javascript" src="/js/scriptUser.js" charset="utf-8"></script>
-    <script type="text/javascript" src="/js/garment_desktop.js" charset="utf-8"></script>
+    <!-- <script type="text/javascript" src="/js/garment_desktop.js" charset="utf-8"></script> -->
 
 
     <script type="text/javascript">$(function () {
@@ -4541,6 +3784,8 @@
         </div>
     </div>
 </script>
+
+
     <script>
 
         // MGM - Banner
@@ -4565,8 +3810,8 @@
                 }
             }
         }
-
     </script>
+
 </body>
 
 </html>
