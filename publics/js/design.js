@@ -55,6 +55,20 @@ function renderImage(component_id, componentImg) {
     }
 }
 
+function checkMeasurement() {     
+    let flag = true;
+    $('#extra #measure_form input').each(function(){
+        let input = $(this);        
+        if(!!input.val() && input.val() > 0) {
+            currentDesign.measure[`${input.attr('name')}`] = input.val();
+        } else {
+            flag = false;
+            return flag;
+        }
+    });
+    return flag;
+}
+
 $(document).ready(function () {
     $(window).on('popstate', function () {
         setContentByStep(urlParam('step'));
@@ -97,25 +111,26 @@ $(document).ready(function () {
             window.history.pushState('next_step', '', '?step=measure');
             step = urlParam('step');
         } else {
-            $.ajax({
-                type: 'POST',
-                data: JSON.stringify({
-                    fabric_code: fabric.code,
-
-                    quantity: 1
-                }),
-                contentType: 'application/json',
-                url: '/api/order/orderItem',
-                success: function (data) {
-                    // window.location.href = 'http://www.google.com'
-                },
-                error: function (error) {
-                    console.log(error);
-                }
-            });
-
+            if(checkMeasurement()) {
+                currentDesign.quantity = 1;                
+                $.ajax({
+                    type: 'POST',
+                    data: JSON.stringify({
+                        data: currentDesign
+                    }),
+                    contentType: 'application/json',
+                    url: '/api/order/orderItem',
+                    success: function (data) {
+                        window.location.href = '/checkout/cart'
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            } else {
+                alert('The measure form is not valid!')
+            }
         }
-
     });
 
     // Handle view fabric detail
@@ -167,12 +182,13 @@ $(document).ready(function () {
         $(this).parent().addClass('checked');
         let fabric_id = $(this).attr('id');
         fabric = fabrics.find(fabric => fabric.code == fabric_id);
+        currentDesign.fabric = fabric_id;
         $('.preview_fabric .fabric img').attr('src', fabric.detailed_img);
         
-        //TODO - Reload model image
+        // Handle reload model image
         let styles = Object.keys(currentDesign.style);
         let imgFabric = styleImg.find(component => component.fabric_id == fabric_id)
-        console.log(imgFabric)
+        
         styles.forEach(component_id => {
             let component = components.find(component => component.code == component_id);
             let componentImg;
@@ -247,6 +263,32 @@ $(document).ready(function () {
         }
     });
 
+    $('#extra #measure_form select').change(function() {
+        let selection = $(this).val();
+        if($(this).val()=='NoSelect') {
+            $('#extra #measure_form input').each(function(){
+                $(this).val('');
+                $(this).css('border','1px solid #dbdbdb')
+            });
+        } else {
+            $('#extra #measure_form input').each(function(){
+                let item = $(this).attr('name');
+                let value = size_json[selection][item];
+                $(this).val(value);
+                $(this).css('border','1px solid #13bb18')
+            });
+        }
+
+    })
+
+    //Handle validate measurement
+    $('#extra #measure_form input').change(function(event) {        
+        if(isNaN(+$(this).val()) || +$(this).val() <= 0)
+            $(this).css('border','1px solid #ff0000')
+        else
+            $(this).css('border','1px solid #13bb18')
+    });
+
     // change view side (front or back)
     $('#available_window .num_3 a').click(function (e) {
         e.preventDefault();
@@ -257,5 +299,5 @@ $(document).ready(function () {
             $('.images_render .' + ($(this).parent().attr('rel') == 'back' ? 'front' : 'back')).css('display', 'none');
             imageRenderFlag = !imageRenderFlag
         }
-    })
+    });
 });

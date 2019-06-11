@@ -49,7 +49,7 @@
 <body class="popup man body_en ">
     <script type="text/javascript">
         var fabrics = <%- JSON.stringify(fabrics) %>;
-        var fabric =  <%- JSON.stringify(fabrics[0]) %>;
+        var fabric =  <%- JSON.stringify(fabrics.find(fabric => fabric.code == currentDesign.fabric)) %>;
         var components = <%- JSON.stringify(components) %>;
         var currentDesign = <%- JSON.stringify(currentDesign) %>;
         var styleImg = <%- JSON.stringify(images) %>;
@@ -66,6 +66,11 @@
         var mobile_enabled = false;
         var tablet_enabled = false;
         var dataLayer = [{ "contentGroup1": "Configurador", "contentGroup2": "Configurador_man_suit", "config_version": "man_suit_desktop_1fabric", "region": "en-au", "lang": "en", "currency": { "iso": "AUD", "symbol": "$" }, "length_units": "cm", "weigth_units": "kg", "gender": "man", "menu_item": "man_suit_personalize", "isAdmin": null, "mobile_device": false, "tablet_device": false, "mobile_ready": true, "mobile_enabled": false, "customer_logged": 0, "swiss_site": 0, "device_type": "desktop" }];
+        var size_json = {
+            "S": {"shoulder": 41, "chest": 99, "stomach":89, "hip": 98,"sleeves": 80},
+            "M": {"shoulder": 46, "chest": 109, "stomach":98, "hip": 105,"sleeves": 100},
+            "L": {"shoulder": 48, "chest": 120, "stomach":107, "hip": 114,"sleeves": 120},
+        }
     </script>
     <!-- <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-WQMRNX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript> -->
     <!-- <script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-WQMRNX');</script> -->
@@ -1275,7 +1280,7 @@
                                 <div class="info">
                                     <div class="prices_block">
                                         <div class="price price_part man_suit2 general visible ">$
-                                            <%= fabric.price %>
+                                            <%= fabric.products.find(product => product.product_id = "product_001").price %>
                                         </div>
                                     </div>
                                     <div class="title_compo">
@@ -1317,28 +1322,32 @@
                     margin: 5px 0;
                     width: 80%;
                     margin-left: 10%;
+                    font-family: Lato;
+                    font-size: 15px;
+                    text-align-last: center;
                 }
             </style>
 
-            <div class='sidebar-options block' id='extra'>
+            <div class='sidebar-options block' id="extra">
                 <div class="container_options">
-                    <div class="measure" rel="sleeves_length">
-                        <div class="title">Sleeves length</div>
-                        <input name="sleeves" type="number" class="value_box sleeves_length">
+                    <div id="measure_form">
+                        <div class="measure">
+                            <div class="title">Standard Size</div>
+                            <select name="sleeves" class="value_box">
+                                <option value="NoSelect">Select standard size here...</option>
+                                <option value="S">S size</option>
+                                <option value="M">M size</option>
+                                <option value="L">L size</option>
+                            </select>
+                        </div>
+                        <% measures.forEach(currentMeasure => { %>
+                            <div class="measure">
+                                <div class="title"><%= currentMeasure %></div>
+                                <input name="<%= currentMeasure %>" type="number" required step="0.1" 
+                                class="value_box <%= currentMeasure %>" value="<%= currentDesign.measure[currentMeasure] || '' %>">
+                            </div>
+                         <% }) %>
                     </div>
-
-                    <div class="measure" rel="sleeves_length">
-                        <div class="title">Sleeves length</div>
-                        <input name="sleeves" type="number" class="value_box sleeves_length">
-                    </div>
-
-
-
-                    <div class="measure" rel="sleeves_length">
-                        <div class="title">Chest length</div>
-                        <input name="chest" type="number" class="value_box sleeves_length">
-                    </div>
-
                 </div>
 
                 <div class="box_opt extra_linings extra_container_lazy">
@@ -3076,7 +3085,7 @@
                         let currentStyle = currentDesign.style;
                         Object.keys(currentStyle).forEach(key => {
                                                          
-                            let componentImgs = images.find(component => component.fabric_id == fabrics[0].id)                            
+                            let componentImgs = images.find(component => component.fabric_id == currentDesign.fabric)                            
                             let componentImg = componentImgs.component_item.find(img => img.item_id == currentStyle[key]);
                             
                             if(!!componentImg.img_url_front) { %>
@@ -3761,7 +3770,7 @@
 
     <script type="text/javascript" src="/js/default.js" charset="utf-8"></script>
     <script type="text/javascript" src="/js/perfect-scrollbar.jquery.min.js" charset="utf-8"></script>
-    <script type="text/javascript" src="/js/scriptUser.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/js/design.js" charset="utf-8"></script>
     <!-- <script type="text/javascript" src="/js/garment_desktop.js" charset="utf-8"></script> -->
 
 

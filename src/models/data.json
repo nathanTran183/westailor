@@ -13,7 +13,10 @@
                 "TWEET",
                 "LINEN"
             ],
-            "price": 240,
+            "products": [{
+                "product_id": "product_001",
+                "price": 299
+            }],
             "catalog_img": "https://d2w9m16hs9jc37.cloudfront.net/dimg/fabric/suit/894_huge_c300.jpg",
             "detailed_img": "https://d2w9m16hs9jc37.cloudfront.net/dimg/fabric/suit/894_huge.jpg"
         },
@@ -28,7 +31,10 @@
             "type": [
                 "LINEN"
             ],
-            "price": 320,
+            "products": [{
+                "product_id": "product_001",
+                "price": 299
+            }],
             "catalog_img": "https://d2w9m16hs9jc37.cloudfront.net/dimg/fabric/suit/141_huge_c300.jpg",
             "detailed_img": "https://d2w9m16hs9jc37.cloudfront.net/dimg/fabric/suit/141_huge.jpg"
         },
@@ -45,7 +51,10 @@
                 "TWEET",
                 "WOOL"
             ],
-            "price": 330,
+            "products": [{
+                "product_id": "product_002",
+                "price": 299
+            }],
             "catalog_img": "https://d2w9m16hs9jc37.cloudfront.net/dimg/fabric/suit/1801_huge_c300.jpg",
             "detailed_img": "https://d2w9m16hs9jc37.cloudfront.net/dimg/fabric/suit/1801_huge.jpg"
         },
@@ -61,7 +70,10 @@
                 "WOOL",
                 "LINEN"
             ],
-            "price": 280,
+            "products": [{
+                "product_id": "product_001",
+                "price": 399
+            }],
             "catalog_img": "https://d2w9m16hs9jc37.cloudfront.net/dimg/fabric/suit/1804_huge_c300.jpg",
             "detailed_img": "https://d2w9m16hs9jc37.cloudfront.net/dimg/fabric/suit/1804_huge.jpg"
         }
@@ -70,9 +82,10 @@
         {
             "code": "product_001",
             "name": "suit",
+            "gender": "male",
             "model_img": {
                 "front": [
-                    "https://d2w9m16hs9jc37.cloudfront.net/3d/new_man/shirt/STD/699_fabric/front/shirt_to_pants.png"
+                    "/images/model/man_shirt.png"
                 ],
                 "back": [
                     "https://d2w9m16hs9jc37.cloudfront.net/3d/new_man/shirt/STD/699_fabric/back/shirt_to_jacket.png"
@@ -82,6 +95,7 @@
                 {
                     "code": "component_001",
                     "name": "style",
+                    "icon_img": "",
                     "componentItems": [
                         {
                             "code": "style_001",
