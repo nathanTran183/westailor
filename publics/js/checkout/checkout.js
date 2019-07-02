@@ -81,8 +81,8 @@ $(document).ready(function () {
                 quantity: quantity
             },
             success: function (data) {
-
                 form.find('.submit_quantity').hide();
+                alert('Saved')
             },
             error: function (error) {
                 console.log(error);

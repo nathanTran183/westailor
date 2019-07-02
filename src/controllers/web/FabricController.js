@@ -9,19 +9,26 @@ module.exports = {
         let fabrics = await data.fabrics.filter(fabric => {
             return fabric.products.some(product => product.product_id == "product_001")
         });
-        let currentDesign = {
-            product: "product_001",
-            fabric: fabrics[0].code,
-            price: fabrics[0].products.find(product => product.product_id = "product_001").price,
-            style: {},
-            measure: {}
-        };
-        data.products[0].components.forEach(component => {
-            currentDesign.style[`${component.code}`] = component.componentItems[0].code;
-        });
+        let currentDesign = {}
+        if(!req.params.id) {
+            currentDesign = {
+                product: "product_001",
+                fabric: fabrics[0].code,
+                price: fabrics[0].products.find(product => product.product_id = "product_001").price,
+                style: {},
+                measure: {}
+            };
+            data.products[0].components.forEach(component => {
+                currentDesign.style[`${component.code}`] = component.componentItems[0].code;
+            });
+        } else {
+            currentDesign = req.session.carts[req.params.id]
+        }
 
         console.log(currentDesign);
-        res.render('user/web/design-suit', {
+        var ua = req.headers['user-agent'];
+        var device = /mobile/i.test(ua) ? 'mobile' : 'web'
+        res.render('user/'+device+'/design-suit', {
             fabrics: fabrics,
             components: data.products[0].components,
             measures: ["shoulder","chest","stomach", "hip", "sleeves"],

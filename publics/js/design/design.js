@@ -47,7 +47,7 @@ function renderImage(component_id, componentImg) {
         if (!!componentImg.img_url_front) {
             $('.images_render .front#' + component_id).attr('src', componentImg.img_url_front)
         } else
-            $('.images_render .front#'  + component_id).remove();
+            $('.images_render .front#' + component_id).remove();
         if (!!componentImg.img_url_back)
             $('.images_render .back#' + component_id).attr('src', componentImg.img_url_back)
         else
@@ -55,11 +55,11 @@ function renderImage(component_id, componentImg) {
     }
 }
 
-function checkMeasurement() {     
+function checkMeasurement() {
     let flag = true;
-    $('#extra #measure_form input').each(function(){
-        let input = $(this);        
-        if(!!input.val() && input.val() > 0) {
+    $('#extra #measure_form input').each(function () {
+        let input = $(this);
+        if (!!input.val() && input.val() > 0) {
             currentDesign.measure[`${input.attr('name')}`] = input.val();
         } else {
             flag = false;
@@ -67,6 +67,40 @@ function checkMeasurement() {
         }
     });
     return flag;
+}
+
+function filterFabric(option) {
+    $('.filters.season').removeClass('active')
+    $('.filters.fabric_step').removeClass('active')
+    switch (option) {
+        case 'all':
+            $('.fabric_list .fabric_box').each(function () {
+                if ($(this).hasClass('active')) {
+                    $('.fabric_list .fabric_box').addClass('active');
+                }
+            })
+            break;
+        case 'promo':
+        case 'premium':
+        case 'trending':
+        case 'new':
+            fabrics.forEach(fabric => {
+                if (fabric.category.indexOf(option) !== -1) {
+                    if (!$('.fabric_list .fabric_box #' + fabric.code).parent().hasClass('active')) {
+                        $('.fabric_list .fabric_box #' + fabric.code).parent().addClass('active')
+                    }
+                } else {
+                    $('.fabric_list .fabric_box #' + fabric.code).parent().removeClass('active');
+                }
+            });
+            break;
+        case 'season':
+            $('.filters.season').addClass('active');
+            break;
+        case 'filter':
+            $('.filters.fabric_step').addClass('active');
+            break;
+    }
 }
 
 $(document).ready(function () {
@@ -79,6 +113,9 @@ $(document).ready(function () {
     $('.box_opt.col2').perfectScrollbar({
         suppressScrollX: true
     });
+    $('.menu_filter .content').perfectScrollbar({
+        suppressScrollX: true
+    })
     $('.container_options').perfectScrollbar({
         suppressScrollX: true
     });
@@ -111,8 +148,8 @@ $(document).ready(function () {
             window.history.pushState('next_step', '', '?step=measure');
             step = urlParam('step');
         } else {
-            if(checkMeasurement()) {
-                currentDesign.quantity = 1;                
+            if (checkMeasurement()) {
+                currentDesign.quantity = 1;
                 $.ajax({
                     type: 'POST',
                     data: JSON.stringify({
@@ -184,11 +221,11 @@ $(document).ready(function () {
         fabric = fabrics.find(fabric => fabric.code == fabric_id);
         currentDesign.fabric = fabric_id;
         $('.preview_fabric .fabric img').attr('src', fabric.detailed_img);
-        
+
         // Handle reload model image
         let styles = Object.keys(currentDesign.style);
         let imgFabric = styleImg.find(component => component.fabric_id == fabric_id)
-        
+
         styles.forEach(component_id => {
             let component = components.find(component => component.code == component_id);
             let componentImg;
@@ -201,7 +238,7 @@ $(document).ready(function () {
             } else {
                 componentImg = imgFabric.component_item.find(img => img.item_id == currentDesign.style[component_id]);
                 renderImage(component_id, componentImg);
-            }    
+            }
         });
     });
     // Handle change type of fabric
@@ -212,18 +249,131 @@ $(document).ready(function () {
         let title = $(this).children('.option_icon').attr('title');
         $('.filter_title.all_fabrics').html(title);
         //TODO - Reload list fabric in here 
-    })
+        filterFabric($(this).attr('rel'));
+    });
+
+    // Handle filter
+    $('.filters .back').click(function (event) {
+        $(this).parent().parent().removeClass('active');
+    });
+
+    $('.items.item_menu').click(function (e) {
+        $(this).parent().toggleClass('active')
+        $(this).toggleClass('active');
+        $(this).siblings('.sub_menu_filter').toggleClass('active');
+        if ($(this).siblings('.sub_menu_filter').hasClass('active')) {
+            $(this).siblings('.sub_menu_filter').slideDown();
+        } else {
+            $(this).siblings('.sub_menu_filter').slideUp();
+        }
+    });
+
+    $('.filters .menu_filter .filter li').click(function () {
+        let selection = $(this).attr('rel');
+        if (selection == 'all') {
+            $(this).siblings('li').removeClass('active');
+            $(this).addClass('active')
+        } else {
+            $(this).siblings('li.all').removeClass('active');
+            $(this).toggleClass('active')
+            if ($(this).parent().children('.active').length == 0) {
+                $(this).siblings('li.all').addClass('active');
+            }
+        }
+    });
+
+    $('.filters.season .background_fixed a').click(function () {
+        let seasons = [];
+        let counter = 0;
+        let result = $(this).parents('.menu_filter').find('.content .sub_menu_filter .active')
+        result.each(function () {
+            seasons.push($(this).attr('rel'));
+        });
+        if (seasons.indexOf('all') != -1) {
+            $('.fabric_list .fabric_box').addClass('active');
+            counter++;
+        } else {
+            fabrics.forEach(fabric => {
+                let flag = false;
+                for (var season of fabric.season) {
+                    if (seasons.indexOf(season) !== -1) {
+                        flag = true;
+                        break;
+                    }
+                }
+                if (flag == true) {
+                    counter++;
+                    $('.fabric_list .fabric_box #' + fabric.code).parent().addClass('active');
+                } else {
+                    $('.fabric_list .fabric_box #' + fabric.code).parent().removeClass('active');
+                }
+            });
+        }
+        if (counter == 0)
+            $('.empty_fabrics').addClass('active');
+        else
+            $('.empty_fabrics').removeClass('active');
+        $('.filters.season').removeClass('active');
+    });
+
+    $('.filters.fabric_step .background_fixed a').click(function () {
+        let colors = [], materials = [], counter = 0;
+
+        $('.filters.fabric_step .content .item_menu_filter.color').find('.sub_menu_filter .active').each(function () {
+            colors.push($(this).attr('rel'));
+        });
+        $('.filters.fabric_step .content .item_menu_filter.material').find('.sub_menu_filter .active').each(function () {
+            materials.push($(this).attr('rel'));
+        });
+        fabrics.forEach(fabric => {
+            let flagColor = false;
+            if (colors.indexOf('all') !== -1) {
+                flagColor = true;
+            } else {
+                for (var color of fabric.color) {
+                    if (colors.indexOf(color) !== -1) {
+                        flagColor = true;
+                        break;
+                    }
+                }
+            }
+            let flagMaterial = false;
+            if (materials.indexOf('all') !== -1) {
+                flagMaterial = true;
+            } else {
+                for (var material of fabric.material) {
+                    if (materials.indexOf(material) !== -1) {
+                        flagMaterial = true;
+                        break;
+                    }
+                }
+            }
+            if (flagColor == true && flagMaterial == true) {
+                counter++;
+                console.log(fabric.code)
+                $('.fabric_list .fabric_box #' + fabric.code).parent().addClass('active');
+            } else {
+                $('.fabric_list .fabric_box #' + fabric.code).parent().removeClass('active');
+            }
+        });
+        if (counter == 0)
+            $('.empty_fabrics').addClass('active');
+        else
+            $('.empty_fabrics').removeClass('active');
+        $('.filters.fabric_step').removeClass('active');
+    });
 
     // Handle change config
     $('#style_menu span').click(function (event) {
-        let style = $(this).attr('class');
+        let style = $(this).attr('id');        
         $(this).parent().parent().parent().addClass('min');
         $('.box_opts').find('.box_opt.active').removeClass('active');
         $(this).parent().parent().find('span.active').removeClass('active');
         $(this).addClass('active');
+        console.log($('.box_opts').find('#' + style).attr('id'))
         $('.box_opts').find('#' + style).addClass('active');
     });
-    $('.back').click(function (event) {
+    $('.box_opts .back').click(function (event) {
         $(this).parent().removeClass('active');
         if ($(this).parent().parent().hasClass('box_opts')) {
             $('.sidebar-options').find('.min').removeClass('min');
@@ -263,30 +413,30 @@ $(document).ready(function () {
         }
     });
 
-    $('#extra #measure_form select').change(function() {
+    $('#extra #measure_form select').change(function () {
         let selection = $(this).val();
-        if($(this).val()=='NoSelect') {
-            $('#extra #measure_form input').each(function(){
+        if ($(this).val() == 'NoSelect') {
+            $('#extra #measure_form input').each(function () {
                 $(this).val('');
-                $(this).css('border','1px solid #dbdbdb')
+                $(this).css('border', '1px solid #dbdbdb')
             });
         } else {
-            $('#extra #measure_form input').each(function(){
+            $('#extra #measure_form input').each(function () {
                 let item = $(this).attr('name');
                 let value = size_json[selection][item];
                 $(this).val(value);
-                $(this).css('border','1px solid #13bb18')
+                $(this).css('border', '1px solid #13bb18')
             });
         }
 
     })
 
     //Handle validate measurement
-    $('#extra #measure_form input').change(function(event) {        
-        if(isNaN(+$(this).val()) || +$(this).val() <= 0)
-            $(this).css('border','1px solid #ff0000')
+    $('#extra #measure_form input').change(function (event) {
+        if (isNaN(+$(this).val()) || +$(this).val() <= 0)
+            $(this).css('border', '1px solid #ff0000')
         else
-            $(this).css('border','1px solid #13bb18')
+            $(this).css('border', '1px solid #13bb18')
     });
 
     // change view side (front or back)

@@ -457,8 +457,9 @@ $(document).ready(function () {
     });
 
     $('#panel-insert-discount #getCode').click(function (e) {
+        console.log('here')
         $.ajax({
-            url: "/discounts/generateCode",
+            url: "/admin/discounts/generateCode",
             success: function (result) {
                 $('#panel-insert-discount #code').val(result);
             }
@@ -466,6 +467,7 @@ $(document).ready(function () {
     });
 
     $('.confirmDelDiscount').click(function (event) {
+        $('#form-delete-discount').attr('action', "/admin/discounts/delete/" + $(this).data('id'));
         $('#confirm-del-discount').modal();
     });
 
@@ -484,29 +486,29 @@ $(document).ready(function () {
     });
 
     // socket function
-    var socket = io($(location).attr('host') + '/delivery');
+    // var socket = io($(location).attr('host') + '/delivery');
 
-    socket.on('connect', function () {
-        console.log('Client connected');
-    });
+    // socket.on('connect', function () {
+    //     console.log('Client connected');
+    // });
 
-    socket.on('error', function (data) {
-        console.log(data || 'error');
-    });
+    // socket.on('error', function (data) {
+    //     console.log(data || 'error');
+    // });
 
-    socket.on('reloadActiveDeliMan', function (data) {
-        tableListDeliMans.ajax.reload();
-    });
-    socket.on('reloadSubmittedOrder', function (data) {
-        tableListSubmittedOrders.ajax.reload();
-    });
-    socket.on('reloadHistoryOrder', function (data) {
-        tableListOrderHistory.ajax.reload();
-    });
-    socket.on('reloadPendingOrder', function (data) {
-        alert(data.msg);
-        tableListProcessingOrders.ajax.reload();
-    });
+    // socket.on('reloadActiveDeliMan', function (data) {
+    //     tableListDeliMans.ajax.reload();
+    // });
+    // socket.on('reloadSubmittedOrder', function (data) {
+    //     tableListSubmittedOrders.ajax.reload();
+    // });
+    // socket.on('reloadHistoryOrder', function (data) {
+    //     tableListOrderHistory.ajax.reload();
+    // });
+    // socket.on('reloadPendingOrder', function (data) {
+    //     alert(data.msg);
+    //     tableListProcessingOrders.ajax.reload();
+    // });
 });
 
 function readURL(input) {

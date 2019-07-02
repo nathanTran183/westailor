@@ -3,6 +3,7 @@
  */
 // const usersRoute = require('./user');
 const employeeRoute = require('./employee');
+const discountRoute = require('./discount');
 const EmployeeController = require('../../../controllers/web/EmployeeController');
 const express = require('express');
 const passport = require('../../../middlewares/passport');
@@ -20,5 +21,6 @@ router.post('/changePassword', passport.notUserWeb, EmployeeController.changePas
 
 // router.use('/users', passport.notUserWeb, usersRoute);
 router.use('/employees'/* , passport.isAdminWeb */, employeeRoute);
+router.use('/discounts'/* , passport.isAdminWeb */, discountRoute);
 
 module.exports = router; 

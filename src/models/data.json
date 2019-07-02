@@ -2,17 +2,19 @@
     "fabrics": [
         {
             "id": "fabric_001",
+            "code": "fabric_001",
+            "name": "Subiaco",
+            "material": [
+                "tweed",
+                "linen"
+            ],
             "color": [
                 "black",
                 "blue",
                 "red"
             ],
-            "code": "fabric_001",
-            "name": "Subiaco",
-            "type": [
-                "TWEET",
-                "LINEN"
-            ],
+            "season": ["summer"],
+            "category": ["new", "trending"],
             "products": [{
                 "product_id": "product_001",
                 "price": 299
@@ -22,15 +24,17 @@
         },
         {
             "id": "fabric_002",
+            "code": "fabric_002",
+            "name": "Perth",
+            "material": [
+                "linen"
+            ],
             "color": [
                 "black",
                 "blue"
             ],
-            "code": "fabric_002",
-            "name": "Perth",
-            "type": [
-                "LINEN"
-            ],
+            "season": ["summer"],
+            "category": ["premium", "promo"],
             "products": [{
                 "product_id": "product_001",
                 "price": 299
@@ -40,17 +44,19 @@
         },
         {
             "id": "fabric_003",
+            "code": "fabric_003",
+            "name": "Butler",
+            "material": [
+                "tweet",
+                "wool"
+            ],
             "color": [
                 "green",
                 "blue",
                 "gray"
             ],
-            "code": "fabric_003",
-            "name": "Butler",
-            "type": [
-                "TWEET",
-                "WOOL"
-            ],
+            "season": ["summer"],
+            "category": ["new", "premium"],
             "products": [{
                 "product_id": "product_002",
                 "price": 299
@@ -60,16 +66,18 @@
         },
         {
             "id": "fabric_004",
+            "code": "fabric_004",
+            "name": "Joondalup",
+            "material": [
+                "wool",
+                "linen"
+            ],
             "color": [
                 "yellow",
                 "orange"
             ],
-            "code": "fabric_004",
-            "name": "Joondalup",
-            "type": [
-                "WOOL",
-                "LINEN"
-            ],
+            "season": ["summer"],
+            "category": ["promo", "trending"],
             "products": [{
                 "product_id": "product_001",
                 "price": 399
@@ -82,7 +90,7 @@
         {
             "code": "product_001",
             "name": "suit",
-            "gender": "male",
+            "gender": "men",
             "model_img": {
                 "front": [
                     "/images/model/man_shirt.png"

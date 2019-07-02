@@ -40,7 +40,10 @@ module.exports = {
                     req.session.cookie.expires = false;
                 }
                 console.log(req.session)
-                req.session.user = account;
+                req.session.user = {
+                    id: account._id,
+                    role: account.role
+                };
                 if (account.role == "Admin")
                     res.redirect('/admin/employees');
                 else if (account.role == 'Staff')

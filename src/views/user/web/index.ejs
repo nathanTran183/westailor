@@ -314,7 +314,7 @@
                                 <ul class="login">
                                     <div class="title">
                                         <div class="first">Welcome, <span>
-                                                <%=user.fullname%></span></div>
+                                                <%= session.user.fullname%></span></div>
                                         <div class="subtitle">Access to your personal area:</div>
                                     </div>
                                     <li><span rel="/en-au/customer/orders" class="ds_link">Order History</span></li>
@@ -325,7 +325,7 @@
                                     </li> -->
                                     <li><span rel="/en-au/customer/personal" class="ds_link">Account info</span></li>
                                 </ul>
-                                <%}%>
+                                <%} else { %>
                                 <div class="form">
                                     <form class="form_sign_in" method="post" action="/en-au/customer/sign_in">
                                         <input type="hidden" name="action" value="login" />
@@ -365,6 +365,7 @@
                                                 rel="nofollow">CREATE ACCOUNT</a></div>
                                     </div>
                                 </div>
+                                <% } %>
     </script>
     </div>
     <div class="information">

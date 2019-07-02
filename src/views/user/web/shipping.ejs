@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en-au" xml:lang="en-au">
+
+<head>
+    <meta charset="utf-8">
+    <title>shipping | Hockerty</title>
+    <meta name="description" content="shipping_description" />
+    <meta name="keywords" content="shipping_keywords" />
+    <!--[if gte IE 9]><meta http-equiv="x-ua-compatible" content="IE=edge" /><![endif]-->
+    <!--[if lt IE 9]><meta http-equiv="x-ua-compatible" content="IE=6,7,8" /><![endif]-->
+    <!--[if lt IE 9]><meta name="viewport" content="width=device-width, initial-scale=1.0"><![endif]-->
+    <meta http-equiv="content-language" content="en" />
+<!-- 
+    <meta name="apple-mobile-web-app-title" content="hockerty">
+    <meta name="application-name" content="hockerty">
+    <meta name="msapplication-TileColor" content="#fafafa">
+    <meta name="theme-color" content="#fafafa">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#fafafa">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes"> -->
+    <!-- <link rel="icon" sizes="32x32" href="https://d2w9m16hs9jc37.cloudfront.net/images/favicon/favicon-32x32.png"> -->
+    <!-- <link rel="apple-touch-icon" sizes="72x72" href="https://d2w9m16hs9jc37.cloudfront.net/images/favicon/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="https://d2w9m16hs9jc37.cloudfront.net/images/favicon/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" href="https://d2w9m16hs9jc37.cloudfront.net/images/favicon/apple-touch-icon.png"> -->
+
+    <link rel="stylesheet" href="/css/default.css" type="text/css" charset="utf-8" />
+    <!-- <link rel="stylesheet" href="https://d2w9m16hs9jc37.cloudfront.net/css/checkout/box_selector.css?v=v1559542688"
+        type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="https://d2w9m16hs9jc37.cloudfront.net/css/icheck/blue.css?v=v1559542688" type="text/css"
+        charset="utf-8" /> -->
+    <link rel="stylesheet" href="/css/checkout/checkout.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="/css/checkout/main.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="/bower_components/AdminLTE/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/bower_components/AdminLTE/dist/css/AdminLTE.min.css">
+    <!--[if lt IE 9]>
+<script src="https://d2w9m16hs9jc37.cloudfront.net/js/html5shiv.js"></script>
+<script type='text/javascript' src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js"></script>
+<script src="https://d2w9m16hs9jc37.cloudfront.net/js/css3-mediaqueries.min.js"></script>
+<![endif]-->
+    <!-- <meta property="og:url" content="https://www.hockerty.com/en-au/checkout/shipping/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://d1fufvy4xao6k9.cloudfront.net/images/share/hockerty.jpg" />
+    <meta property="og:image:height" content="1200" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:site_name" content="Hockerty" />
+    <meta property="fb:app_id" content="1012420945555828"> -->
+
+
+    <!-- <script type="text/javascript">
+        !function () { function e() { if (void 0 !== window._sw2) return window._sw2; if (!window.FontFace) return window._sw2 = !1; var e = new FontFace("t", 'url("data:application/font-woff2,") format("woff2")', {}); return e.load(), window._sw2 = "loading" === e.status } function t(e) { document.documentElement.className += " " + e } var n = navigator.userAgent, o = !window.addEventListener || n.match(/(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/) && !n.match(/Chrome/); window.loadScript = function (e, t, n) { if ("object" != typeof e) { t || (t = "https://d2w9m16hs9jc37.cloudfront.net/js/" + e), t += "?v=" + cdn_version_js; var a = document.createElement("script"); if (a.type = "text/javascript", o) a.src = t, document.body.appendChild(a), "function" == typeof n && n(e); else { var s = {}; try { s = localStorage || {} } catch (e) { } var c = "x-js-" + e, r = c + "-url", d = c + "-data", l = s[r], i = s[d]; if (i && l === t) { try { a.appendChild(document.createTextNode(i)) } catch (e) { a.text = i } document.body.appendChild(a), "function" == typeof n && n(e) } else { var f = new XMLHttpRequest; f.open("GET", t), f.onload = function () { if (200 == f.status) { try { s[r] = t, s[d] = f.responseText } catch (e) { } try { a.appendChild(document.createTextNode(f.responseText)) } catch (e) { a.text = f.responseText } document.body.appendChild(a) } "function" == typeof n && n(e) }, f.send() } } } else for (var p in e) loadScript(e[p], null, n) }, window.loadStylesheet = function (n, a) { if ("object" != typeof n) { a || (a = "https://d2w9m16hs9jc37.cloudfront.net/css/" + n), a += "?v=" + cdn_version_css; var s = "css-" + n.replace(".css", "").replace("/", "-"); if (o) { var c = document.createElement("link"); return c.type = "text/css", c.rel = "stylesheet", c.href = a, document.head.appendChild(c), void t(s) } var r = a.indexOf("/css/fonts/") > -1; r && (a = a.replace("/css/fonts/", "/en/services/font/").replace(".css", "/woff")); var d = {}; try { d = localStorage || {} } catch (e) { } var l = "x-css-" + n, i = l + "-url", f = l + "-css", p = d[i], u = d[f], h = document.createElement("style"); if (h.rel = "stylesheet", document.head.appendChild(h), u && p === a) h.styleSheet ? h.styleSheet.cssText = u : h.appendChild(document.createTextNode(u)), t(s); else { var w = a; r && e() && (w = w.replace("woff", "woff2")); var y = new XMLHttpRequest; y.open("GET", w), y.onload = function () { if (200 == y.status) { var e = y.responseText; h.styleSheet ? h.styleSheet.cssText = e : h.appendChild(document.createTextNode(e)); try { d[i] = a, d[f] = e } catch (e) { } t(s) } }, y.send() } } else for (var v in n) loadStylesheet(n[v], null) }, window.loadFont = function (e) { loadStylesheet("fonts/" + e + ".css") } }();
+        var cdn_version_css = "1559542688"; var cdn_version_js = "1559542688"; loadFont('lato'); loadFont('nc-nav'); </script> -->
+</head>
+
+<body class="man  shipping body_en ">
+    <script type="text/javascript">
+        var total_price = <%- JSON.stringify(total_price) %>;
+        var total_cart = 0;
+        var ship_fee = 15;
+        var discount = 0;
+        var estimate_date = new Date();
+        estimate_date.setDate(estimate_date.getDate() + 15);
+
+        var region_url = '/en-au/';
+        // var cdn_host = 'https://d2w9m16hs9jc37.cloudfront.net/';
+        var backoffice_store = 0;
+        var currency = 'AUD';
+        var currency_json = { "iso": "AUD", "symbol": "$" };
+        var ready_callbacks = [];
+        var ga_callbacks = [];
+        // var scripts_to_load = ["default.js", "checkout\/box_selector.js", "icheck.min.js", "checkout.js"];
+        var mobile_enabled = false;
+        var tablet_enabled = false;
+        var dataLayer = [{ "contentGroup1": "Shipping", "contentGroup2": "Shipping", "region": "en-au", "lang": "en", "currency": { "iso": "AUD", "symbol": "$" }, "length_units": "cm", "weigth_units": "kg", "gender": "man", "menu_item": false, "isAdmin": false, "mobile_device": false, "tablet_device": false, "mobile_ready": true, "mobile_enabled": false, "customer_logged": 1, "swiss_site": 0, "cart_n_products": 1, "cart_price": 2392, "device_type": "desktop", "customer_id": "694767", "customer_email": "nathan@gmail.com", "customer_segment": "voyeur", "customer_n_orders": 0, "customer_samples": 0, "customer_last_order": 0 }];
+    </script>
+    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-WQMRNX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-WQMRNX');</script>
+
+    <div id="body_height" class=" ">
+        <!--googleoff: all-->
+        <!--DESKTOP-->
+        <div id="header_config" class="header_checkout">
+            <div class="container_margins">
+                <div class="menu_logo">
+                    <a id="menu-configure-trigger" href="javascript;:"></a>
+                    <a id="menu-configure-trigger-logo" class="logo_toolbar" href="javascript:;" rel="nofollow">
+                        <img width="129" src="https://d2w9m16hs9jc37.cloudfront.net/images/logos/logo_hockerty.svg" alt="Hockerty" />
+                    </a>
+                </div>
+
+            </div>
+        </div>
+        <!--HEADER-->
+        <div class="config_mode">
+            <div id="toolbar" class="">
+                <div class="container_margins">
+                    <div class="left">
+                        <a class="close_menu" href="javascript:;" rel="nofollow">v</a>
+                        <li class="main man first" rel=""><a href="/en-au/" class="title"><span>HOME</span></a>
+                        </li>
+                        <div class="sep"></div>
+
+
+                        <li class="menu_man_suit main man product first  title " rel="man_suit">
+                            <a href="/en-au/men/custom-suits/" class="title dropdown">
+                                <span>Suits</span></a>
+                            <ul class="subnav simple">
+                                <li class="title psl">3D Designer</li>
+                                <li class="psl"><a class="menu_man_suit subnav_titles " href="/en-au/men/custom-suits/personalize">DESIGN
+                                        YOUR SUIT</a></li>
+                                <li class="psl"><a class="menu_man_smoking subnav_titles " href="/en-au/men/custom-tuxedos/personalize">Design
+                                        your tuxedo</a></li>
+                                <li class="split"></li>
+                                <li class="title">Collections</li>
+                                <li rel=""><a class="subnav_titles " rel="configure" href="/en-au/men/suits/spring-summer/">Spring
+                                        - Summer</a></li>
+                                <li rel=""><a class="subnav_titles " rel="configure" href="/en-au/men/suits/business-suits/">Business
+                                        Suits</a></li>
+                                <li rel=""><a class="subnav_titles " rel="configure" href="/en-au/men/suits/premium-suits/">Premium
+                                        Suits</a></li>
+                                <li rel=""><a class="subnav_titles " rel="configure" href="/en-au/men/suits/doublebreasted-suits/">Double-breasted
+                                        Suits</a></li>
+                                <li rel=""><a class="subnav_titles " rel="configure" href="/en-au/men/tuxedos/party-tuxedos/">Party
+                                        Tuxedos</a></li>
+                                <li rel=""><a class="subnav_titles new" rel="configure" href="/en-au/men/suits/new-arrivals/">New
+                                        Arrivals<span class="new">NEW</span></a></li>
+                            </ul>
+                        </li>
+                        <div class="sep"></div>
+                        <li class="menu_man_shirt main man product   title " rel="man_shirt">
+                            <a href="/en-au/men/custom-dress-shirts/" class="title dropdown">
+                                <span>Dress Shirts</span></a>
+                            <ul class="subnav simple">
+                                <li class="title psl">3D Designer</li>
+                                <li class="psl"><a class="menu_man_shirt subnav_titles " href="/en-au/men/custom-dress-shirts/personalize">DESIGN
+                                        YOUR SHIRT</a></li>
+                                <li class="split"></li>
+                                <li class="title">Collections</li>
+                                <li rel=""><a class="subnav_titles " rel="configure" href="/en-au/men/shirts/spring-summer/">Spring
+                                        - Summer</a></li>
+                                <li rel=""><a class="subnav_titles " rel="configure" href="/en-au/men/shirts/business-shirts/">Business
+                                        Dress Shirts</a></li>
+                                <li rel=""><a class="subnav_titles " rel="configure" href="/en-au/men/shirts/casual-shirts/">Casual
+                                        Shirts</a></li>
+                                <li rel=""><a class="subnav_titles " rel="configure" href="/en-au/men/shirts/linen-shirts-collection/">Linen
+                                        Shirts Collection</a></li>
+                                <li rel=""><a class="subnav_titles " rel="configure" href="/en-au/men/shirts/essential-dress-shirts/">Essential
+                                        Shirts</a></li>
+                                <li rel=""><a class="subnav_titles new" rel="configure" href="/en-au/men/shirts/new-arrivals/">New
+                                        Arrivals<span class="new">NEW</span></a></li>
+                            </ul>
+                        </li>
+                        <div class="sep"></div>
+                        <li class="menu_outerwear main man product   title " rel="outerwear">
+                            <a href="/en-au/men/outerwear/" class="title dropdown">
+                                <span>Outerwear</span></a>
+                            <ul class="subnav simple">
+                                <li class="title psl">3D Designer</li>
+                                <li class="psl"><a class="menu_man_coat subnav_titles " href="/en-au/men/custom-coats/">Design
+                                        your coat</a></li>
+                                <li class="psl"><a class="menu_man_trenchcoat subnav_titles " href="/en-au/men/trench-coat/configure">Design
+                                        your Trench Coat</a></li>
+                                <li class="psl"><a class="menu_winter_blazers_landing subnav_titles " href="/en-au/men/custom-winter-blazers/">Design
+                                        your Winter Blazer</a></li>
+                                <li class="split"></li>
+                                <li class="title">Collections</li>
+                                <li rel=""><a class="subnav_titles " rel="configure" href="/en-au/men/coats/new-coats/">New
+                                        Coats 2019</a></li>
+                                <li rel=""><a class="subnav_titles " rel="configure" href="/en-au/men/coats/business-coats/">Business
+                                        Coats</a></li>
+                                <li rel=""><a class="subnav_titles " rel="configure" href="/en-au/men/coats/casual-coats/">Casual
+                                        Coats</a></li>
+                                <li rel=""><a class="subnav_titles " rel="configure" href="/en-au/men/coats/essential-coats/">Essential
+                                        Coats</a></li>
+                                <li rel=""><a class="subnav_titles " rel="configure" href="/en-au/men/coats/selected-winter-coats/">Selected
+                                        Winter Coats</a></li>
+                                <li rel=""><a class="subnav_titles " rel="configure" href="/en-au/men/trench-coats/new-trench-coats/">New
+                                        Trench Coats</a></li>
+                            </ul>
+                        </li>
+                        <div class="sep"></div>
+                        <li class="menu_man_jacket main man product   title " rel="man_jacket">
+                            <a href="/en-au/men/custom-jackets/" class="title dropdown">
+                                <span>Jackets</span></a>
+                            <ul class="subnav simple">
+                                <li class="title psl">3D Designer</li>
+                                <li class="psl"><a class="menu_man_jacket subnav_titles " href="/en-au/men/custom-jackets/personalize">Design
+                                        your Blazer</a></li>
+                                <li class="split"></li>
+                                <li class="title">Collections</li>
+                                <li rel=""><a class="subnav_titles " rel="configure" href="/en-au/men/blazers/spring-summer/">Spring/Summer
+                                        Blazer</a></li>
+                                <li rel=""><a class="subnav_titles " rel="configure" href="/en-au/men/blazers/business-blazers/">Business
+                                        Blazer</a></li>
+                                <li rel=""><a class="subnav_titles " rel="configure" href="/en-au/men/blazers/casual-blazers/">Casual
+                                        Blazer</a></li>
+                                <li rel=""><a class="subnav_titles " rel="configure" href="/en-au/men/blazers/unlined-blazer/">Unlined
+                                        Blazer</a></li>
+                                <li rel=""><a class="subnav_titles " rel="configure" href="/en-au/men/blazers/party-blazers/">Party
+                                        Blazer</a></li>
+                                <li rel=""><a class="subnav_titles new" rel="configure" href="/en-au/men/blazers/new-arrivals/">New
+                                        Arrivals<span class="new">NEW</span></a></li>
+                            </ul>
+                        </li>
+                        <div class="sep"></div>
+                        <li class="menu_man_pants main man product   title " rel="man_pants">
+                            <a href="/en-au/men/custom-pants/" class="title dropdown">
+                                <span>Pants</span></a>
+                            <ul class="subnav simple">
+                                <li class="title psl">3D Designer</li>
+                                <li class="psl"><a class="menu_man_pants subnav_titles " href="/en-au/men/custom-pants/personalize">Design
+                                        your pants</a></li>
+                                <li class="psl"><a class="menu_man_pants_chinos_personalize_2 subnav_titles " href="/en-au/men/custom-chinos/">Design
+                                        Chinos</a></li>
+                                <li class="split"></li>
+                                <li class="title">Collections</li>
+                                <li rel=""><a class="subnav_titles " rel="configure" href="/en-au/men/pants/dress-trousers/">Dress
+                                        Trousers</a></li>
+                                <li rel=""><a class="subnav_titles " rel="configure" href="/en-au/men/pants/casual-business/">Casual
+                                        Business</a></li>
+                                <li rel=""><a class="subnav_titles " rel="configure" href="/en-au/men/pants/chinos/">Chinos</a></li>
+                                <li rel=""><a class="subnav_titles " rel="configure" href="/en-au/men/pants/spring-summer/">Spring
+                                        - Summer</a></li>
+                                <li rel=""><a class="subnav_titles new" rel="configure" href="/en-au/men/pants/new-arrivals/">New
+                                        Arrivals<span class="new">NEW</span></a></li>
+                            </ul>
+                        </li>
+                        <div class="sep"></div>
+                        <li class="menu_man_wedding main man product   title " rel="man_wedding">
+                            <a href="/en-au/men/wedding-suits/" class="title dropdown">
+                                <span>Ceremonial</span></a>
+                            <ul class="subnav simple">
+                                <li class="title psl">3D Designer</li>
+                                <li class="psl"><a class="menu_man_wedding_suit subnav_titles " href="/en-au/men/wedding-suit/">Wedding
+                                        Suits</a></li>
+                                <li class="psl"><a class="menu_man_smoking subnav_titles " href="/en-au/men/custom-tuxedos/">Tuxedo
+                                        Suits</a></li>
+                                <li class="psl"><a class="menu_man_chaque subnav_titles " href="/en-au/men/morning-coat/">Morning
+                                        coat</a></li>
+                                <li class="psl"><a class="menu_man_levita subnav_titles " href="/en-au/men/frock-coat/">Frock
+                                        coat</a></li>
+                                <li class="psl"><a class="menu_man_frac subnav_titles " href="/en-au/men/tailcoats/">Tail
+                                        Coat</a></li>
+                                <li class="psl"><a class="menu_url_bigorders subnav_titles " href="/en-au/men/big-orders/">Big
+                                        Orders</a></li>
+                                <li class="title">Collections</li>
+                                <li rel=""><a class="subnav_titles " rel="configure" href="/en-au/men/tuxedos/tuxedo-suits/">Tuxedo
+                                        Suits</a></li>
+                                <li rel=""><a class="subnav_titles " rel="configure" href="/en-au/men/morning-coats/morning-coats/">Morning
+                                        Coats</a></li>
+                                <li rel=""><a class="subnav_titles " rel="configure" href="/en-au/men/suits/wedding-suits/">Wedding
+                                        Suits</a></li>
+                            </ul>
+                        </li>
+                        <div class="sep"></div>
+                        <li class="menu_other main man product  last title " rel="other">
+                            <a href="javascript:;" class="title dropdown">
+                                <span>Other</span></a>
+                            <ul class="subnav simple">
+                                <li class=""><a class="menu_man_waistcoat subnav_titles " href="/en-au/men/custom-waistcoats/">Waistcoats</a></li>
+                                <li class=""><a class="menu_man_polo subnav_titles " href="/en-au/men/custom-polo-shirts/">Polo
+                                        shirts</a></li>
+                                <li class="psl"><a class="menu_winter_blazers_landing subnav_titles " href="/en-au/men/custom-winter-blazers/">Winter
+                                        Blazers</a></li>
+                                <li class="split split2"></li>
+                                <li class=""><a class="menu_man_accessories subnav_titles " href="/en-au/men/accessories/">Accessories</a></li>
+                                <li class=""><a class="menu_man_gifts subnav_titles " href="/en-au/men/gifts/">Gifts</a></li>
+                                <li class="split split2"></li>
+                                <li class=""><a class="menu_fabrics subnav_titles " href="/en-au/fabrics-collection/">FABRIC
+                                        SAMPLES SERVICE</a></li>
+                            </ul>
+                        </li>
+                    </div>
+
+                    <div class="right">
+                        <div class="login_register">
+                            <a class="" id="login-trigger" href="/en-au/customer/orders/">
+                                <div class="icon">B</div>
+                                <div class="login_title">My Account</div>
+                            </a>
+                            <div class="toolbar_login">
+                                <script type="text/html" id="header_logged">
+    <div class="form">    <ul class="login">
+        <div class="title">
+            <div class="first">Welcome, <span></span></div>
+            <div class="subtitle">Access to your personal area:</div>
+        </div>
+        <li><span rel="/en-au/customer/orders/pending" class="ds_link">Pending Carts</span></li>
+        <li><span rel="/en-au/customer/orders" class="ds_link">Order History</span></li>
+        <li><span rel="/en-au/customer/profiles"
+                  class="ds_link">Measurement profiles</span></li>
+        <li ><span rel="/en-au/customer/incidents"
+                                                                    class="ds_link">Support tickets</span>
+        </li>
+        <li><span rel="/en-au/customer/personal" class="ds_link">Account info</span></li>
+    </ul>
+    </div></script>
+                                <script type="text/html" id="header_login">
+    <div class="form">
+        <form class="form_sign_in" method="post" action="/en-au/customer/sign_in">
+            <input type="hidden" name="action" value="login"/>
+            <div class="intro">Access your account</div>
+            <div class="control"><input type="text" name="email" autocomplete="email"
+                                        placeholder="E-mail"
+                                        class="text requried email"/></div>
+            <div class="control"><input type="password" name="password" autocomplete="password"
+                                        placeholder="Password" class="text required"/></div>
+            <div class="actions">
+                <input type="submit" class="submit" value="Login"/>
+                <div class="lost"><a href="#form_pwd_lost" class="pwd_lost"
+                                     rel="nofollow">Forgot your password?</a></div>
+            </div>
+        </form>
+        <form method="post" class="form_pwd_lost" action="/en-au/customer/sign_in">
+            <input type="hidden" name="action" value="recover"/>
+            <p class="instructions">
+                <b>If you forgot your password</b>, enter your e-mail and we will send you a message with the instructions to reset your password.</p>
+            <div class="control"><input type="text" class="text required email" name="email" autocomplete="email"
+                                        placeholder="E-mail"/></div>
+            <div class="actions">
+                <div class="lost"><a href="#form_sign_in" class="pwd_lost sign_in"
+                                     rel="nofollow">Go back</a></div>
+                <input type="submit" class="submit"/>
+            </div>
+        </form>
+        <div class="social_buttons" >
+            <div class="title"></div>
+            <a href="https://www.hockerty.com/en-au/customer/login/facebook" class="social little facebook"
+                     rel="nofollow"></a> &nbsp;
+                <a href="https://www.hockerty.com/en-au/customer/login/google" class="social little google"
+                   rel="nofollow"></a>
+                &nbsp; <a href="https://www.hockerty.com/en-au/customer/login/linkedin"
+                          class="social little linkedin" rel="nofollow"></a>            <div class="create_account"><a href="https://www.hockerty.com/en-au/customer/sign_in?step=register"
+                                           rel="nofollow">CREATE ACCOUNT</a></div>
+        </div>
+    </div>
+</script>
+                            </div>
+                        </div>
+
+                        <div class="sep"></div>
+
+                        <div id="mini_cart_container" class="cart_shopping">
+                            <a class="" id="cart-trigger" href="/en-au/checkout/cart">
+                                <div class="bag"></div>
+                                <div class="shopping_bag">Shopping Bag</div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--TOOLBAR-->
+        </div>
+
+        <!--googleon: all-->
+        <div id="body" class="">
+            <div class="body_box checkout">
+                <% if (messages.reason_fail) { %>
+                    <div class="alert alert-warning">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <%= messages.reason_fail %>
+                    </div>
+                    <% } %>
+                <div class="payment_checkout">
+                    <div class="form shipping">
+                        <form id="form_shipping" action="/api/order/addShipping" name="step_shipping" method="POST">
+                            <div id="shipping_address">
+                                <h3>SHIPPING ADDRESS</h3>
+                                <div id="shipping_errors" class="form_message error" style="display:none;">Check
+                                    shipping address</div>
+                                <div domain="hockerty" id="shipping_warnings" class="form_message warning" style="display:none;"></div>
+                                <p class="field">
+                                    <label>Name and surname</label>
+                                    <input type="text" name="name" class="inp level1" value="" />
+                                </p>
+                                <p class="field address_street">
+                                    <label>Address</label>
+                                    <input type="text" name="street" id="address" class="inp level1" value="" />
+                                </p>
+                                <p class="field column_1">
+                                    <label>City</label>
+                                    <input type="text" name="city" class="inp" value="" />
+                                </p>
+                                <p class="field address_zipcode column_2">
+                                    <label>Zip code</label>
+                                    <input type="text" name="zipcode" class="inp" value="" />
+                                </p>
+                                <p class="field column_1">
+                                    <label for="id_iso_country">Country</label>
+                                    <select id="id_iso_country" name="id_iso_country" class="uniformC uniform" required>
+
+                                        <option value="" disabled></option>
+
+                                        <option value="AS" price="" data-box="0">American Samoa</option>
+                                        <option value="AD" price="0.00" data-box="0">Andorra</option>
+                                        <option value="AU" selected="1" price="0.00" data-box="0">Australia</option>
+                                        <option value="AT" price="0.00" data-box="0">Austria</option>
+                                        <option value="BE" price="0.00" data-box="0">Belgium</option>
+                                        <option value="BJ" price="40.00" data-box="0">Benin (+$40)</option>
+                                        <option value="BG" price="0.00" data-box="0">Bulgaria</option>
+                                        <option value="CA" price="0.00" data-box="0">Canada</option>
+                                        <option value="CN" price="0.00" data-box="0">China</option>
+                                        <option value="CK" price="" data-box="0">Cook Islands</option>
+                                        <option value="HR" price="0.00" data-box="0">Croatia</option>
+                                        <option value="CY" price="0.00" data-box="0">Cyprus</option>
+                                        <option value="CZ" price="0.00" data-box="0">Czech Republic</option>
+                                        <option value="DK" price="0.00" data-box="0">Denmark</option>
+                                        <option value="EE" price="0.00" data-box="0">Estonia</option>
+                                        <option value="FJ" price="" data-box="0">Fiji</option>
+                                        <option value="FI" price="0.00" data-box="0">Finland</option>
+                                        <option value="FR" price="0.00" data-box="0">France</option>
+                                        <option value="DE" price="0.00" data-box="0">Germany</option>
+                                        <option value="GI" price="" data-box="0">Gibraltar</option>
+                                        <option value="GR" price="0.00" data-box="0">Greece</option>
+                                        <option value="GL" price="" data-box="0">Greenland</option>
+                                        <option value="GU" price="" data-box="0">Guam</option>
+                                        <option value="GG" price="0.00" data-box="0">Guernsey</option>
+                                        <option value="HK" price="" data-box="0">Hong Kong</option>
+                                        <option value="HU" price="0.00" data-box="0">Hungary</option>
+                                        <option value="IS" price="0.00" data-box="0">Iceland</option>
+                                        <option value="IE" price="0.00" data-box="0">Ireland</option>
+                                        <option value="IL" price="0.00" data-box="0">Israel</option>
+                                        <option value="IT" price="0.00" data-box="0">Italy</option>
+                                        <option value="JP" price="25.00" data-box="0">Japan (+$25)</option>
+                                        <option value="JE" price="0.00" data-box="0">Jersey</option>
+                                        <option value="LV" price="" data-box="0">Latvia</option>
+                                        <option value="LI" price="0.00" data-box="0">Liechtenstein</option>
+                                        <option value="LT" price="" data-box="0">Lithuania</option>
+                                        <option value="LU" price="" data-box="0">Luxembourg</option>
+                                        <option value="MO" price="0.00" data-box="0">Macau</option>
+                                        <option value="MT" price="0.00" data-box="0">Malta</option>
+                                        <option value="MQ" price="40.00" data-box="0">Martinique (+$40)</option>
+                                        <option value="MX" price="0.00" data-box="0">Mexico</option>
+                                        <option value="MC" price="0.00" data-box="0">Monaco</option>
+                                        <option value="ME" price="0.00" data-box="0">Montenegro</option>
+                                        <option value="NL" price="0.00" data-box="0">Netherlands</option>
+                                        <option value="NC" price="0.00" data-box="0">New Caledonia</option>
+                                        <option value="NZ" price="0.00" data-box="0">New Zealand</option>
+                                        <option value="NU" price="" data-box="0">Niue</option>
+                                        <option value="NO" price="0.00" data-box="0">Norway</option>
+                                        <option value="PG" price="" data-box="0">Papua New Guinea</option>
+                                        <option value="PL" price="0.00" data-box="0">Poland</option>
+                                        <option value="PT" price="0.00" data-box="0">Portugal</option>
+                                        <option value="RO" price="40.00" data-box="0">Romania (+$40)</option>
+                                        <option value="RU" price="0.00" data-box="0">Russia</option>
+                                        <option value="WS" price="" data-box="0">Samoa</option>
+                                        <option value="SG" price="0.00" data-box="0">Singapore</option>
+                                        <option value="SK" price="0.00" data-box="0">Slovakia</option>
+                                        <option value="SI" price="0.00" data-box="0">Slovenia</option>
+                                        <option value="SB" price="" data-box="0">Solomon Islands</option>
+                                        <option value="KR" price="0.00" data-box="0">South Korea</option>
+                                        <option value="ES" price="0.00" data-box="0">Spain</option>
+                                        <option value="SE" price="0.00" data-box="0">Sweden</option>
+                                        <option value="PF" price="0.00" data-box="0">Tahiti (French Polynesia)</option>
+                                        <option value="TL" price="" data-box="0">Timor East</option>
+                                        <option value="TO" price="" data-box="0">Tonga</option>
+                                        <option value="TV" price="" data-box="0">Tuvalu</option>
+                                        <option value="AE" price="0.00" data-box="0">United Arab Emirates</option>
+                                        <option value="GB" price="0.00" data-box="0">United Kingdom</option>
+                                        <option value="US" price="0.00" data-box="0">United States</option>
+                                        <option value="VU" price="" data-box="0">Vanuatu</option>
+                                        <option value="VA" price="0.00" data-box="0">Vatican City</option>
+                                    </select>
+                                </p>
+                                <p class="field address_state column_2">
+                                    <label>Province / State</label>
+                                    <input type="text" name="state" class="inp level2" value="New South Wales" />
+                                </p>
+                                <p class="field address_phone">
+                                    <label>Telephone</label>
+                                    <input type="text" name="phone" class="inp  level2 required" value="" />
+                                    <small class="phone_internal extra_info">It will be used by our shipping company
+                                        only in case of delivery failure</small>
+                                </p>
+
+                            </div>
+
+
+                            <br style="clear: both;" />
+
+                        </form>
+                    </div>
+
+
+                    <!-- MINI CART -->
+                    <div class="mini_cart shipping">
+                        <div class="desktop-only">
+                            <div class="voucher">
+                                <div class="add_code_text">Do you have a <b>coupon code</b> or <b>giftcard</b>?</div>
+                                <div class="add_code_input" style="display: block">
+                                    <form class="voucher_form" method="POST" action="">
+                                        <input class="voucher_code" name="voucher_code" value="" placeholder="ENTER CODE">
+                                        
+                                        <!-- <span href="javascript:;" class="send-voucher ds_link"><span class="icon send">></span></span> -->
+                                        <button type="submit" class="btn btn-primary">Check</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="mini_cart_container">
+                            <div class="split"></div>
+                            <table id="cart_totals_menu" class="cart_totals_menu">
+                                <tr class="subtotal">
+                                    <th>Shopping bag total</th>
+                                    <td class="bag_price">
+                                    </td>
+                                </tr>
+                                <tr class="shipping free_shipping">
+                                    <th>Shipping</th>
+                                    <td class="shipping_fee">
+                                        <small>$</small></td>
+                                </tr>
+
+                                <tr class="">
+                                    <th>Coupon</th>
+                                    <td class="coupon">None</td>
+                                </tr>
+
+                                <tr class="total">
+                                    <th>TOTAL COST:</th>
+                                    <td class="total_price"></td>
+                                </tr>
+                                <!-- <tr class="free">
+                                    <th></th>
+                                    <td>Free shipping</td>
+                                </tr> -->
+                            </table>
+                        </div>
+
+                        <!-- <p class="legal_field">
+                            <label>
+                                <input class="uniform legal legal_placeholder" type="checkbox" name="legal_placeholder"
+                                    style="float:none;margin-right: 0.5em;vertical-align: text-bottom;" /> I accept <a
+                                    id="legal_ajax" style="color: #000;" href="/en-au/info/legal" target="_blank">terms
+                                    and conditions</a>.
+                            </label>
+                        </p> -->
+
+
+
+                        <div class="box_btn_shipping"">
+                            <a id="btn_shipping" class="" href="javascript:;">
+                            <span>
+                                PROCEED TO PAY
+                            </span>
+                            </a>
+                        </div>
+
+                        <!-- COURIER -->
+                        <div class="courier">
+                            <p class="delivery">Estimated delivery: </p>
+                            <p class="date">15 days since today</p>
+                        </div>
+                    </div>
+                </div>
+
+                <script type="text/javascript">
+                    var customer = { "id_shop_customer": "694767", "id_shop_customer_old": null, "id_iso_country": null, "id_iso_currency": "AUD", "customer_id_iso_currency": null, "id_iso_lang": "en", "id_iso_unit": "iso", "fullname": "nathan", "email": "nathan@gmail.com", "email_validated": "0", "email_keyword": "MSGEWEZCEMZELOC", "email_bounced": "0", "phone": null, "vat_id": null, "date_created": "2019-06-17 00:55:48", "customer_type": "customer", "customer_segment": "voyeur", "kernel_segment": "global", "customer_rate": null, "t4l_region": "en-au", "last_login": "2019-06-16 16:55:48", "enabled": "1", "subscribe": "1", "t4l_credit": "0.00", "t4l_cron": "0", "t4l_n_orders": "0", "t4l_total_buy": null, "t4l_samples": "0", "t4l_last_samples": null, "t4l_average_order": "0.00", "t4l_last_order": null, "t4l_last_order_id_txt": null, "t4l_incidences_closed": "0", "t4l_incidences_open": "0", "t4l_man": "0", "t4l_woman": "0", "label_file": null, "ipaddress_register": "203.59.126.108", "ipaddress_last": null, "gender": null, "n_total_suits": null, "n_total_shirts": null, "n_others_products": null, "profile_constitution": null, "weight": null, "height": null, "height2": null, "years": null, "n_orders_samples": null, "date_last_order_samples": null, "mgm_points": null, "mgm_reference_date": null, "stop_new_orders": "0", "id_cs_user": null, "source": null, "source_id": null, "domain": "hockerty", "domain2": null, "register_source": "signup", "register_device": "desktop", "first_source": "other-r", "first_interaction": "2019-06-15", "last_source": "other-r", "check_measures": "1", "mkt_status": null };
+                    var customer_email = false; // si no esta loginat pero sabem el seu email
+                    var state_placeholder = "Province / State";
+                    var order_type = 'product';
+                    var isJoin = false;
+                    var mini_cart_total = total_price;
+                    var lang = 'en';
+                    var msn_warning_address = 'For shipments to #CITY#, please contact cs_#LANG#@#DOMAIN#.com';
+                    // var info_cart = { "total_base": total_price, "total_shipping": 0, "country_extra_price": "0.00", "voucher_free_shipping": false };
+                    var isSumissura = false;
+                    var provinces = { CA: { zip_required: !0, provinces: ["Alberta", "British Columbia", "Manitoba", "New Brunswick", "Newfoundland", "Northwest Territories", "Nova Scotia", "Nunavut", "Ontario", "Prince Edward Island", "Quebec", "Saskatchewan", "Yukon"], title: "Canada" }, US: { zip_required: !0, provinces: ["Alabama", "Alaska", "American Samoa", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "District of Columbia", "Federated States of Micronesia", "Florida", "Georgia", "Guam", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Marshall Islands", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Northern Mariana Islands", "Ohio", "Oklahoma", "Oregon", "Palau", "Pennsylvania", "Puerto Rico", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming", "Virgin Islands"], title: "United States" }, GB: { zip_required: !0, provinces: null, title: "United Kingdom" }, AF: { zip_required: !0, provinces: null, title: "Afghanistan" }, AL: { zip_required: !0, provinces: null, title: "Albania" }, DZ: { zip_required: !0, provinces: null, title: "Algeria" }, AD: { zip_required: !0, provinces: null, title: "Andorra" }, AO: { zip_required: !1, provinces: null, title: "Angola" }, AG: { zip_required: !1, provinces: null, title: "Antigua And Barbuda" }, AR: { zip_required: !0, provinces: ["Buenos Aires", "Catamarca", "Chaco", "Chubut", "Ciudad Autónoma de Buenos Aires", "Córdoba", "Corrientes", "Entre Ríos", "Formosa", "Jujuy", "La Pampa", "La Rioja", "Mendoza", "Misiones", "Neuquén", "Río Negro", "Salta", "San Juan", "San Luis", "Santa Cruz", "Santa Fe", "Santiago Del Estero", "Tierra Del Fuego", "Tucumán"], title: "Argentina" }, AM: { zip_required: !0, provinces: null, title: "Armenia" }, AW: { zip_required: !1, provinces: null, title: "Aruba" }, AU: { zip_required: !0, provinces: ["Australian Capital Territory", "New South Wales", "Northern Territory", "Queensland", "South Australia", "Tasmania", "Victoria", "Western Australia"], title: "Australia" }, AT: { zip_required: !0, provinces: null, title: "Austria" }, AZ: { zip_required: !0, provinces: null, title: "Azerbaijan" }, BS: { zip_required: !1, provinces: null, title: "Bahamas" }, BH: { zip_required: !0, provinces: null, title: "Bahrain" }, BD: { zip_required: !0, provinces: null, title: "Bangladesh" }, BB: { zip_required: !0, provinces: null, title: "Barbados" }, BY: { zip_required: !0, provinces: null, title: "Belarus" }, BE: { zip_required: !0, provinces: null, title: "Belgium" }, BZ: { zip_required: !1, provinces: null, title: "Belize" }, BJ: { zip_required: !1, provinces: null, title: "Benin" }, BM: { zip_required: !0, provinces: null, title: "Bermuda" }, BT: { zip_required: !0, provinces: null, title: "Bhutan" }, BO: { zip_required: !0, provinces: null, title: "Bolivia" }, BA: { zip_required: !0, provinces: null, title: "Bosnia And Herzegovina" }, BW: { zip_required: !0, provinces: null, title: "Botswana" }, BR: { zip_required: !0, provinces: ["Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal", "Espírito Santo", "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais", "Pará", "Paraíba", "Paraná", "Pernambuco", "Piauí", "Rio de Janeiro", "Rio Grande do Norte", "Rio Grande do Sul", "Rondônia", "Roraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins"], title: "Brazil" }, BN: { zip_required: !0, provinces: null, title: "Brunei" }, BG: { zip_required: !0, provinces: null, title: "Bulgaria" }, NC: { zip_required: !0, provinces: null, title: "New Caledonia" }, KH: { zip_required: !0, provinces: null, title: "Cambodia" }, CM: { zip_required: !0, provinces: null, title: "Republic of Cameroon" }, KY: { zip_required: !0, provinces: null, title: "Cayman Islands" }, CL: { zip_required: !0, provinces: null, title: "Chile" }, CN: { zip_required: !0, provinces: null, title: "China" }, CO: { zip_required: !0, provinces: null, title: "Colombia" }, KM: { zip_required: !0, provinces: null, title: "Comoros" }, CG: { zip_required: !0, provinces: null, title: "Congo" }, CD: { zip_required: !0, provinces: null, title: "Congo, The Democratic Republic Of The" }, CR: { zip_required: !0, provinces: null, title: "Costa Rica" }, CI: { zip_required: !0, provinces: null, title: "Côte d'Ivoire" }, HR: { zip_required: !0, provinces: null, title: "Croatia" }, CW: { zip_required: !1, provinces: null, title: "Curaçao" }, CY: { zip_required: !0, provinces: null, title: "Cyprus" }, CZ: { zip_required: !0, provinces: null, title: "Czech Republic" }, DK: { zip_required: !0, provinces: null, title: "Denmark" }, DM: { zip_required: !0, provinces: null, title: "Dominica" }, DO: { zip_required: !0, provinces: null, title: "Dominican Republic" }, EC: { zip_required: !0, provinces: null, title: "Ecuador" }, EG: { zip_required: !0, provinces: ["Dakahlia", "Red Sea", "Beheira", "Faiyum", "Gharbia", "Alexandria", "Ismailia", "Giza", "Monufia", "Minya", "Cairo", "Qalyubia", "Luxor", "New Valley", "Al Sharqia", "6th of October", "Suez", "Aswan", "Asyut", "Beni Suef", "Port Said", "Damietta", "Helwan", "South Sinai", "Kafr el-Sheikh", "Matrouh", "Qena", "North Sinai", "Sohag"], title: "Egypt" }, SV: { zip_required: !0, provinces: null, title: "El Salvador" }, EE: { zip_required: !0, provinces: null, title: "Estonia" }, ET: { zip_required: !0, provinces: null, title: "Ethiopia" }, GQ: { zip_required: !0, provinces: null, title: "Equatorial Guinea" }, FO: { zip_required: !0, provinces: null, title: "Faroe Islands" }, FJ: { zip_required: !1, provinces: null, title: "Fiji" }, FI: { zip_required: !0, provinces: null, title: "Finland" }, FR: { zip_required: !0, provinces: null, title: "France" }, PF: { zip_required: !0, provinces: null, title: "French Polynesia" }, GA: { zip_required: !0, provinces: null, title: "Gabon" }, GM: { zip_required: !0, provinces: null, title: "Gambia" }, GE: { zip_required: !0, provinces: null, title: "Georgia" }, DE: { zip_required: !0, provinces: null, title: "Germany" }, GH: { zip_required: !1, provinces: null, title: "Ghana" }, GI: { zip_required: !0, provinces: null, title: "Gibraltar" }, GR: { zip_required: !0, provinces: null, title: "Greece" }, GL: { zip_required: !0, provinces: null, title: "Greenland" }, GD: { zip_required: !0, provinces: null, title: "Grenada" }, GP: { zip_required: !0, provinces: null, title: "Guadeloupe" }, GT: { zip_required: !0, provinces: ["Alta Verapaz", "Baja Verapaz", "Chimaltenango", "Chiquimula", "El Progreso", "Escuintla", "Guatemala", "Huehuetenango", "Izabal", "Jalapa", "Jutiapa", "Petén", "Quetzaltenango", "Quiché", "Retalhuleu", "Sacatepéquez", "San Marcos", "Santa Rosa", "Sololá", "Suchitepéquez", "Totonicapán", "Zacapa"], title: "Guatemala" }, GG: { zip_required: !0, provinces: null, title: "Guernsey" }, GY: { zip_required: !0, provinces: null, title: "Guyana" }, HT: { zip_required: !0, provinces: null, title: "Haiti" }, HN: { zip_required: !0, provinces: null, title: "Honduras" }, HK: { zip_required: !1, provinces: null, title: "Hong Kong" }, HU: { zip_required: !0, provinces: null, title: "Hungary" }, IS: { zip_required: !0, provinces: null, title: "Iceland" }, IN: { zip_required: !0, provinces: ["Andaman and Nicobar", "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chandigarh", "Chattisgarh", "Dadra and Nagar Haveli", "Daman and Diu", "Delhi", "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jammu and Kashmir", "Jharkhand", "Karnataka", "Kerala", "Lakshadweep", "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", "Orissa", "Puducherry", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura", "Uttar Pradesh", "Uttarakhand", "West Bengal"], title: "India" }, ID: { zip_required: !0, provinces: ["Aceh", "Bali", "Bangka Belitung", "Banten", "Bengkulu", "Gorontalo", "Jakarta", "Jambi", "Jawa Barat", "Jawa Tengah", "Jawa Timur", "Kalimantan Barat", "Kalimantan Selatan", "Kalimantan Tengah", "Kalimantan Timur", "Kalimantan Utara", "Kepulauan Riau", "Lampung", "Maluku", "Maluku Utara", "Nusa Tenggara Barat", "Nusa Tenggara Timur", "Papua", "Papua Barat", "Riau", "Sulawesi Barat", "Sulawesi Selatan", "Sulawesi Tengah", "Sulawesi Tenggara", "Sulawesi Utara", "Sumatra Barat", "Sumatra Selatan", "Sumatra Utara", "Yogyakarta"], title: "Indonesia" }, IE: { zip_required: !0, provinces: null, title: "Ireland" }, IM: { zip_required: !0, provinces: null, title: "Isle Of Man" }, IL: { zip_required: !0, provinces: null, title: "Israel" }, IT: { zip_required: !0, provinces: ["Agrigento", "Alessandria", "Ancona", "Aosta", "Arezzo", "Ascoli Piceno", "Asti", "Avellino", "Bari", "Barletta-Andria-Trani", "Belluno", "Benevento", "Bergamo", "Biella", "Bologna", "Bolzano", "Brescia", "Brindisi", "Cagliari", "Caltanissetta", "Campobasso", "Carbonia-Iglesias", "Caserta", "Catania", "Catanzaro", "Chieti", "Como", "Cosenza", "Cremona", "Crotone", "Cuneo", "Enna", "Fermo", "Ferrara", "Firenze", "Foggia", "Forlì-Cesena", "Frosinone", "Genova", "Gorizia", "Grosseto", "Imperia", "Isernia", "La Spezia", "L'Aquila", "Latina", "Lecce", "Lecco", "Livorno", "Lodi", "Lucca", "Macerata", "Mantova", "Massa-Carrara", "Matera", "Medio Campidano", "Messina", "Milano", "Modena", "Monza e Brianza", "Napoli", "Novara", "Nuoro", "Ogliastra", "Olbia-Tempio", "Oristano", "Padova", "Palermo", "Parma", "Pavia", "Perugia", "Pesaro e Urbino", "Pescara", "Piacenza", "Pisa", "Pistoia", "Pordenone", "Potenza", "Prato", "Ragusa", "Ravenna", "Reggio Calabria", "Reggio Emilia", "Rieti", "Rimini", "Roma", "Rovigo", "Salerno", "Sassari", "Savona", "Siena", "Siracusa", "Sondrio", "Taranto", "Teramo", "Terni", "Torino", "Trapani", "Trento", "Treviso", "Trieste", "Udine", "Varese", "Venezia", "Verbano-Cusio-Ossola", "Vercelli", "Verona", "Vibo Valentia", "Vicenza", "Viterbo"], title: "Italy" }, JM: { zip_required: !1, provinces: null, title: "Jamaica" }, JP: { zip_required: !0, provinces: ["Aichi", "Akita", "Aomori", "Chiba", "Ehime", "Fukui", "Fukuoka", "Fukushima", "Gifu", "Gunma", "Hiroshima", "Hokkaidō", "Hyōgo", "Ibaraki", "Ishikawa", "Iwate", "Kagawa", "Kagoshima", "Kanagawa", "Kōchi", "Kumamoto", "Kyōto", "Mie", "Miyagi", "Miyazaki", "Nagano", "Nagasaki", "Nara", "Niigata", "Ōita", "Okayama", "Okinawa", "Ōsaka", "Saga", "Saitama", "Shiga", "Shimane", "Shizuoka", "Tochigi", "Tokushima", "Tottori", "Toyama", "Tōkyō", "Wakayama", "Yamagata", "Yamaguchi", "Yamanashi"], title: "Japan" }, JE: { zip_required: !0, provinces: null, title: "Jersey" }, JO: { zip_required: !0, provinces: null, title: "Jordan" }, KZ: { zip_required: !0, provinces: null, title: "Kazakhstan" }, KE: { zip_required: !0, provinces: null, title: "Kenya" }, XK: { zip_required: !0, provinces: null, title: "Kosovo" }, KW: { zip_required: !0, provinces: null, title: "Kuwait" }, KG: { zip_required: !0, provinces: null, title: "Kyrgyzstan" }, LA: { zip_required: !0, provinces: null, title: "Lao People's Democratic Republic" }, LV: { zip_required: !0, provinces: null, title: "Latvia" }, LB: { zip_required: !0, provinces: null, title: "Lebanon" }, LS: { zip_required: !0, provinces: null, title: "Lesotho" }, LR: { zip_required: !0, provinces: null, title: "Liberia" }, LI: { zip_required: !0, provinces: null, title: "Liechtenstein" }, LT: { zip_required: !0, provinces: null, title: "Lithuania" }, LU: { zip_required: !0, provinces: null, title: "Luxembourg" }, MO: { zip_required: !0, provinces: null, title: "Macao" }, MK: { zip_required: !0, provinces: null, title: "Macedonia, Republic Of" }, MG: { zip_required: !0, provinces: null, title: "Madagascar" }, MW: { zip_required: !0, provinces: null, title: "Malawi" }, MY: { zip_required: !0, provinces: ["Johor", "Kedah", "Kelantan", "Kuala Lumpur", "Labuan", "Melaka", "Negeri Sembilan", "Pahang", "Perak", "Perlis", "Pulau Pinang", "Putrajaya", "Sabah", "Sarawak", "Selangor", "Terengganu"], title: "Malaysia" }, MV: { zip_required: !0, provinces: null, title: "Maldives" }, MT: { zip_required: !0, provinces: null, title: "Malta" }, MQ: { zip_required: !0, provinces: null, title: "Martinique" }, MU: { zip_required: !0, provinces: null, title: "Mauritius" }, MX: { zip_required: !0, provinces: ["Aguascalientes", "Baja California", "Baja California Sur", "Chihuahua", "Colima", "Campeche", "Coahuila", "Chiapas", "Distrito Federal", "Durango", "Guerrero", "Guanajuato", "Hidalgo", "Jalisco", "Michoacán", "Morelos", "México", "Nayarit", "Nuevo León", "Oaxaca", "Puebla", "Quintana Roo", "Querétaro", "Sinaloa", "San Luis Potosí", "Sonora", "Tabasco", "Tlaxcala", "Tamaulipas", "Veracruz", "Yucatán", "Zacatecas"], title: "Mexico" }, MD: { zip_required: !0, provinces: null, title: "Moldova, Republic of" }, MC: { zip_required: !0, provinces: null, title: "Monaco" }, MN: { zip_required: !0, provinces: null, title: "Mongolia" }, ME: { zip_required: !0, provinces: null, title: "Montenegro" }, MA: { zip_required: !0, provinces: null, title: "Morocco" }, MZ: { zip_required: !0, provinces: null, title: "Mozambique" }, MM: { zip_required: !0, provinces: null, title: "Myanmar" }, NA: { zip_required: !0, provinces: null, title: "Namibia" }, NP: { zip_required: !0, provinces: null, title: "Nepal" }, AN: { zip_required: !0, provinces: null, title: "Netherlands Antilles" }, NL: { zip_required: !0, provinces: null, title: "Netherlands" }, NZ: { zip_required: !0, provinces: ["Auckland", "Bay of Plenty", "Canterbury", "Gisborne", "Hawke's Bay", "Manawatu-Wanganui", "Marlborough", "Nelson", "Northland", "Otago", "Southland", "Taranaki", "Tasman", "Waikato", "Wellington", "West Coast"], title: "New Zealand" }, NI: { zip_required: !0, provinces: null, title: "Nicaragua" }, NE: { zip_required: !0, provinces: null, title: "Niger" }, NG: { zip_required: !0, provinces: null, title: "Nigeria" }, NO: { zip_required: !0, provinces: null, title: "Norway" }, OM: { zip_required: !0, provinces: null, title: "Oman" }, PK: { zip_required: !0, provinces: null, title: "Pakistan" }, PS: { zip_required: !0, provinces: null, title: "Palestinian Territory, Occupied" }, PA: { zip_required: !1, provinces: ["Bocas del Toro", "Chiriquí", "Coclé", "Colón", "Darién", "Emberá", "Herrera", "Kuna Yala", "Los Santos", "Ngöbe-Buglé", "Panamá", "Panamá Oeste", "Veraguas"], title: "Panama" }, PG: { zip_required: !0, provinces: null, title: "Papua New Guinea" }, PY: { zip_required: !0, provinces: null, title: "Paraguay" }, PE: { zip_required: !0, provinces: null, title: "Peru" }, PH: { zip_required: !0, provinces: null, title: "Philippines" }, PL: { zip_required: !0, provinces: null, title: "Poland" }, PT: { zip_required: !0, provinces: ["Aveiro", "Beja", "Braga", "Bragança", "Castelo Branco", "Coimbra", "Évora", "Faro", "Guarda", "Leiria", "Lisboa", "Portalegre", "Porto", "Santarém", "Setúbal", "Viana do Castelo", "Vila Real", "Viseu", "Açores", "Madeira"], title: "Portugal" }, QA: { zip_required: !1, provinces: null, title: "Qatar" }, RE: { zip_required: !0, provinces: null, title: "Reunion" }, RO: { zip_required: !0, provinces: null, title: "Romania" }, RU: { zip_required: !0, provinces: ["Republic of Adygeya", "Altai Republic", "Altai Krai", "Amur Oblast", "Arkhangelsk Oblast", "Astrakhan Oblast", "Republic of Bashkortostan", "Belgorod Oblast", "Bryansk Oblast", "Republic of Buryatia", "Chechen Republic", "Chelyabinsk Oblast", "Chukotka Autonomous Okrug", "Chuvash Republic", "Republic of Dagestan", "Republic of Ingushetia", "Irkutsk Oblast", "Ivanovo Oblast", "Kamchatka Krai", "Kabardino-Balkarian Republic", "Kaliningrad Oblast", "Republic of Kalmykia", "Kaluga Oblast", "Karachay–Cherkess Republic", "Republic of Karelia", "Kemerovo Oblast", "Khabarovsk Krai", "Republic of Khakassia", "Khanty-Mansi Autonomous Okrug", "Kirov Oblast", "Komi Republic", "Kostroma Oblast", "Krasnodar Krai", "Krasnoyarsk Krai", "Kurgan Oblast", "Kursk Oblast", "Leningrad Oblast", "Lipetsk Oblast", "Magadan Oblast", "Mari El Republic", "Republic of Mordovia", "Moscow Oblast", "Moscow", "Murmansk Oblast", "Nizhny Novgorod Oblast", "Novgorod Oblast", "Novosibirsk Oblast", "Omsk Oblast", "Orenburg Oblast", "Oryol Oblast", "Penza Oblast", "Perm Krai", "Primorsky Krai", "Pskov Oblast", "Rostov Oblast", "Ryazan Oblast", "Sakha Republic (Yakutia)", "Sakhalin Oblast", "Samara Oblast", "Saint Petersburg", "Saratov Oblast", "Republic of North Ossetia–Alania", "Smolensk Oblast", "Stavropol Krai", "Sverdlovsk Oblast", "Tambov Oblast", "Republic of Tatarstan", "Tomsk Oblast", "Tula Oblast", "Tver Oblast", "Tyumen Oblast", "Tyva Republic", "Udmurtia", "Ulyanovsk Oblast", "Vladimir Oblast", "Volgograd Oblast", "Vologda Oblast", "Voronezh Oblast", "Yamalo-Nenets Autonomous Okrug", "Yaroslavl Oblast", "Jewish Autonomous Oblast", "Zabaykalsky Krai"], title: "Russia" }, RW: { zip_required: !0, provinces: null, title: "Rwanda" }, KN: { zip_required: !0, provinces: null, title: "Saint Kitts And Nevis" }, LC: { zip_required: !0, provinces: null, title: "Saint Lucia" }, MF: { zip_required: !0, provinces: null, title: "Saint Martin" }, ST: { zip_required: !0, provinces: null, title: "Sao Tome And Principe" }, WS: { zip_required: !0, provinces: null, title: "Samoa" }, SA: { zip_required: !0, provinces: null, title: "Saudi Arabia" }, SN: { zip_required: !0, provinces: null, title: "Senegal" }, RS: { zip_required: !0, provinces: null, title: "Serbia" }, SC: { zip_required: !0, provinces: null, title: "Seychelles" }, SG: { zip_required: !0, provinces: null, title: "Singapore" }, SX: { zip_required: !0, provinces: null, title: "Sint Maarten" }, SK: { zip_required: !0, provinces: null, title: "Slovakia" }, SI: { zip_required: !0, provinces: null, title: "Slovenia" }, SB: { zip_required: !0, provinces: null, title: "Solomon Islands" }, ZA: { zip_required: !0, provinces: ["Eastern Cape", "Free State", "Gauteng", "KwaZulu-Natal", "Limpopo", "Mpumalanga", "Northern Cape", "North West", "Western Cape"], title: "South Africa" }, KR: { zip_required: !0, provinces: ["Busan", "Chungbuk", "Chungnam", "Daegu", "Daejeon", "Gangwon", "Gwangju", "Gyeonggi", "Gyeongbuk", "Gyeongnam", "Incheon", "Jeju", "Jeonbuk", "Jeonnam", "Sejong", "Seoul", "Ulsan"], title: "South Korea" }, SS: { zip_required: !1, provinces: null, title: "South Sudan" }, ES: { zip_required: !0, provinces: ["A Coruña", "Álava", "Albacete", "Alicante", "Almería", "Asturias", "Ávila", "Badajoz", "Balears", "Barcelona", "Burgos", "Cáceres", "Cádiz", "Cantabria", "Castellón", "Ceuta", "Ciudad Real", "Córdoba", "Cuenca", "Girona", "Granada", "Guadalajara", "Guipúzcoa", "Huelva", "Huesca", "Jaén", "La Rioja", "Las Palmas", "León", "Lleida", "Lugo", "Madrid", "Málaga", "Melilla", "Murcia", "Navarra", "Ourense", "Palencia", "Pontevedra", "Salamanca", "Santa Cruz de Tenerife", "Segovia", "Sevilla", "Soria", "Tarragona", "Teruel", "Toledo", "Valencia", "Valladolid", "Vizcaya", "Zamora", "Zaragoza"], title: "Spain" }, LK: { zip_required: !0, provinces: null, title: "Sri Lanka" }, VC: { zip_required: !0, provinces: null, title: "St. Vincent" }, SD: { zip_required: !0, provinces: null, title: "Sudan" }, SR: { zip_required: !0, provinces: null, title: "Suriname" }, SE: { zip_required: !0, provinces: null, title: "Sweden" }, CH: { zip_required: !0, provinces: null, title: "Switzerland" }, SY: { zip_required: !0, provinces: null, title: "Syria" }, TW: { zip_required: !0, provinces: null, title: "Taiwan" }, TZ: { zip_required: !0, provinces: null, title: "Tanzania, United Republic Of" }, TH: { zip_required: !0, provinces: null, title: "Thailand" }, TT: { zip_required: !1, provinces: null, title: "Trinidad and Tobago" }, TN: { zip_required: !0, provinces: null, title: "Tunisia" }, TR: { zip_required: !0, provinces: null, title: "Turkey" }, TM: { zip_required: !0, provinces: null, title: "Turkmenistan" }, TC: { zip_required: !0, provinces: null, title: "Turks and Caicos Islands" }, UG: { zip_required: !1, provinces: null, title: "Uganda" }, UA: { zip_required: !0, provinces: null, title: "Ukraine" }, AE: { zip_required: !1, provinces: ["Abu Dhabi", "Ajman", "Dubai", "Fujairah", "Ras al-Khaimah", "Sharjah", "Umm al-Quwain"], title: "United Arab Emirates" }, UY: { zip_required: !0, provinces: null, title: "Uruguay" }, UZ: { zip_required: !0, provinces: null, title: "Uzbekistan" }, VU: { zip_required: !0, provinces: null, title: "Vanuatu" }, VE: { zip_required: !0, provinces: null, title: "Venezuela" }, VN: { zip_required: !0, provinces: null, title: "Vietnam" }, VG: { zip_required: !0, provinces: null, title: "Virgin Islands, British" }, YE: { zip_required: !1, provinces: null, title: "Yemen" }, ZM: { zip_required: !0, provinces: null, title: "Zambia" }, ZW: { zip_required: !1, provinces: null, title: "Zimbabwe" }, AX: { zip_required: !0, provinces: null, title: "Aland Islands" }, AI: { zip_required: !1, provinces: null, title: "Anguilla" }, BV: { zip_required: !0, provinces: null, title: "Bouvet Island" }, IO: { zip_required: !0, provinces: null, title: "British Indian Ocean Territory" }, BF: { zip_required: !1, provinces: null, title: "Burkina Faso" }, BI: { zip_required: !0, provinces: null, title: "Burundi" }, CV: { zip_required: !0, provinces: null, title: "Cape Verde" }, CF: { zip_required: !0, provinces: null, title: "Central African Republic" }, TD: { zip_required: !1, provinces: null, title: "Chad" }, CX: { zip_required: !0, provinces: null, title: "Christmas Island" }, CC: { zip_required: !0, provinces: null, title: "Cocos (Keeling) Islands" }, CK: { zip_required: !0, provinces: null, title: "Cook Islands" }, CU: { zip_required: !0, provinces: null, title: "Cuba" }, DJ: { zip_required: !0, provinces: null, title: "Djibouti" }, ER: { zip_required: !0, provinces: null, title: "Eritrea" }, FK: { zip_required: !0, provinces: null, title: "Falkland Islands (Malvinas)" }, GF: { zip_required: !0, provinces: null, title: "French Guiana" }, TF: { zip_required: !0, provinces: null, title: "French Southern Territories" }, GN: { zip_required: !0, provinces: null, title: "Guinea" }, GW: { zip_required: !0, provinces: null, title: "Guinea Bissau" }, HM: { zip_required: !0, provinces: null, title: "Heard Island And Mcdonald Islands" }, VA: { zip_required: !0, provinces: null, title: "Holy See (Vatican City State)" }, IR: { zip_required: !0, provinces: null, title: "Iran, Islamic Republic Of" }, IQ: { zip_required: !0, provinces: null, title: "Iraq" }, KI: { zip_required: !0, provinces: null, title: "Kiribati" }, KP: { zip_required: !0, provinces: null, title: "Korea, Democratic People's Republic Of" }, LY: { zip_required: !0, provinces: null, title: "Libyan Arab Jamahiriya" }, ML: { zip_required: !1, provinces: null, title: "Mali" }, MR: { zip_required: !0, provinces: null, title: "Mauritania" }, YT: { zip_required: !0, provinces: null, title: "Mayotte" }, MS: { zip_required: !0, provinces: null, title: "Montserrat" }, NR: { zip_required: !0, provinces: null, title: "Nauru" }, NU: { zip_required: !0, provinces: null, title: "Niue" }, NF: { zip_required: !0, provinces: null, title: "Norfolk Island" }, PN: { zip_required: !0, provinces: null, title: "Pitcairn" }, BL: { zip_required: !0, provinces: null, title: "Saint Barthélemy" }, SH: { zip_required: !0, provinces: null, title: "Saint Helena" }, PM: { zip_required: !0, provinces: null, title: "Saint Pierre And Miquelon" }, SM: { zip_required: !0, provinces: null, title: "San Marino" }, SL: { zip_required: !0, provinces: null, title: "Sierra Leone" }, SO: { zip_required: !0, provinces: null, title: "Somalia" }, GS: { zip_required: !0, provinces: null, title: "South Georgia And The South Sandwich Islands" }, SJ: { zip_required: !0, provinces: null, title: "Svalbard And Jan Mayen" }, SZ: { zip_required: !0, provinces: null, title: "Swaziland" }, TJ: { zip_required: !0, provinces: null, title: "Tajikistan" }, TL: { zip_required: !0, provinces: null, title: "Timor Leste" }, TG: { zip_required: !1, provinces: null, title: "Togo" }, TK: { zip_required: !0, provinces: null, title: "Tokelau" }, TO: { zip_required: !0, provinces: null, title: "Tonga" }, TV: { zip_required: !1, provinces: null, title: "Tuvalu" }, UM: { zip_required: !0, provinces: null, title: "United States Minor Outlying Islands" }, WF: { zip_required: !0, provinces: null, title: "Wallis And Futuna" }, EH: { zip_required: !0, provinces: null, title: "Western Sahara" } };;
+
+
+                    ready_callbacks.push(function () {
+                        if (!isSumissura) {
+                            if (jQuery().iCheck) {
+                                var options = $('.box_selector input').iCheck({
+                                    checkboxClass: 'icheckbox_minimal-blue',
+                                    radioClass: 'iradio_minimal-blue',
+                                    increaseArea: '20%' // optional
+                                });
+
+                                options.on('ifChecked', function (event) {
+                                    $('.options input').each(function (key, value) {
+                                        $(value).attr("checked", true);
+                                    });
+                                    $(this).attr("checked", true);
+                                    $(this).trigger('change');
+                                });
+                            }
+                        }
+
+
+                        function stripHTML(dirtyString) {
+                            var container = document.createElement('div');
+                            container.innerHTML = dirtyString;
+                            return container.textContent || container.innerText;
+                        }
+
+                        // if (window.mobile_enabled) {
+                        //     $('p.field, div.form-group').find('label').each(function () {
+                        //         var text = this.innerHTML;
+                        //         if (text.indexOf('*') == -1) text = text + '*';
+                        //         $('input', this.parentNode).attr('placeholder', text);
+                        //     });
+                        // } else {
+                        //     $('#social_links a.social_link').click(function () {
+                        //         var left = (screen.width / 2) - 320;
+                        //         var top = (screen.height / 2) - 240;
+                        //         window.open(this.href, 'login', 'toolbar=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=640,height=480,top=' + top + ',left=' + left);
+                        //         return false;
+                        //     });
+                        // }
+
+                        // $('.box_selector input').change(function (val) {
+                        //     var value = this.value;
+                        //     var section_to_upload = '.mini_cart.shipping #mini_cart_container';
+                        //     var country = $('#id_iso_country').val();
+                        //     if (window.mobile_enabled) {
+                        //         section_to_upload = '.mini_cart.shipping';
+                        //         var button = $('.box_btn_shipping');
+                        //     }
+                        //     $(section_to_upload).load(window.location.href, { box: value, ajax: 1, country: country }, function () {
+                        //         if (window.mobile_enabled) {
+                        //             $(section_to_upload).append(button);
+                        //         }
+
+                        //         reloadImages();
+                        //     });
+                        // });
+
+
+
+                        Checkout.initShipping();
+
+                        // $('#id_iso_country').find('option[value="FR"]').append(' (hors DOM-TOM)');
+
+                        // if (customer_email) { $('#ajx_email').blur(); }
+                    });
+                </script>
+            </div>
+        </div>
+
+        <style type="text/css">
+            .chat_invitation,
+            .chat_invitation_text {
+                font-family: Lato, sans-serif
+            }
+
+            .chat_invitation {
+                display: none;
+                position: fixed;
+                right: 100px;
+                bottom: 44px;
+                width: 300px;
+                font-size: 14px;
+                background-color: #fff;
+                border-radius: .625rem;
+                -webkit-box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .4);
+                box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .4);
+                -ms-overflow-style: -ms-autohiding-scrollbar;
+                cursor: pointer;
+                max-width: 260px;
+                z-index: 50001
+            }
+
+            @media (max-width:370px) {
+                .chat_invitation {
+                    right: 82px;
+                    bottom: 20px
+                }
+            }
+
+            @media (max-width:320px) {
+                .chat_invitation {
+                    right: 82px;
+                    bottom: 20px;
+                    left: 20px;
+                    width: auto
+                }
+            }
+
+            @media (min-width:381px) and (max-width:460px) {
+                .chat_invitation {
+                    max-width: 260px
+                }
+            }
+
+            @media (min-width:375px) and (max-width:380px) {
+                .chat_invitation {
+                    max-width: 260px
+                }
+            }
+
+            @media (min-width:360px) and (max-width:374px) {
+                .chat_invitation {
+                    max-width: 260px
+                }
+            }
+
+            @media (min-width:320px) and (max-width:359px) {
+                .chat_invitation {
+                    max-width: 260px
+                }
+            }
+
+            .chat_invitation_text {
+                position: relative;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                padding: 1rem;
+                max-width: 100%;
+                font-size: .8rem;
+                white-space: normal
+            }
+
+            .chat_invitation_close,
+            .chat_invitation_count {
+                position: absolute;
+                font-size: 15px;
+                color: #fff;
+                opacity: 1;
+                font-weight: 700;
+                line-height: 25px;
+                text-align: center
+            }
+
+            .chat_invitation_arrow {
+                display: block;
+                position: absolute;
+                content: "";
+                width: 10px;
+                height: 10px;
+                right: -10px;
+                bottom: 10px;
+                background-color: inherit;
+                -webkit-transform: translateX(-6px) rotate(45deg);
+                -ms-transform: translateX(-6px) rotate(45deg);
+                transform: translateX(-6px) rotate(45deg);
+                pointer-events: none;
+                -webkit-box-shadow: 2px -2px 2px 0 rgba(0, 0, 0, .2);
+                box-shadow: 2px -2px 2px 0 rgba(0, 0, 0, .2)
+            }
+
+            .chat_invitation_close {
+                display: none;
+                font-family: nc-nav;
+                top: -25px;
+                border: 1px solid #fff;
+                border-radius: 20px;
+                left: 0;
+                width: 20px;
+                height: 20px;
+                background: rgba(0, 0, 0, .2)
+            }
+
+            .chat_invitation_count {
+                bottom: 25px;
+                background: #B8513A;
+                border-radius: 20px;
+                right: -80px;
+                width: 25px;
+                height: 25px;
+                z-index: 50001
+            }
+
+            .chat_invitation_close.show {
+                display: block
+            }
+
+            .drift_up_60 .chat_invitation {
+                bottom: 100px;
+            }
+
+            .chat_invitation {
+                transition: all .5s;
+            }
+        </style>
+
+
+
+        <script type="text/html" id="chat-welcome">
+    <div class="chat_welcome">
+        <div class="chat_welcome_header">
+            <div class="chat_welcome_agent">
+                <div class="avatar-container"><span class="avatar-image" style="background-image: url('/images/chat/avatar-image.png')"></span></div>
+                <div class="agent-name">Hockerty</div>
+            </div>
+            <div class="chat_welcome_message_head">Hello! Ready to get you next garment made to your exact measurements?</div>
+            <div class="chat_welcome_message"></div>
+        </div>
+        <form class="chat_welcome_form">
+            <div class="textarea">
+                <textarea placeholder="Write your message..."></textarea>
+            </div>
+            <div class="submit">
+                <button tabindex="1000">
+                    <svg width="13" height="13" viewBox="0 0 13 13" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12.975.38c.014.043.02.087.024.132v.06c-.004.048-.014.095-.03.14-.006.017-.007.032-.014.046L7.252 12.692c-.09.19-.28.308-.49.308-.216-.002-.406-.127-.493-.32l-.537-3.41C5.56 8.18 4.55 7.1 3.478 6.86l-3.2-.72c-.18-.1-.287-.293-.277-.5.012-.206.138-.39.328-.47L12.248.04 12.3.026c.05-.015.098-.025.148-.026.02 0 .038 0 .058.003.046.004.09.013.132.028l.055.02c.056.027.11.06.154.107.053.053.085.11.11.168.008.018.013.036.018.055z"
+                              fill-rule="evenodd"></path>
+                    </svg>
+                    <span>Send</span></button>
+            </div>
+        </form>
+    </div>
+</script>
+
+        <script type="text/javascript">
+
+            ready_callbacks.push(function () {
+
+                var lang = 'en';
+                var ladeskButton = 0;
+                var chatbot = 1;
+                var customer = window.getStoredCustomer();
+                var ladeskButtonCallback = 0;
+
+                var linkJS = "https://d2w9m16hs9jc37.cloudfront.net/js/chat/container.js?v=1559542688";
+                var linkCSS = "https://d2w9m16hs9jc37.cloudfront.net/css/chat/container.css?v=1559542688";
+
+
+                var chat_config = {
+                    server: 'https://chat.hockerty.com',
+                    i18n: {
+                        welcome: "Hi! Can I help you?",
+                        offline: "Ask us anything. We are available.",
+                        onlyenglish: "There are not advisors available in your language, but you can be attended in English. If not, you can leave your message in your language and we’ll get back to you as soon as possible"
+                    }
+                };
+
+                var ChatHandler = {
+                    ladesk_button: null,
+                    chat_config: null,
+                    chatbot: null,
+                    chatEnabled: null,
+                    customer: null,
+                    Init: function (ladesk_button, chatbot, chat_config, customer) {
+                        this.customer = customer;
+                        this.ladesk_button = ladesk_button;
+                        this.chat_config = chat_config;
+                        this.chatbot = chatbot;
+                        this.chatEnabled = null;
+
+                        var currentTime = new Date();
+                        var utcDateHour = currentTime.getUTCHours();
+                        //var utcDateMinute = currentTime.getUTCMinutes();
+                        var weekDay = currentTime.getUTCDay();
+
+                        if (chatbot) {
+                            if (this.chatEnabled == null) {
+                                this.initChatBot();
+                            }
+                        }
+
+                        if (ladesk_button) {
+                            if (this.chatEnabled == null) {
+                                this.initLadesk();
+                            }
+                        }
+                    },
+
+                    initLadesk: function () {
+                    },
+
+                    loadRemoteScript: function (sScriptSrc, cb) {
+                        var oHead = document.getElementsByTagName("HEAD")[0];
+                        var oScript = document.createElement('script');
+                        oScript.type = 'text/javascript';
+                        oScript.src = sScriptSrc;
+                        oHead.appendChild(oScript);
+                        if (typeof cb === "function") {
+                            oScript.onload = cb;
+                        }
+                    },
+
+                    loadRemoteStyle: function (sStyleSrc, cb) {
+                        var oHead = document.getElementsByTagName("HEAD")[0];
+                        var oScript = document.createElement('link');
+                        oScript.rel = 'stylesheet';
+                        oScript.href = sStyleSrc;
+                        oHead.appendChild(oScript);
+                        if (typeof cb === "function") {
+                            oScript.onload = cb;
+                        }
+                    },
+
+                    initChatBot: function () {
+                        this.chatEnabled = 'chatBot';
+                        var conversationID = localStorage.getItem("conversationID");
+                        var that = this;
+                        this.loadRemoteScript(linkJS, function () {
+                            that.loadRemoteStyle(linkCSS, function () {
+                                new ChatContainer(that.chat_config, conversationID);
+                            });
+                        });
+                    }
+                };
+
+                ChatHandler.Init(ladeskButton, chatbot, chat_config, customer);
+            });
+
+        </script>
+    </div>
+
+
+
+    <script type="text/javascript" src="/js/default.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/js/checkout/shipping_script.js" charset="utf-8"></script>
+    <script src="/bower_components/AdminLTE/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/icheck.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/js/checkout/shipping.js" charset="utf-8"></script>
+
+    <script type="text/javascript">$(function () {
+            for (var i = 0; i < ready_callbacks.length; i++) {
+                try { ready_callbacks[i](); } catch (ex) { console.log(ex); }
+            }
+            if (typeof (afterJquery) == 'function') afterJquery();
+        });</script>
+
+
+    <!-- <script type="text/javascript">if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/js/cdn-service-worker.js?v=1559542688', { scope: '/' });
+        }</script> -->
+
+    <!-- <script type="text/html" id="promo_tmpl">
+    <div class="mainblock promoblock_mgm">
+        <div class="content">
+            <a href="/en-au/customer/referral">Give $25 - Get $25</a>
+        </div>
+    </div>
+</script> -->
+    <!-- <script>
+
+        // MGM - Banner
+        if (!$('#promo_block_top').length) {
+            var isSumissura = $('body').hasClass('woman');
+            var href = window.location.href;
+
+            if (href.indexOf('/checkout/') < 0 && !$('body').hasClass('woman_mobile_personalize') && !$('body').hasClass('personalize')) {
+                if ($('.promoblock_mgm').length == 0) {
+                    var mgm_customer = JSON.parse(localStorage.getItem('customer'));
+                    if (mgm_customer) {
+                        if (mgm_customer.t4l_n_orders > 0) {
+                            var dataObject = { customer: mgm_customer };
+                            var new_html = tmpl("promo_tmpl", dataObject);
+                            if (isSumissura) {
+                                $('div.body').prepend(new_html);
+                            } else {
+                                $('#body').prepend(new_html);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+    </script> -->
+</body>
+
+</html>

@@ -62,7 +62,7 @@ module.exports = {
     },
 
     async notLogIn(req, res, next) {
-        let user = req.session.user;        
+        let user = req.session.user;
         if (!!user) {
             req.flash('reason_fail', "You already logged in!");
             if (user.role == "Admin")
@@ -74,5 +74,14 @@ module.exports = {
         } else {
             next();
         }
-    }
+    },
+
+    async hasCart(req, res, next) {
+        let cart = req.session.carts;
+        if (!!cart) {
+            next();
+        } else {
+            res.redirect('/checkout/cart');
+        }
+    },
 };

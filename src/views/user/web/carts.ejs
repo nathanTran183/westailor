@@ -434,7 +434,7 @@
                                                 $<%= carts[i].price * carts[i].quantity %>
                                             </span>
                                             <span class="name">
-                                                <%= carts[i].name %>
+                                                <%= carts[i].gender + ' ' + carts[i].name %>
                                             </span>
                                         </div>
                                         <div class="cross_sell">
@@ -446,11 +446,15 @@
                                             
                                         </div>
                                         <div class="options" id="item_<%= i%>">
-                                            <div class="opt"><a class="cart_modify_product" rel="nofollow" href="/en-au/checkout/modProduct/p2/">Modify</a>
+                                            <div class="opt"><a class="cart_modify_product" rel="nofollow" href="/<%= carts[i].gender %>/design-<%= carts[i].name%>/<%= i %>">Modify</a>
                                             </div>
                                             <div class="opt split">&nbsp;</div>
     
                                             <div class="opt"><a rel="nofollow" class="cart_modify_product cart_delete_product">Delete</a>
+                                            </div>
+                                            <div class="opt split desktop_only">&nbsp;</div>
+
+                                            <div class="opt"><a rel="nofollow" class="cart_modify_product">View detail</a>
                                             </div>
                                             <div class="opt split desktop_only">&nbsp;</div>
 
@@ -484,7 +488,7 @@
                         <div class="totals">
                             <div class="totals_info floating_container">
         
-                                <div class="desktop_only">
+                                <!-- <div class="desktop_only">
                                     <div class="voucher floating left">
                                         <div class="add_code_text">Do you have a <b>coupon code</b> or <b>giftcard</b>?</div>
                                         <div class="add_code_input">
@@ -496,7 +500,7 @@
                                         </div>
         
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="order_resume floating right">
                                     <div class="bag_total">
                                         <span class="title">Shopping bag total:</span>
@@ -514,16 +518,16 @@
                             </div>
         
                             <div class="shipping_info floating_container">
-                                <div class="shipping floating left desktop_only">
+                                <!-- <div class="shipping floating left desktop_only">
                                     <div class="image shipping_truck sprite">&nbsp;</div>
                                     <div class="text_content">
                                         <div class="title">FASTEST DELIVERY WORLDWIDE</div>
                                         <div class="description">Order today, receive it by June 25th. </br>Free shipping above
                                             $150.</div>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="add_measures floating right">
-                                    <a rel="nofollow" class="btn btn-blue add_measures_big " href="https://www.hockerty.com/en-au/checkout/payment">
+                                    <a rel="nofollow" class="btn btn-blue add_measures_big " href="/checkout/shipping">
                                         <span>
                                             PROCESS TO CHECKOUT                                            
                                         </span>
@@ -698,7 +702,7 @@
                         <div class="image shipping_truck sprite">&nbsp;</div>
                         <div class="text_content">
                             <div class="title">FASTEST DELIVERY WORLDWIDE</div>
-                            <div class="description">Order today, receive it by June 25th. </br>Free shipping above
+                            <div class="description">Order today, receive it in about 15 days. </br>Free shipping above
                                 $150.</div>
                         </div>
                     </div>
@@ -706,7 +710,7 @@
                         <div class="geotrust_image">&nbsp;</div>
                     </div>
 
-                    <div class="voucher floating left">
+                    <!-- <div class="voucher floating left">
                         <div class="add_code_text">Do you have a <b>coupon code</b> or <b>giftcard</b>?</div>
                         <div class="add_code_input">
                             <form class="voucher_form" method="POST" action="">
@@ -715,8 +719,7 @@
                                 <span href="javascript:;" class="send-voucher ds_link"><span class="icon send">f</span></span>
                             </form>
                         </div>
-
-                    </div>
+                    </div> -->
                 </div>
 
                 <div class="save_cart">
@@ -1056,7 +1059,7 @@
         var localStorageUpdate = { "customer": [], "cart": { "products": { "p2": { "id_product": "p2", "id_shopping_cart_detail": "11031749", "id_shopping_cart": "9937886", "id_t4l_fabric": "482", "images_3d": [{ "2": "man_jacket", "45": "\/3d\/new_man\/jacket\/STD\/482_fabric\/front\/interior+espalda_abajo+length_long.png" }, { "2": "man_jacket", "104": "\/3d\/new_man\/jacket\/STD\/482_fabric\/front\/interior+espalda_arriba.png" }, { "2": "man_jacket", "105": "\/3d\/new_man\/jacket\/STD\/linings\/149_fabric\/front\/interior+espalda_arriba.png" }, { "2": "man_jacket", "46": "\/3d\/new_man\/jacket\/STD\/linings\/149_fabric\/front\/interior+espalda_abajo+length_long.png" }, { "2": "man_jacket", "105": "\/3d\/new_man\/jacket\/STD\/etiquetas\/negra.png" }, { "2": "man_jacket", "119": "\/3d\/new_man\/jacket\/STD\/482_fabric\/front\/neck_double_breasted+buttons_2+lapel_narrow+style_lapel_notch.png" }, { "2": "man_jacket", "120": "\/3d\/new_man\/jacket\/STD\/482_fabric\/front\/interior+sleeves.png" }, { "2": "man_jacket", "130": "\/3d\/new_man\/jacket\/STD\/482_fabric\/front\/bottom_double_breasted+length_long.png" }, { "2": "man_jacket", "150": "\/3d\/new_man\/jacket\/STD\/482_fabric\/front\/breast_pocket_classic.png" }, { "2": "man_jacket", "150": "\/3d\/new_man\/jacket\/STD\/482_fabric\/front\/hip_pockets_with_flap+fit_slim.png" }, { "2": "man_jacket", "170": "\/3d\/new_man\/jacket\/STD\/Buttons\/6\/front\/neck_double_breasted+buttons_2+lapel_narrow+style_lapel_notch.png" }, { "2": "pants_folded", "31": "\/3d\/new_man\/pants\/STD\/482_fabric\/folded\/length_long+cut_slim.png" }, { "2": "pants_folded", "33": "\/3d\/new_man\/pants\/STD\/482_fabric\/folded\/front_pocket+diagonal.png" }, { "2": "pants_folded", "38": "\/3d\/new_man\/pants\/STD\/482_fabric\/folded\/back_pocket+with_button.png" }, { "2": "pants_folded", "39": "\/3d\/new_man\/pants\/STD\/Botones\/6\/folded\/back_pocket+with_button.png" }], "image3D": { "app_webroot_src": "\/var\/www\/vhosts\/tailor4less.com\/httpdocs\/render\/150\/", "web_host_src": "https:\/\/www.hockerty.com\/render\/150\/5cef50d42ff02.png", "file": "5cef50d42ff02.png" }, "gender": "man", "product_type": "man_suit2", "title": "Black double breasted suit ", "description": "Style Double-breasted, Lapels: Notch\nNo Pleats", "q": "6", "price": "299.00", "total_base": "299.00", "total_dsc": "0.00", "total": "1794.00", "extras": { "man_jacket": [], "man_waistcoat": [] } }, "p3": { "id_product": "p3", "id_shopping_cart_detail": "11038272", "id_shopping_cart": "9937886", "id_t4l_fabric": "894", "images_3d": [{ "2": "man_jacket", "45": "\/3d\/new_man\/jacket\/STD\/894_fabric\/front\/interior+espalda_abajo+length_long.png" }, { "2": "man_jacket", "104": "\/3d\/new_man\/jacket\/STD\/894_fabric\/front\/interior+espalda_arriba.png" }, { "2": "man_jacket", "105": "\/3d\/new_man\/jacket\/STD\/linings\/162_fabric\/front\/interior+espalda_arriba.png" }, { "2": "man_jacket", "46": "\/3d\/new_man\/jacket\/STD\/linings\/162_fabric\/front\/interior+espalda_abajo+length_long.png" }, { "2": "man_jacket", "105": "\/3d\/new_man\/jacket\/STD\/etiquetas\/negra.png" }, { "2": "man_jacket", "119": "\/3d\/new_man\/jacket\/STD\/894_fabric\/front\/neck_single_breasted+buttons_2+lapel_narrow+style_lapel_notch.png" }, { "2": "man_jacket", "120": "\/3d\/new_man\/jacket\/STD\/894_fabric\/front\/interior+sleeves.png" }, { "2": "man_jacket", "130": "\/3d\/new_man\/jacket\/STD\/894_fabric\/front\/bottom_single_breasted+length_long+hemline_open.png" }, { "2": "man_jacket", "150": "\/3d\/new_man\/jacket\/STD\/894_fabric\/front\/breast_pocket_classic.png" }, { "2": "man_jacket", "150": "\/3d\/new_man\/jacket\/STD\/894_fabric\/front\/hip_pockets_with_flap+fit_slim.png" }, { "2": "man_jacket", "170": "\/3d\/new_man\/jacket\/STD\/Buttons\/3\/front\/neck_single_breasted+buttons_2+lapel_narrow+style_lapel_notch.png" }, { "2": "pants_folded", "31": "\/3d\/new_man\/pants\/STD\/894_fabric\/folded\/length_long+cut_slim.png" }, { "2": "pants_folded", "33": "\/3d\/new_man\/pants\/STD\/894_fabric\/folded\/front_pocket+diagonal.png" }, { "2": "pants_folded", "38": "\/3d\/new_man\/pants\/STD\/894_fabric\/folded\/back_pocket+with_button.png" }, { "2": "pants_folded", "39": "\/3d\/new_man\/pants\/STD\/Botones\/3\/folded\/back_pocket+with_button.png" }], "image3D": { "app_webroot_src": "\/var\/www\/vhosts\/tailor4less.com\/httpdocs\/render\/150\/", "web_host_src": "https:\/\/www.hockerty.com\/render\/150\/5cef50817f28c.png", "file": "5cef50817f28c.png" }, "gender": "man", "product_type": "man_suit2", "title": "Blue suit ", "description": "Style Single breasted, Lapels: Notch\nNo Pleats", "q": "1", "price": "299.00", "total_base": "299.00", "total_dsc": "0.00", "total": "299.00", "extras": { "man_jacket": [], "man_waistcoat": [] } }, "p4": { "id_product": "p4", "id_shopping_cart_detail": "11063371", "id_shopping_cart": "9937886", "id_t4l_fabric": "894", "images_3d": [{ "2": "man_jacket", "45": "\/3d\/new_man\/jacket\/STD\/894_fabric\/front\/interior+espalda_abajo+length_short.png" }, { "2": "man_jacket", "104": "\/3d\/new_man\/jacket\/STD\/894_fabric\/front\/interior+espalda_arriba.png" }, { "2": "man_jacket", "105": "\/3d\/new_man\/jacket\/STD\/linings\/162_fabric\/front\/interior+espalda_arriba.png" }, { "2": "man_jacket", "46": "\/3d\/new_man\/jacket\/STD\/linings\/162_fabric\/front\/interior+espalda_abajo+length_short.png" }, { "2": "man_jacket", "105": "\/3d\/new_man\/jacket\/STD\/etiquetas\/negra.png" }, { "2": "man_jacket", "119": "\/3d\/new_man\/jacket\/STD\/894_fabric\/front\/neck_single_breasted+buttons_2+lapel_narrow+style_lapel_notch.png" }, { "2": "man_jacket", "120": "\/3d\/new_man\/jacket\/STD\/894_fabric\/front\/interior+sleeves.png" }, { "2": "man_jacket", "130": "\/3d\/new_man\/jacket\/STD\/894_fabric\/front\/bottom_single_breasted+length_short+hemline_closed.png" }, { "2": "man_jacket", "150": "\/3d\/new_man\/jacket\/STD\/894_fabric\/front\/breast_pocket_classic.png" }, { "2": "man_jacket", "150": "\/3d\/new_man\/jacket\/STD\/894_fabric\/front\/hip_pockets_with_flap+fit_slim.png" }, { "2": "man_jacket", "170": "\/3d\/new_man\/jacket\/STD\/Buttons\/3\/front\/neck_single_breasted+buttons_2+lapel_narrow+style_lapel_notch.png" }], "image3D": { "app_webroot_src": "\/var\/www\/vhosts\/tailor4less.com\/httpdocs\/render\/158\/", "web_host_src": "https:\/\/www.hockerty.com\/render\/158\/5cf9eeea15dd6.png", "file": "5cf9eeea15dd6.png" }, "gender": "man", "product_type": "man_jacket", "title": "Blue wool blend blazer", "description": "Style Single breasted, Lapels: Notch", "q": "1", "price": "199.00", "total_base": "199.00", "total_dsc": "0.00", "total": "199.00", "extras": [] }, "p5": { "id_product": "p5", "id_shopping_cart_detail": "11069547", "id_shopping_cart": "9937886", "id_t4l_fabric": "894", "images_3d": [{ "2": "man_jacket", "45": "\/3d\/new_man\/jacket\/STD\/894_fabric\/front\/interior+espalda_abajo+length_long.png" }, { "2": "man_jacket", "104": "\/3d\/new_man\/jacket\/STD\/894_fabric\/front\/interior+espalda_arriba.png" }, { "2": "man_jacket", "105": "\/3d\/new_man\/jacket\/STD\/linings\/162_fabric\/front\/interior+espalda_arriba.png" }, { "2": "man_jacket", "46": "\/3d\/new_man\/jacket\/STD\/linings\/162_fabric\/front\/interior+espalda_abajo+length_long.png" }, { "2": "man_jacket", "105": "\/3d\/new_man\/jacket\/STD\/etiquetas\/negra.png" }, { "2": "man_jacket", "119": "\/3d\/new_man\/jacket\/STD\/894_fabric\/front\/neck_double_breasted+buttons_6+lapel_narrow+style_lapel_notch.png" }, { "2": "man_jacket", "120": "\/3d\/new_man\/jacket\/STD\/894_fabric\/front\/interior+sleeves.png" }, { "2": "man_jacket", "130": "\/3d\/new_man\/jacket\/STD\/894_fabric\/front\/bottom_double_breasted+length_long.png" }, { "2": "man_jacket", "150": "\/3d\/new_man\/jacket\/STD\/894_fabric\/front\/breast_pocket_classic.png" }, { "2": "man_jacket", "150": "\/3d\/new_man\/jacket\/STD\/894_fabric\/front\/hip_pockets_with_flap+fit_slim.png" }, { "2": "man_jacket", "170": "\/3d\/new_man\/jacket\/STD\/Buttons\/3\/front\/neck_double_breasted+buttons_6+lapel_narrow+style_lapel_notch.png" }, { "2": "pants_folded", "31": "\/3d\/new_man\/pants\/STD\/894_fabric\/folded\/length_long+cut_slim.png" }, { "2": "pants_folded", "33": "\/3d\/new_man\/pants\/STD\/894_fabric\/folded\/front_pocket+diagonal.png" }, { "2": "pants_folded", "38": "\/3d\/new_man\/pants\/STD\/894_fabric\/folded\/back_pocket+with_button.png" }, { "2": "pants_folded", "39": "\/3d\/new_man\/pants\/STD\/Botones\/3\/folded\/back_pocket+with_button.png" }], "image3D": { "app_webroot_src": "\/var\/www\/vhosts\/tailor4less.com\/httpdocs\/render\/160\/", "web_host_src": "https:\/\/www.hockerty.com\/render\/160\/5cfcb9ddb6736.png", "file": "5cfcb9ddb6736.png" }, "gender": "man", "product_type": "man_suit2", "title": "Blue double breasted wool blend suit ", "description": "Style Double-breasted, Lapels: Notch\nNo Pleats", "q": "1", "price": "299.00", "total_base": "299.00", "total_dsc": "0.00", "total": "299.00", "extras": { "man_jacket": [], "man_waistcoat": [] } } }, "base": 2591, "dsc": 0, "giftcard": 0, "credit": 0, "shipping": 0, "tpv_fee": "0.00", "total": 2591, "custom_base": 0, "custom_dsc": 0, "custom_total": 0, "cart_device": "desktop", "region": "en-au" }, "isAdmin": false };
     </script> -->
     <script type="text/javascript" src="/js/default.js" charset="utf-8"></script>
-    <script type="text/javascript" src="/js/checkout.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/js/checkout/checkout.js" charset="utf-8"></script>
     <script type="text/javascript">$(function () {
             for (var i = 0; i < ready_callbacks.length; i++) {
                 try { ready_callbacks[i](); } catch (ex) { console.log(ex); }

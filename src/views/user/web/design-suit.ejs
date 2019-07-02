@@ -28,20 +28,21 @@
     <link rel="canonical" href="https://www.hockerty.com/en-au/men/custom-suits/personalize/" /> -->
     <link rel="stylesheet" href="/css/default.css" type="text/css" charset="utf-8" />
     <link rel="stylesheet" href="/css/perfect-scrollbar.css" type="text/css" charset="utf-8" />
-    <link rel="stylesheet" href="/css/personalize.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="/css/design/personalize.css" type="text/css" charset="utf-8" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700&display=swap" rel="stylesheet">
     <!--[if lt IE 9]>
 <script src="https://d2w9m16hs9jc37.cloudfront.net/js/html5shiv.js"></script>
 <script type='text/javascript' src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js"></script>
 <script src="https://d2w9m16hs9jc37.cloudfront.net/js/css3-mediaqueries.min.js"></script>
 <![endif]-->
-    <meta property="og:url" content="https://www.hockerty.com/en-au/men/custom-suits/personalize/" />
+    <!-- <meta property="og:url" content="https://www.hockerty.com/en-au/men/custom-suits/personalize/" />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="https://dqp736wsu6w3m.cloudfront.net/hockerty/og/dimg/landing/man_suit2/general_suits_2.png" />
     <meta property="og:image:height" content="1200" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:product:price:amount" content="299" />
     <meta property="og:product:price:currency" content="AUD" />
-    <meta property="article:modified_time" content="2018-03-14 11:44:51" />
+    <meta property="article:modified_time" content="2018-03-14 11:44:51" /> -->
     <!-- <meta property="fb:app_id" content="1012420945555828"> -->
 
 </head>
@@ -595,7 +596,7 @@
                     <ul class="options_list" id="style_menu">
                         <% for(let i = 0 ; i < components.length; i++) { %>
                         <li class="jacket_style_combined" product="man_jacket">
-                            <span href="#jacket_style_combined" class="<%= components[i].code%>" rel="front,without_model"
+                            <span href="#jacket_style_combined" id="<%= components[i].code%>" class="<%= components[i].code%>" rel="front,without_model"
                                 product="man_jacket">
                                 <div class="icon option_icon man_jacket icon_3f" title="Style"></div>
                                 <div data-key="jacket_style_clean_tip(man_jacket)" data-shorttext="jacket_style_clean_tip"
@@ -608,49 +609,6 @@
                             </span>
                         </li>
                         <% } %>
-                        <!-- <li class="jacket_style_combined" product="man_jacket"><span href="#jacket_style_combined"
-                                class="jacket_style_combined" rel="front,without_model" product="man_jacket">
-                                <div class="icon option_icon man_jacket icon_3f" title="Style"></div>
-                                <div data-key="jacket_style_clean_tip(man_jacket)" data-shorttext="jacket_style_clean_tip"
-                                    class="option_title">Style</div>
-                                <div class="shorttext">Style</div>
-                            </span></li>
-                        <li class="jacket_fit " product="man_jacket"><span href="#jacket_fit" class="jacket_fit" rel="front,without_model"
-                                product="man_jacket">
-                                <div class="icon option_icon man_jacket icon_62" title="Fit"></div>
-                                <div data-key="jacket_fit_clean_tip(man_jacket)" data-shorttext="jacket_fit_clean_tip"
-                                    class="option_title">Fit</div>
-                            </span></li>
-                        <li class="jacket_lapel_type_combinated " product="man_jacket"><span href="#jacket_lapel_type_combinated"
-                                class="jacket_lapel_type_combinated" rel="front,without_model" product="man_jacket">
-                                <div class="icon option_icon man_jacket icon_63" title="Jacket Lapels"></div>
-                                <div data-key="jacket_lapel_type_tip(man_jacket)" data-shorttext="Lapels" class="option_title">Jacket
-                                    Lapels</div>
-                            </span></li>
-                        <li class="jacket_pockets_type " product="man_jacket"><span href="#jacket_pockets_type" class="jacket_pockets_type"
-                                rel="front,without_model" product="man_jacket">
-                                <div class="icon option_icon man_jacket icon_6c" title="Pocket style"></div>
-                                <div data-key="jacket_pockets_type_tip(man_jacket)" data-shorttext="Pocket" class="option_title">Pocket
-                                    style</div>
-                            </span></li>
-                        <li class="jacket_sleeve_buttons_combinated  " product="man_jacket"><span href="#jacket_sleeve_buttons_combinated"
-                                class="jacket_sleeve_buttons_combinated" rel="back" product="man_jacket">
-                                <div class="icon option_icon man_jacket icon_6a" title="Sleeve buttons"></div>
-                                <div data-key="jacket_sleeve_buttons_tip(man_jacket)" data-shorttext="Sleeve" class="option_title">Sleeve
-                                    buttons</div>
-                            </span></li>
-                        <li class="jacket_vent  " product="man_jacket"><span href="#jacket_vent" class="jacket_vent"
-                                rel="back" product="man_jacket">
-                                <div class="icon option_icon man_jacket icon_70" title="Back style"></div>
-                                <div data-key="jacket_vent_tip(man_jacket)" data-shorttext="Back" class="option_title">Back
-                                    style</div>
-                            </span></li>
-                        <li class="jacket_chest_pocket  " product="man_jacket"><span href="#jacket_chest_pocket" class="jacket_chest_pocket"
-                                rel="front,without_model" product="man_jacket">
-                                <div class="icon option_icon man_jacket icon_21" title="Breast Pocket"></div>
-                                <div data-key="jacket_chest_pocket_tip(man_jacket)" data-shorttext="_tip" class="option_title">Breast
-                                    Pocket</div>
-                            </span></li> -->
                     </ul>
                 </div>
                 <div class="box_opts">
@@ -661,16 +619,17 @@
                             <%= components[i].name %>
                         </p>
                         <% for(let j = 0; j < components[i].componentItems.length; j++) {
-                                    var styleFlag = "";
-                                    if(!!currentDesign) {
-                                        if(components[i].componentItems[j].code == currentDesign.style[`${components[i].code}`]) {
-                                            styleFlag = "active";
-                                        }
-                                    } else if (components[i].componentItems[j].code == components[i].componentItems[0].code) {                                        
-                                        styleFlag = "active"
-                                    }
-                                %>
+                            var styleFlag = "";
+                            if(!!currentDesign) {
+                                if(components[i].componentItems[j].code == currentDesign.style[`${components[i].code}`]) {
+                                    styleFlag = "active";
+                                }
+                            } else if (components[i].componentItems[j].code == components[i].componentItems[0].code) {                                        
+                                styleFlag = "active"
+                            }
+                        %>
                         <div class="option_trigger pos_0 <%=styleFlag %>"  id=<%=components[i].componentItems[j].code%>>
+                            <!-- <span class="icon man_jacket icon_3e medium "></span> -->
                             <img class="icon man_jacket medium " src="<%=components[i].componentItems[j].icon_img %>">
                             <span class="text">
                                 <%= components[i].componentItems[j].name %></span>
@@ -1083,45 +1042,9 @@
                     </a></div>
                 <div class="menu_filter">
                     <div class="content">
-                        <div class="item_menu_filter season" rel="season">
-                            <p class="items item_menu "><span class="plus">l</span><span class="title">Season</span></p>
-                            <ul class="sub_menu_filter">
-                                <li style="height: auto;">
-                                    <ul class="filter">
-                                        <li rel="all" class="all active"><span class="check"></span><a class="filter"
-                                                href="javascript:;">All</a></li>
-                                        <li rel="summer" class=""><span class="check"></span><a class="filter" href="javascript:;">Summer</a></li>
-                                        <li rel="autum" class=""><span class="check"></span><a class="filter" href="javascript:;">Year
-                                                round</a></li>
-                                        <li rel="winter" class=""><span class="check"></span><a class="filter" href="javascript:;">Winter</a></li>
-                                        <li rel="winter_tweed" class=""><span class="check"></span><a class="filter"
-                                                href="javascript:;">Winter Blazer</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="item_menu_filter category_group" rel="category_group">
-                            <p class="items item_menu "><span class="plus">l</span><span class="title">Category</span></p>
-                            <ul class="sub_menu_filter">
-                                <li style="height: auto;">
-                                    <ul class="filter">
-                                        <li rel="all" class="all active"><span class="check"></span><a class="filter"
-                                                href="javascript:;">All</a></li>
-                                        <li rel="new" class=""><span class="check"></span><a class="filter" href="javascript:;">New</a></li>
-                                        <li rel="best_seller" class=""><span class="check"></span><a class="filter"
-                                                href="javascript:;">Faves</a></li>
-                                        <li rel="basic" class=""><span class="check"></span><a class="filter" href="javascript:;">Basic</a></li>
-                                        <li rel="limited" class=""><span class="check"></span><a class="filter" href="javascript:;">Limited
-                                                edition</a></li>
-                                        <li rel="premium" class=""><span class="check"></span><a class="filter" href="javascript:;">Premium</a></li>
-                                        <li rel="promo" class=""><span class="check"></span><a class="filter" href="javascript:;">promo</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="item_menu_filter tone" rel="tone">
+                        <div class="item_menu_filter color" rel="color">
                             <p class="items item_menu "><span class="plus">l</span><span class="title">Color</span></p>
-                            <ul class="sub_menu_filter">
+                            <ul class="sub_menu_filter" style="display: none">
                                 <li style="height: auto;">
                                     <ul class="filter">
                                         <li rel="all" class="all active"><span class="check"></span><a class="filter"
@@ -1141,9 +1064,9 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="item_menu_filter texture" rel="texture">
+                        <!-- <div class="item_menu_filter texture" rel="texture">
                             <p class="items item_menu "><span class="plus">l</span><span class="title">Pattern</span></p>
-                            <ul class="sub_menu_filter">
+                            <ul class="sub_menu_filter" style="display: none">
                                 <li style="height: auto;">
                                     <ul class="filter">
                                         <li rel="all" class="all active"><span class="check"></span><a class="filter"
@@ -1160,10 +1083,10 @@
                                     </ul>
                                 </li>
                             </ul>
-                        </div>
-                        <div class="item_menu_filter simple_composition" rel="simple_composition">
+                        </div> -->
+                        <div class="item_menu_filter material" rel="material">
                             <p class="items item_menu "><span class="plus">l</span><span class="title">Material</span></p>
-                            <ul class="sub_menu_filter">
+                            <ul class="sub_menu_filter" style="display: none">
                                 <li style="height: auto;">
                                     <ul class="filter">
                                         <li rel="all" class="all active"><span class="check"></span><a class="filter"
@@ -1189,12 +1112,39 @@
                     </div>
                 </div>
             </div>
+            <div class="filters season">
+                <div class="filter_section"><a href="javascript:;" class="back">h</a><a class="filter_button" href="javascript:;">
+                        <div class="filter_title">Add filter</div>
+                    </a></div>
+                <div class="menu_filter">
+                    <div class="content">
+                        <div class="item_menu_filter season" rel="season">
+                            <p class="items item_menu ">
+                                <!-- <span class="plus">l</span> --><span class="title">Season</span>
+                            </p>
+                            <ul class="sub_menu_filter">
+                                <li style="height: auto;">
+                                    <ul class="filter">
+                                        <li rel="all" class="all active"><span class="check"></span><a class="filter" href="javascript:;">All</a></li>
+                                        <li rel="summer" class=""><span class="check"></span><a class="filter" href="javascript:;">Summer</a></li>
+                                        <li rel="winter" class=""><span class="check"></span><a class="filter" href="javascript:;">Winter</a></li>
+                                    </ul>
+                                    </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="background_fixed">
+                        <div class="apply"><a class="apply_button" href="javascript:;" title="APPLY FILTERS">Apply
+                                filters</a></div>
+                    </div>
+                </div>
+            </div>
             <div class="sidebar-options block" id="fabric">
                 <div class="left_filters filters_man_suit">
                     <ul class="options_list">
                         <li class="filter active filter_all" rel="all" message="All fabrics" style="display: list-item;"><a
                                 rel="all" href="javascript:;" class="">
-                                <div class="option_icon" title="All fabrics">2</div>
+                                <div class="option_icon" title="All fabrics">All</div>
                                 <div class="shorttext">All</div>
                             </a></li>
                         <li class="filter filter_new" rel="new" message="New fabrics" style="display: list-item;"><a
@@ -1202,31 +1152,32 @@
                                 <div class="option_icon" title="New fabrics">></div>
                                 <div class="shorttext">New</div>
                             </a></li>
-                        <li class="filter filter_best_sell" rel="best_sell" message="Most popular fabrics" style="display: list-item;"><a
-                                rel="best_sell" href="" class="">
+                        <li class="filter filter_trending" rel="trending" message="Most popular fabrics" style="display: list-item;"><a
+                                rel="trending" href="" class="">
                                 <div class="option_icon" title="Most popular fabrics">
-                                    <</div> <div class="shorttext">Faves
+                                    <</div> <div class="shorttext">Trending
                                 </div>
                             </a></li>
+                        <li class="filter filter_promo" rel="promo" message="Promo fabrics" style="display: list-item;">
+                            <a rel="promo" href="" class="">
+                            <div class="option_icon" title="Promo fabrics">
+                                <</div> <div class="shorttext">Promo
+                            </div>
+                        </a></li>
                         <li class="filter filter_premium" rel="premium" message="Premium" style="display: list-item;"><a
                                 rel="premium" href="" class="">
                                 <div class="option_icon" title="Premium">&</div>
                                 <div class="shorttext">Premium</div>
                             </a></li>
-                        <li class="filter filter_winter" rel="winter" message="winter fabrics" style="display: list-item;"><a
-                                rel="winter" href="" class="">
-                                <div class="option_icon" title="winter fabrics">7</div>
-                                <div class="shorttext">Winter</div>
+                        <li class="filter filter_season" rel="season" message="season fabrics" style="display: list-item;"><a
+                                rel="season" href="" class="">
+                                <div class="option_icon" title="season fabrics">7</div>
+                                <div class="shorttext">season</div>
                             </a></li>
                         <li class="filter filter_filter" rel="filter" message="filters" style="display: list-item;"><a
                                 rel="filter" href="" class="">
                                 <div class="option_icon" title="filters">8</div>
                                 <div class="shorttext">filters</div>
-                            </a></li>
-                        <li class="filter filter_multi" rel="multi" style="display: list-item;"><a rel="multi" href=""
-                                class="">
-                                <div class="option_icon" title="Multi">!</div>
-                                <div class="shorttext">Multi</div>
                             </a></li>
                         <li class="filter filter_info" rel="info" style="display: list-item;"><a rel="info" href=""
                                 class="">
@@ -1273,14 +1224,13 @@
                             <div class="image <%= fabric.code%>" id=<%=fabric.code %> rel=
                                 <%= fabric.code %>>
                                 <span rel=<%=fabric.code %> class="fabric select">
-                                    <img src=<%=fabric.catalog_img %>
-                                    alt=
-                                    <%= fabric.name %>></span>
+                                    <img src="<%=fabric.catalog_img %>"
+                                    alt="<%= fabric.name %>"></span>
                                 <span class="thumb_preview"></span>
                                 <div class="info">
                                     <div class="prices_block">
                                         <div class="price price_part man_suit2 general visible ">$
-                                            <%= fabric.products.find(product => product.product_id = "product_001").price %>
+                                            <%= fabric.products.find(product => product.product_id == currentDesign.product).price %>
                                         </div>
                                     </div>
                                     <div class="title_compo">
@@ -1288,7 +1238,7 @@
                                             <%= fabric.name %>
                                         </div>
                                         <div class="composition visible"><span class="trad">
-                                                <%= fabric.type[0] %></span></div>
+                                                <%= fabric.material[0] %></span></div>
                                     </div>
                                 </div>
                             </div>
@@ -3770,7 +3720,7 @@
 
     <script type="text/javascript" src="/js/default.js" charset="utf-8"></script>
     <script type="text/javascript" src="/js/perfect-scrollbar.jquery.min.js" charset="utf-8"></script>
-    <script type="text/javascript" src="/js/design.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/js/design/design.js" charset="utf-8"></script>
     <!-- <script type="text/javascript" src="/js/garment_desktop.js" charset="utf-8"></script> -->
 
 
