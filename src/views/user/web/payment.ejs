@@ -14,9 +14,11 @@
         <div class="container wide">
             <div class="content slim">
                 <div class="set">
-                    <div class="fill"><a class="pseudoshop" href="/">PSEUDO <strong>SHOP</strong></a></div>
-                    <div class="fit"><a class="braintree" href="https://developers.braintreepayments.com/guides/drop-in"
-                            target="_blank">Braintree</a></div>
+                    <div class="fill">
+                        <a class="pseudoshop" href="/">
+                            <img src="/images/logos/westailor-logo-black.png" />
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -26,19 +28,15 @@
         <div class="checkout container">
             <div class="content">
                 <header>
-                    <h1>Hi, <br /> Let's test a transaction</h1>
-                    <p>Make a test payment with Braintree using PayPal or a card</p>
+                    <h1>Total payment amount: <strong><%= total_price %></strong> AUD</h1>
                 </header>
                 <form id="payment-form" action="/checkout/payment" method="post">
-                    <section><label for="amount"><span class="input-label">Amount</span>
-                            <div class="input-wrapper amount-wrapper"><input id="amount" name="amount" type="tel"
-                                    min="1" value="10" /></div>
-                        </label>
+                    <section>
                         <div class="bt-drop-in-wrapper">
                             <div id="bt-dropin"></div>
                         </div>
                     </section><input id="nonce" type="hidden" name="payment_method_nonce" /><button class="button"
-                        type="submit"><span>Test Transaction</span></button>
+                        type="submit"><span>PAY</span></button>
                 </form>
             </div>
         </div>

@@ -148,15 +148,49 @@ $(document).ready(function () {
             window.history.pushState('next_step', '', '?step=measure');
             step = urlParam('step');
         } else {
-            if (checkMeasurement()) {
+            let measureFlag = $('#extra .checkbox_option').find('.checked').attr('rel')
+            let url = '/api/orders/orderItem';
+            delete currentDesign.img;
+            if(measureFlag == "0") {
+                if (checkMeasurement()) {
+                    if(!pos) {
+                        currentDesign.quantity = 1;
+                    } else {
+                        url = '/api/orders/orderItem/' + pos
+                    }
+                    $.ajax({
+                        type: 'POST',
+                        data: JSON.stringify({
+                            data: currentDesign
+                        }),
+                        contentType: 'application/json',
+                        url: url,
+                        success: function (data) {
+                            window.location.href = '/checkout/cart'
+                        },
+                        error: function (error) {
+                            console.log(error);
+                        }
+                    });
+                } else {
+                    alert('The measure form is not valid!')
+                }
+            }
+            else {
                 currentDesign.quantity = 1;
+                delete currentDesign.measure;
+                if(!pos) {
+                    currentDesign.quantity = 1;
+                } else {
+                    url = '/api/orders/orderItem/' + pos
+                }
                 $.ajax({
                     type: 'POST',
                     data: JSON.stringify({
                         data: currentDesign
                     }),
                     contentType: 'application/json',
-                    url: '/api/order/orderItem',
+                    url: url,
                     success: function (data) {
                         window.location.href = '/checkout/cart'
                     },
@@ -164,8 +198,6 @@ $(document).ready(function () {
                         console.log(error);
                     }
                 });
-            } else {
-                alert('The measure form is not valid!')
             }
         }
     });
@@ -365,7 +397,7 @@ $(document).ready(function () {
 
     // Handle change config
     $('#style_menu span').click(function (event) {
-        let style = $(this).attr('id');        
+        let style = $(this).attr('id');
         $(this).parent().parent().parent().addClass('min');
         $('.box_opts').find('.box_opt.active').removeClass('active');
         $(this).parent().parent().find('span.active').removeClass('active');
@@ -413,6 +445,15 @@ $(document).ready(function () {
         }
     });
 
+    $('#extra .checkbox_option label').click(function () {
+        $(this).parent().find('.checked').removeClass('checked');
+        $(this).addClass('checked')
+        if ($(this).attr('rel') == "1")
+            $('#extra #measure_form').slideUp()
+        else
+            $('#extra #measure_form').slideDown()
+    });
+
     $('#extra #measure_form select').change(function () {
         let selection = $(this).val();
         if ($(this).val() == 'NoSelect') {
@@ -428,7 +469,6 @@ $(document).ready(function () {
                 $(this).css('border', '1px solid #13bb18')
             });
         }
-
     })
 
     //Handle validate measurement

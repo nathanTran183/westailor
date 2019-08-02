@@ -1,64 +1,59 @@
-const _ = require('lodash');
-const mergeImages = require('merge-images');
-const { Canvas, Image } = require('canvas');
-Canvas.Image = Image;
+// const _ = require('lodash');
+const fs = require('fs');
 const path = require('path');
+const productPath = path.join(__dirname, '../../data/products.json');
+const imagePath = path.join(__dirname, '../../data/images.json');
 const filePath = path.join(__dirname, '../../../../publics/images/components');
+
+const OrderItem = require('../../models/OrderItem');
 
 module.exports = {
     add: async (req, res) => {
-        // mergeImages([filePath + '/man_shirt.png', filePath + '/fabric1_style1.png'], {
-        //     Canvas: Canvas
-        // })
-        //     .then(b64 => {
-        //         var base64Data = b64.replace(/^data:image\/png;base64,/, "");
-        //         require("fs").writeFile("out.png", base64Data, {encoding: 'base64'}, function(err) {
-        //             if(err) {
-        //                 console.log(err);
-        //             }
-        //             else console.log('fileCreated')
-        //         });
-        //     })
-        //     .catch(err => console.log(err));    
-        console.log(req.body.data)    
-        if (!!req.session.carts) {
-            req.session.carts.push(req.body.data);
-        }
-        else {
-            req.session.carts = [req.body.data]
-        }
-        req.session.currentDesign = null;  
-        return res.status(200).json({ success: true })
-    },
-
-    updateQuantity: async (req, res) => {
-        try {
-            let id = +req.params.id;
-            await req.session.carts.map((item,idx) => {
-                if(idx === id)
-                    item.quantity = req.body.quantity
-                return item;
-            });            
-            return res.status(200).json({success: true})
-        } catch (err) {
-            console.log(err);
-            return res.status(500).json({success: false})
-        }
+        
     },
 
     delete: async (req, res) => {
+        
+    },
+
+    updateMeasure: async (req, res) => {
         try {
-            let id = +req.params.id;
-            let carts = req.session.carts;
-            req.session.carts = await carts.filter((item,idx) => {
-                if(idx !== id) return true;
-                else return false;
-            });            
-            return res.status(200).json({success: true})
-        }
-        catch (err) {
-            console.log(err);
-            return res.status(500).json({success: false})
+            let id = req.params.id, itemId = req.params.itemId;
+            if(!id || !itemId) {
+                req.flash('errors', {msg: 'Invalid params!'})
+                res.redirect('back');
+            }
+            let orderItem = await OrderItem.findOne({_id: itemId, order_id: id});
+            if(!orderItem) {
+                req.flash('errors', {msg: 'Order Item not found!'})
+                res.redirect('back');
+            }
+
+            let productFile = fs.readFileSync(productPath);
+            let productData = JSON.parse(productFile);
+
+            let product = productData.find(prod => prod.code == orderItem.product_id);
+            if(!product) {
+                req.flash('errors', {msg: 'Order Item not found!'})
+                res.redirect('back');
+            }
+            if (!orderItem.measure) 
+                orderItem.measure = {}
+            for(var i = 0 ; i < product.measure.length; i++) {
+                if(!req.body[product.measure[i]]) {
+                    req.flash('errors', {msg: 'Please fill all measure info!'})
+                    res.redirect('back');
+                }
+                orderItem.measure[product.measure[i]] = req.body[product.measure[i]];
+            }
+            orderItem.markModified('measure');
+            orderItem.status = true;
+            await orderItem.save();
+            req.flash('success', 'Update measure info successfully')
+            res.redirect('/admin/orders/'+id);
+        } catch (error) {
+            req.flash('errors', {msg: error.message})
+            res.redirect('back');
         }
     }
 }

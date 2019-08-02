@@ -24,93 +24,97 @@
             if(session.user != null)
             if (session.user.role == "Admin") { %>
             <li>
-                <a href="/employees">
+                <a href="/admin/employees">
                     <i class="glyphicon glyphicon-user"></i>
                     <span>Employees</span>
                 </a>
             </li>
             <li>
-                <a href="/employees/blackList">
+                <a href="/admin/employees/blackList">
                     <i class="fa fa-circle-o" style="margin-left: 10%"></i>
                     <span>Black List</span>
                 </a>
             </li>
-
-
-            <li>
-                <a href="/stores">
-                    <i class="glyphicon glyphicon-tasks"></i> <span>Stores</span>
-                </a>
-            </li>
             <!--<li class="active">-->
+            
             <li>
-                <a href="/stores">
-                    <i class="fa fa-circle-o" style="margin-left: 10%"></i>
-                    <span>Overview</span>
-                </a>
-            </li>
-            <li>
-                <a href="/storeTypes">
-                    <i class="fa fa-circle-o" style="margin-left: 10%"></i>
-                    <span>Store Type</span>
-                </a>
-            </li>
-            <li>
-                <a href="/stores/create">
-                    <i class="fa fa-circle-o" style="margin-left: 10%"></i>
-                    <span>Add Store</span>
-                </a>
-            </li>
-            <li>
-                <a href="/orders/statistics">
+                <a href="/admin/orders/statistic">
                     <i class="fa fa-newspaper-o"></i>
-                    <span>Statistics</span>
-                </a>
-            </li>
-            <li>
-                <a href="/discounts">
-                    <i class="glyphicon glyphicon-gift"></i>
-                    <span>Discounts</span>
+                    <span>Statistic</span>
                 </a>
             </li>
             <% } %>
             <li>
-                <a href="/users">
-                    <i class="glyphicon glyphicon-user"></i>
+                <a href="/admin/users">
+                    <i class="fa fa-users"></i>
                     <span>Users</span>
                 </a>
             </li>
             <li>
-                <a href="/users/blackList">
+                <a href="/admin/users/blackList">
                     <i class="fa fa-circle-o" style="margin-left: 10%"></i>
                     <span>Black List</span>
                 </a>
             </li>
+            <% 
+                    let url = "";
+                if(session.user.role == "Admin") {
+                    url = "/admin/orders" 
+                } else if (session.user.role == "Staff") {
+                    url = "/admin/orders/pending"
+                } %>
             <li>
-                <a href="/orders">
-                    <i class="fa fa-newspaper-o"></i>
+                <a href="<%= url %>">
+                    <i class="fa fa-shopping-cart"></i>
                     <span>Total Orders</span>
                 </a>
             </li>
             <li>
-                <a href="/orders/submitted">
+                <a href="/admin/orders/create">
+                    <i class="fa fa-circle-o" style="margin-left: 10%"></i>
+                    <span>Create Order</span>
+                </a>
+            </li>
+            <% if (session.user.role == "Admin") { %> 
+            <li>
+                <a href="/admin/orders/pending">
                     <i class="fa fa-circle-o" style="margin-left: 10%"></i>
                     <span>Pending Orders</span>
                 </a>
             </li>
             <li>
-                <a href="/orders/processing">
+                <a href="/admin/orders/confirmed">
+                    <i class="fa fa-circle-o" style="margin-left: 10%"></i>
+                    <span>Confirmed Orders</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/orders/processing">
                     <i class="fa fa-circle-o" style="margin-left: 10%"></i>
                     <span>Processing Orders</span>
                 </a>
             </li>
             <li>
-                <a href="/orders/history">
+                <a href="/admin/orders/history">
                     <i class="fa fa-circle-o" style="margin-left: 10%"></i>
                     <span>History</span>
                 </a>
             </li>
-
+            <% } %>
+            <li>
+                <a href="/admin/feedback">
+                    <i class="fa fa-envelope-o"></i>
+                    <span>Feedback</span>
+                </a>
+            </li>
+            <% if (session.user != null && session.user.role == "Admin") { %>
+            <li>
+                <a href="/admin/discounts">
+                    <i class="glyphicon glyphicon-gift"></i>
+                    <span>Discounts</span>
+                </a>
+            </li>
+            <% } %>
         </ul>
     </section>
     <!-- /.sidebar -->

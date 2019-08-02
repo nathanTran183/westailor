@@ -24,7 +24,7 @@ $(document).ready(function () {
             $.ajax({
                 type: 'POST',
                 contentType: 'application/json',
-                url: '/api/order/removeItem/' + item_id,
+                url: '/api/orders/removeItem/' + item_id,
                 success: function (data) {
                     window.location.href = '/checkout/cart'
                 },
@@ -76,7 +76,7 @@ $(document).ready(function () {
         let quantity = $(this).find('[name="quantity"]').val();
         $.ajax({
             type: "POST",
-            url: '/api/order/updateQuantity/' + item_id.split('item_')[1],
+            url: '/api/orders/updateQuantity/' + item_id.split('item_')[1],
             data: {
                 quantity: quantity
             },
@@ -91,4 +91,11 @@ $(document).ready(function () {
         });
     });
 
+    //Display img
+    $(".popup_link").click(function(event) {
+        event.preventDefault();
+        $('#product_preview iframe').attr('src', $(this).attr('data-href'));
+        $('#product_preview_mobile img').attr('src', $('.popup_link img').attr('src'))
+        $('#product_preview_mobile').show();
+    })
 });

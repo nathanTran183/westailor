@@ -63,7 +63,7 @@ module.exports = {
             expireDate.setHours(23, 59, 59, 999);
             if (new Date(discount.date_start) > new Date() || expireDate < new Date())
                 return res.status(403).json({ status: false, message: "Invalid discount coupon time! Please make a check!" });
-            req.session.order.discount = code;
+            req.session.order.discount_id = discount._id;
             return res.json({ status: true, data: { discount: discount } })
         } catch (err) {
             console.log(e);

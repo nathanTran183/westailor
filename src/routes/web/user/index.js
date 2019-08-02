@@ -1,7 +1,8 @@
 /**
  * Created by nathan on 05/10/2019.
  */
-// const usersRoute = require('../admin/user');
+const checkoutRoute = require('./checkout');
+const orderRoute = require('./order');
 // const adminRoutes = require('../admin')
 // const employeeRoute = require('./employee');
 
@@ -27,23 +28,20 @@ router.get('/signIn', function (req, res) {
         res.render('user/web/signIn');
 });
 
-router.post('/signIn', UserController.postSignIn);
-router.post('/signUp', UserController.postSignUp);
+router.post('/signIn', passport.notLogIn, UserController.postSignIn);
+router.post('/signUp', passport.notLogIn, UserController.postSignUp);
+router.get('/profile', passport.isUserWeb, UserController.userProfile);
+router.post('/profile', passport.isUserWeb, UserController.updateUserInfo);
+router.post('/change-password', passport.isUserWeb, UserController.changePass);
 
 
+router.get('/men/design-suit', function (req, res, next) { res.locals.gender = "men"; res.locals.product = "suit"; next(); }, FabricController.list);
+router.get('/men/design-suit/:id', function (req, res, next) { res.locals.gender = "men"; res.locals.product = "suit"; next(); }, FabricController.list);
+router.get('/men/design-shirt', function (req, res, next) { res.locals.gender = "men"; res.locals.product = "shirt"; next(); }, FabricController.list);
+router.get('/men/design-shirt/:id', function (req, res, next) { res.locals.gender = "men"; res.locals.product = "shirt"; next(); }, FabricController.list);
 
-// router.get('/design-suit', function (req, res) {
-//     var ua = req.headers['user-agent'];
-//     if (/mobile/i.test(ua))
-//         res.render('user/mobile/index');
-//     else    
-//     res.render('user/web/design-suit');
-// });
-router.get('/checkout/cart', OrderController.getSessionCart);
-router.get('/checkout/shipping', passport.hasCart, OrderController.getShipping);
-router.get('/checkout/payment', passport.hasCart, OrderController.getPayment);
-router.post('/checkout/payment', passport.hasCart, OrderController.postPayment);
-router.get('/men/design-suit', FabricController.list);
-router.get('/men/design-suit/:id', FabricController.list);
+router.use('/orders', orderRoute);
+router.use('/checkout', checkoutRoute);
+
 
 module.exports = router; 

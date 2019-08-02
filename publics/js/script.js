@@ -11,6 +11,13 @@ $.validator.addMethod("greaterThan",
 $.validator.addMethod('minStrict', function (value, el, param) {
     return value > param;
 });
+
+function urlParam(name) {
+    var results = new RegExp('[\?&]' + name + '=([^&#]*)')
+        .exec(window.location.search);
+    return (results !== null) ? results[1] || 0 : false;
+}
+
 $(document).ready(function () {
     $(".datepicker").datepicker({
         changeMonth: true,
@@ -18,11 +25,14 @@ $(document).ready(function () {
     });
 
     var tableListUsers = $('#tableListUsers').DataTable();
-    var tableListStoreTypes = $('#tableListStoreTypes').DataTable();
+    // var tableListStoreTypes = $('#tableListStoreTypes').DataTable();
     $('#tableListProducts').DataTable();
-    $("#tableListProductAddons").DataTable();
-    $("#tableListAddons").DataTable();
+    // $("#tableListProductAddons").DataTable();
+    // $("#tableListAddons").DataTable();
     $("#tableListDiscounts").DataTable();
+    $("#tableListOrders").DataTable();
+    $("#tableListStatisticOrders").DataTable();
+
     var tableListSubmittedOrders = $("#tableListSubmittedOrders").DataTable({
         "order": [],
         "ajax": {
@@ -130,7 +140,6 @@ $(document).ready(function () {
             },
         ],
     });
-
     var tableListProcessingOrders = $('#tableListProcessingOrders').DataTable({
         "ajax": {
             url: '/orders/processingJSON',
@@ -197,7 +206,6 @@ $(document).ready(function () {
             },
         ],
     });
-
     var tableListDeliMans = $("#tableListDeliMans").DataTable({
         "ordering": false,
         "ajax": {
@@ -231,52 +239,25 @@ $(document).ready(function () {
         }
     });
 
-    var tableListStatisticsOrders = $("#tableListStatisticsOrders").DataTable({
-        "ajax": {
-            url: '/orders/statisticsJSON',
-            type: 'GET',
-            dataSrc: 'data.orders'
-        },
-        "order": [],
-        "columns": [
-            {'data': 'id', 'orderable': false},
-            {'data': 'user_name'},
-            {'data': 'user_address'},
-            {
-                "data": "order_date",
-                "render": function (data) {
-                    let date = new Date(data);
-                    return date.toLocaleString()
-                }
-            },
-            {
-                "data": "delivery_date",
-                "render": function (data) {
-                    let date = new Date(data);
-                    return date.toLocaleString()
-                }
-            },
-            {'data': 'ship_fee'},
-            {'data': 'total_amount'},
-            {
-                'data': 'id',
-                'orderable': false,
-                'render': function (data) {
-                    return "<a href='/orders/" + data + "' title='View Detail' class='btn btn-primary btn-flat'><span class='fa fa-search' aria-hidden='true'></span></a>";
-                },
-            },
-        ],
-    });
+    let startDate = urlParam('startDate');
+    let endDate = urlParam('endDate');
+    if(!startDate || ! endDate) {
+        startDate = new Date().toISOString();
+        endDate = new Date().toISOString();
+    } else {
+        startDate = new Date(startDate).toISOString();
+        endDate = new Date(endDate).toISOString();
+    }
+
     $('#reservation').daterangepicker({
             locale: {
                 format: 'YYYY/MM/DD'
             },
-            startDate: new Date().toISOString(),
-            endDate: new Date().toISOString()
+            startDate: startDate,
+            endDate: endDate
         },
         function (start, end, label) {
-            console.log('aaa')
-            tableListStatisticsOrders.ajax.url('/orders/statisticsJSON?startDate=' + start.format('YYYY-MM-DD') + '&endDate=' + end.format('YYYY-MM-DD')).load();
+            window.location.replace('/admin/orders/statistic?startDate=' + start.format('YYYY-MM-DD') + '&endDate=' + end.format('YYYY-MM-DD'));
         }
     );
 
@@ -285,7 +266,7 @@ $(document).ready(function () {
 
     // Handling modal
     $('.confirmChangeUserStatus').click(function (event) {
-        $('#form-change-user-status').attr('action', '/users/' + $(this).data('id'));
+        $('#form-change-user-status').attr('action', '/admin/users/' + $(this).data('id'));
         $('#confirm-deactive').modal();
     });
 
@@ -457,7 +438,7 @@ $(document).ready(function () {
     });
 
     $('#panel-insert-discount #getCode').click(function (e) {
-        console.log('here')
+        // console.log('here')
         $.ajax({
             url: "/admin/discounts/generateCode",
             success: function (result) {

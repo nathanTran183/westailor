@@ -38,6 +38,10 @@ function backToMain() {
     $('.garment_container .garment_block_fabric ').removeClass('visible');
     $('.garment_container .garment_block_config ').removeClass('visible');
     $('.garment_container .garment_block_extra ').removeClass('visible');
+    $('.garment_block_config .navigate').removeClass('visible');
+    $('.garment_container .garment_block_config .navigate').removeClass('visible');
+    $('.garment_block_extra .navigate').hide();
+    $('.garment_block_extra .navigate a').hide();
     $('#fabric_view_opt').removeClass('visible');
     $('.list_option').parent().find('.list_option.active').removeClass('active');
     $('.list_option').find('.config_field').hide();
@@ -72,7 +76,7 @@ function renderImage(component_id, componentImg) {
 
 function checkMeasurement() {
     let flag = true;
-    $('#extra #measure_form input').each(function () {
+    $('.garment_block_extra #measure_form input').each(function () {
         let input = $(this);
         if (!!input.val() && input.val() > 0) {
             currentDesign.measure[`${input.attr('name')}`] = input.val();
@@ -84,39 +88,6 @@ function checkMeasurement() {
     return flag;
 }
 
-// function filterFabric(option) {
-//     $('.filters.season').removeClass('active')
-//     $('.filters.fabric_step').removeClass('active')
-//     switch (option) {
-//         case 'all':
-//             $('.fabric_list .fabric_box').each(function () {
-//                 if ($(this).hasClass('active')) {
-//                     $('.fabric_list .fabric_box').addClass('active');
-//                 }
-//             })
-//             break;
-//         case 'promo':
-//         case 'premium':
-//         case 'trending':
-//         case 'new':
-//             fabrics.forEach(fabric => {
-//                 if (fabric.category.indexOf(option) !== -1) {
-//                     if (!$('.fabric_list .fabric_box #' + fabric.code).parent().hasClass('active')) {
-//                         $('.fabric_list .fabric_box #' + fabric.code).parent().addClass('active')
-//                     }
-//                 } else {
-//                     $('.fabric_list .fabric_box #' + fabric.code).parent().removeClass('active');
-//                 }
-//             });
-//             break;
-//         case 'season':
-//             $('.filters.season').addClass('active');
-//             break;
-//         case 'filter':
-//             $('.filters.fabric_step').addClass('active');
-//             break;
-//     }
-// }
 
 $(document).ready(function () {
     $(window).on('popstate', function () {
@@ -134,6 +105,8 @@ $(document).ready(function () {
     $('.container_options').perfectScrollbar({
         suppressScrollX: true
     });
+
+
 
     // Handle change step
     $('.step_options .first').click(function (event) {
@@ -190,16 +163,16 @@ $(document).ready(function () {
     // Handle change fabric
     $('.fabric_list .fabric_thumb').click(function () {
         let fabric_id = $(this).find('.image').attr('id');
-        fabric = fabrics.find(fabric => fabric.code == fabric_id);
+        let tempFabric = fabrics.find(fabric => fabric.code == fabric_id);
 
         $('#fabric_view_opt').attr('rel', fabric_id);
-        $('#fabric_view_opt .price').html('$' + fabric.products.find(product => product.product_id == currentDesign.product).price);
-        $('#fabric_view_opt .title').html(fabric.name);
-        $('#fabric_view_opt .season').html(" - " + fabric.season.join('/'));
-        $('#fabric_view_opt .texture').html(" - " + fabric.color.join('/'));
-        $('#fabric_view_opt .material').html(fabric.material.join("/"));
+        $('#fabric_view_opt .price').html('$' + tempFabric.products.find(product => product.product_id == currentDesign.product).price);
+        $('#fabric_view_opt .title').html(tempFabric.name);
+        $('#fabric_view_opt .season').html(" - " + tempFabric.season.join('/'));
+        $('#fabric_view_opt .texture').html(" - " + tempFabric.color.join('/'));
+        $('#fabric_view_opt .material').html(tempFabric.material.join("/"));
 
-        $('#fabric_view_opt #fabric_view_zoom').attr('src', fabric.detailed_img);
+        $('#fabric_view_opt #fabric_view_zoom').attr('src', tempFabric.detailed_img);
         $('#fabric_view_opt').addClass('visible')
     });
 
@@ -306,12 +279,6 @@ $(document).ready(function () {
         event.preventDefault();
     });
 
-
-
-
-
-
-
     // Handle open fabric filter
     $('.num_5 .filter').click(function () {
         $('.num_5 .filter.active').not(this).removeClass('active');
@@ -349,11 +316,11 @@ $(document).ready(function () {
                     let subFlag = false;
                     for (var subItem of fabric[item]) {
                         if (filter_list[item].indexOf(subItem) !== -1) {
-                            subFlag = true;                            
+                            subFlag = true;
                             break;
                         }
                     }
-                    if(subFlag) 
+                    if (subFlag)
                         flag++;
                 }
             })
@@ -386,8 +353,8 @@ $(document).ready(function () {
         backToMain();
     });
 
-    // Handle change style
-    $('.box_opt_fix label').click(function () {
+    // Handle change style in config
+    $('.garment_block_config .box_opt_fix label').click(function () {
         $(this).parent().find('.active').removeClass('active');
         $(this).addClass('active');
         let component_id = $(this).parents('.list_option').attr('id');
@@ -417,31 +384,102 @@ $(document).ready(function () {
                 renderImage(childComponent.code, componentImg);
             }
         }
+        $('.garment_block_config .navigate').addClass('visible');
     });
 
-    $('#extra #measure_form select').change(function () {
+    $('.garment_block_config .navigate a').click(function (event) {
+        event.preventDefault();
+        $(this).parent().removeClass('visible')
+        backToMain();
+    })
+
+    $('.garment_block_extra .box_opt_fix label').click(function () {
+        $(this).parent().find('.checked').removeClass('checked');
+        $(this).addClass('checked')
+        if ($(this).attr('rel') == "1")
+            $('.garment_block_extra #measure_form').slideUp()
+        else
+            $('.garment_block_extra #measure_form').slideDown()
+    });
+
+    $('.garment_block_extra #measure_form select').change(function () {
         let selection = $(this).val();
         if ($(this).val() == 'NoSelect') {
-            $('#extra #measure_form input').each(function () {
+            $('.garment_block_extra #measure_form input').each(function () {
                 $(this).val('');
                 $(this).css('border', '1px solid #dbdbdb')
             });
         } else {
-            $('#extra #measure_form input').each(function () {
+            $('.garment_block_extra #measure_form input').each(function () {
                 let item = $(this).attr('name');
                 let value = size_json[selection][item];
                 $(this).val(value);
                 $(this).css('border', '1px solid #13bb18')
             });
         }
-
     })
 
     //Handle validate measurement
-    $('#extra #measure_form input').change(function (event) {
-        if (isNaN(+$(this).val()) || +$(this).val() <= 0)
-            $(this).css('border', '1px solid #ff0000')
+    $('.garment_block_extra #measure_form input').keyup(function () {
+        let input = $(this)
+        let value = +$(this).val()
+        if (isNaN(value) || value <= 0) {
+            input.css('border', '1px solid #ff0000')
+        }
         else
-            $(this).css('border', '1px solid #13bb18')
+            input.css('border', '1px solid #13bb18')
     });
+
+    $('.action .add_to_cart').click(function () {
+        let measureVal = $('.garment_block_extra .box_opt_fix .checked').attr('rel')
+        delete currentDesign.img;
+        if (measureVal == "0")
+            if (checkMeasurement()) {
+                if(!pos) {
+                    currentDesign.quantity = 1;
+                } else {
+                    url = '/api/orders/orderItem/' + pos
+                }
+                $.ajax({
+                    type: 'POST',
+                    data: JSON.stringify({
+                        data: currentDesign
+                    }),
+                    contentType: 'application/json',
+                    url: '/api/orders/orderItem',
+                    success: function (data) {
+                        window.location.href = '/checkout/cart'
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            } else {
+                alert('The measure form is not valid!')
+                setContentByStep("measure");
+            }
+        else {
+            currentDesign.quantity = 1;
+            delete currentDesign.measure;
+            if(!pos) {
+                currentDesign.quantity = 1;
+            } else {
+                url = '/api/orders/orderItem/' + pos
+            }
+            $.ajax({
+                type: 'POST',
+                data: JSON.stringify({
+                    data: currentDesign
+                }),
+                contentType: 'application/json',
+                url: '/api/orders/orderItem',
+                success: function (data) {
+                    window.location.href = '/checkout/cart'
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+    })
 });

@@ -204,7 +204,7 @@
                                         <% } %>
                                     </td>
                                     <td>
-                                        <a href="/admin/employees/<%= user._id %>" title="View Detail" class="btn btn-default"><span
+                                        <a href="/admin/employees/<%= user._id %>" title="View Detail" target="_blank" class="btn btn-default"><span
                                                 class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
                                         <% if(user.status == "Active" || user.status == "Busy") { %>
                                         <a href="#" data-toggle="modal" data-id="<%= user.id %>" title="Deactive" class="confirmChangeEmployeeStatus btn btn-danger"><span

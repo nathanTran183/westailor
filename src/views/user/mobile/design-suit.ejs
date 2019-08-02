@@ -91,6 +91,7 @@
         var mobile_enabled = 1;
         var tablet_enabled = false;
         var dataLayer = [{ "contentGroup1": "Configurador", "contentGroup2": "Configurador_man_suit", "config_version": "man_suit_mobile_v2", "region": "en-au", "lang": "en", "currency": { "iso": "AUD", "symbol": "$" }, "length_units": "cm", "weigth_units": "kg", "gender": "man", "menu_item": "man_suit_personalize_2", "isAdmin": null, "mobile_device": true, "tablet_device": false, "mobile_ready": true, "mobile_enabled": true, "customer_logged": 0, "swiss_site": 0, "device_type": "mobile" }];
+        var pos = "<%= pos %>";
         var size_json = {
             "S": { "shoulder": 41, "chest": 99, "stomach": 89, "hip": 98, "sleeves": 80 },
             "M": { "shoulder": 46, "chest": 109, "stomach": 98, "hip": 105, "sleeves": 100 },
@@ -326,18 +327,14 @@
 
                 <div id="available_window_zoom" class="image_render_full man_suit ">
                     <div class="loading">
-                        <img src="/images/loading.gif"
-                            onerror="this.src='https://d2w9m16hs9jc37.cloudfront.net/images/garment/loading.gif'">
+                        <img src="/images/loading_new.gif"
+                            onerror="this.src='https://d2w9m16hs9jc37.cloudfront.net/images/garment/loading_new.gif'">
                     </div>
                     <a class="close">v</a>
                     <div class="layers viewport"></div>
                 </div>
 
                 <div id="save_product_popup">
-                    <div class="loading">
-                        <img src="/images/loading.gif"
-                            onerror="this.src='/images/garment/loading.gif'">
-                    </div>
                     <div class="content">
                         <a class="close">v</a>
                         <div class="sorry_disturb">sorry to disturb you but this is important</div>
@@ -396,7 +393,7 @@
                 </div>
                 <div class="cart_share">
                     <div class="add_to_cart" data-id="null">Add to Cart</div>
-                    <img class="go_to_cart_loader" data-id="null" src="https://d2w9m16hs9jc37.cloudfront.net/images/loading.gif" alt="loading" />
+                    <img class="go_to_cart_loader" data-id="null" src="https://d2w9m16hs9jc37.cloudfront.net/images/loading_new.gif" alt="loading" />
                     <a class="go_to_cart" href="/en-au/checkout/cart" data-id="null">Go to cart</a>
                     <div class="sep"></div>
                     <div class="remove" data-text="Are you sure you would like to remove this product? " data-id="null"></div>
@@ -416,8 +413,8 @@
                     <div class="your_wish_list has-customer">Your wish list</div>
                     <div class="products"></div>
                     <div class="loading">
-                        <img src="images/loading.gif"
-                            onerror="this.src='/images/garment/loading.gif'">
+                        <img src="images/loading_new.gif"
+                            onerror="this.src='/images/garment/loading_new.gif'">
                     </div>
                     <div class="content">
                         <a class="close">v</a>
@@ -501,7 +498,7 @@
                 <!-- <div id="share_popup">
                     <div class="loading">
                         <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nNjBweCcgaGVpZ2h0PSc2MHB4JyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCIgY2xhc3M9InVpbC1kZWZhdWx0Ij48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0ibm9uZSIgY2xhc3M9ImJrIj48L3JlY3Q+PHJlY3QgIHg9JzQ2LjUnIHk9JzQwJyB3aWR0aD0nNycgaGVpZ2h0PScyMCcgcng9JzUnIHJ5PSc1JyBmaWxsPScjMDAwMDAwJyB0cmFuc2Zvcm09J3JvdGF0ZSgwIDUwIDUwKSB0cmFuc2xhdGUoMCAtMzApJz4gIDxhbmltYXRlIGF0dHJpYnV0ZU5hbWU9J29wYWNpdHknIGZyb209JzEnIHRvPScwJyBkdXI9JzFzJyBiZWdpbj0nMHMnIHJlcGVhdENvdW50PSdpbmRlZmluaXRlJy8+PC9yZWN0PjxyZWN0ICB4PSc0Ni41JyB5PSc0MCcgd2lkdGg9JzcnIGhlaWdodD0nMjAnIHJ4PSc1JyByeT0nNScgZmlsbD0nIzAwMDAwMCcgdHJhbnNmb3JtPSdyb3RhdGUoMzAgNTAgNTApIHRyYW5zbGF0ZSgwIC0zMCknPiAgPGFuaW1hdGUgYXR0cmlidXRlTmFtZT0nb3BhY2l0eScgZnJvbT0nMScgdG89JzAnIGR1cj0nMXMnIGJlZ2luPScwLjA4MzMzMzMzMzMzMzMzMzMzcycgcmVwZWF0Q291bnQ9J2luZGVmaW5pdGUnLz48L3JlY3Q+PHJlY3QgIHg9JzQ2LjUnIHk9JzQwJyB3aWR0aD0nNycgaGVpZ2h0PScyMCcgcng9JzUnIHJ5PSc1JyBmaWxsPScjMDAwMDAwJyB0cmFuc2Zvcm09J3JvdGF0ZSg2MCA1MCA1MCkgdHJhbnNsYXRlKDAgLTMwKSc+ICA8YW5pbWF0ZSBhdHRyaWJ1dGVOYW1lPSdvcGFjaXR5JyBmcm9tPScxJyB0bz0nMCcgZHVyPScxcycgYmVnaW49JzAuMTY2NjY2NjY2NjY2NjY2NjZzJyByZXBlYXRDb3VudD0naW5kZWZpbml0ZScvPjwvcmVjdD48cmVjdCAgeD0nNDYuNScgeT0nNDAnIHdpZHRoPSc3JyBoZWlnaHQ9JzIwJyByeD0nNScgcnk9JzUnIGZpbGw9JyMwMDAwMDAnIHRyYW5zZm9ybT0ncm90YXRlKDkwIDUwIDUwKSB0cmFuc2xhdGUoMCAtMzApJz4gIDxhbmltYXRlIGF0dHJpYnV0ZU5hbWU9J29wYWNpdHknIGZyb209JzEnIHRvPScwJyBkdXI9JzFzJyBiZWdpbj0nMC4yNXMnIHJlcGVhdENvdW50PSdpbmRlZmluaXRlJy8+PC9yZWN0PjxyZWN0ICB4PSc0Ni41JyB5PSc0MCcgd2lkdGg9JzcnIGhlaWdodD0nMjAnIHJ4PSc1JyByeT0nNScgZmlsbD0nIzAwMDAwMCcgdHJhbnNmb3JtPSdyb3RhdGUoMTIwIDUwIDUwKSB0cmFuc2xhdGUoMCAtMzApJz4gIDxhbmltYXRlIGF0dHJpYnV0ZU5hbWU9J29wYWNpdHknIGZyb209JzEnIHRvPScwJyBkdXI9JzFzJyBiZWdpbj0nMC4zMzMzMzMzMzMzMzMzMzMzcycgcmVwZWF0Q291bnQ9J2luZGVmaW5pdGUnLz48L3JlY3Q+PHJlY3QgIHg9JzQ2LjUnIHk9JzQwJyB3aWR0aD0nNycgaGVpZ2h0PScyMCcgcng9JzUnIHJ5PSc1JyBmaWxsPScjMDAwMDAwJyB0cmFuc2Zvcm09J3JvdGF0ZSgxNTAgNTAgNTApIHRyYW5zbGF0ZSgwIC0zMCknPiAgPGFuaW1hdGUgYXR0cmlidXRlTmFtZT0nb3BhY2l0eScgZnJvbT0nMScgdG89JzAnIGR1cj0nMXMnIGJlZ2luPScwLjQxNjY2NjY2NjY2NjY2NjdzJyByZXBlYXRDb3VudD0naW5kZWZpbml0ZScvPjwvcmVjdD48cmVjdCAgeD0nNDYuNScgeT0nNDAnIHdpZHRoPSc3JyBoZWlnaHQ9JzIwJyByeD0nNScgcnk9JzUnIGZpbGw9JyMwMDAwMDAnIHRyYW5zZm9ybT0ncm90YXRlKDE4MCA1MCA1MCkgdHJhbnNsYXRlKDAgLTMwKSc+ICA8YW5pbWF0ZSBhdHRyaWJ1dGVOYW1lPSdvcGFjaXR5JyBmcm9tPScxJyB0bz0nMCcgZHVyPScxcycgYmVnaW49JzAuNXMnIHJlcGVhdENvdW50PSdpbmRlZmluaXRlJy8+PC9yZWN0PjxyZWN0ICB4PSc0Ni41JyB5PSc0MCcgd2lkdGg9JzcnIGhlaWdodD0nMjAnIHJ4PSc1JyByeT0nNScgZmlsbD0nIzAwMDAwMCcgdHJhbnNmb3JtPSdyb3RhdGUoMjEwIDUwIDUwKSB0cmFuc2xhdGUoMCAtMzApJz4gIDxhbmltYXRlIGF0dHJpYnV0ZU5hbWU9J29wYWNpdHknIGZyb209JzEnIHRvPScwJyBkdXI9JzFzJyBiZWdpbj0nMC41ODMzMzMzMzMzMzMzMzM0cycgcmVwZWF0Q291bnQ9J2luZGVmaW5pdGUnLz48L3JlY3Q+PHJlY3QgIHg9JzQ2LjUnIHk9JzQwJyB3aWR0aD0nNycgaGVpZ2h0PScyMCcgcng9JzUnIHJ5PSc1JyBmaWxsPScjMDAwMDAwJyB0cmFuc2Zvcm09J3JvdGF0ZSgyNDAgNTAgNTApIHRyYW5zbGF0ZSgwIC0zMCknPiAgPGFuaW1hdGUgYXR0cmlidXRlTmFtZT0nb3BhY2l0eScgZnJvbT0nMScgdG89JzAnIGR1cj0nMXMnIGJlZ2luPScwLjY2NjY2NjY2NjY2NjY2NjZzJyByZXBlYXRDb3VudD0naW5kZWZpbml0ZScvPjwvcmVjdD48cmVjdCAgeD0nNDYuNScgeT0nNDAnIHdpZHRoPSc3JyBoZWlnaHQ9JzIwJyByeD0nNScgcnk9JzUnIGZpbGw9JyMwMDAwMDAnIHRyYW5zZm9ybT0ncm90YXRlKDI3MCA1MCA1MCkgdHJhbnNsYXRlKDAgLTMwKSc+ICA8YW5pbWF0ZSBhdHRyaWJ1dGVOYW1lPSdvcGFjaXR5JyBmcm9tPScxJyB0bz0nMCcgZHVyPScxcycgYmVnaW49JzAuNzVzJyByZXBlYXRDb3VudD0naW5kZWZpbml0ZScvPjwvcmVjdD48cmVjdCAgeD0nNDYuNScgeT0nNDAnIHdpZHRoPSc3JyBoZWlnaHQ9JzIwJyByeD0nNScgcnk9JzUnIGZpbGw9JyMwMDAwMDAnIHRyYW5zZm9ybT0ncm90YXRlKDMwMCA1MCA1MCkgdHJhbnNsYXRlKDAgLTMwKSc+ICA8YW5pbWF0ZSBhdHRyaWJ1dGVOYW1lPSdvcGFjaXR5JyBmcm9tPScxJyB0bz0nMCcgZHVyPScxcycgYmVnaW49JzAuODMzMzMzMzMzMzMzMzMzNHMnIHJlcGVhdENvdW50PSdpbmRlZmluaXRlJy8+PC9yZWN0PjxyZWN0ICB4PSc0Ni41JyB5PSc0MCcgd2lkdGg9JzcnIGhlaWdodD0nMjAnIHJ4PSc1JyByeT0nNScgZmlsbD0nIzAwMDAwMCcgdHJhbnNmb3JtPSdyb3RhdGUoMzMwIDUwIDUwKSB0cmFuc2xhdGUoMCAtMzApJz4gIDxhbmltYXRlIGF0dHJpYnV0ZU5hbWU9J29wYWNpdHknIGZyb209JzEnIHRvPScwJyBkdXI9JzFzJyBiZWdpbj0nMC45MTY2NjY2NjY2NjY2NjY2cycgcmVwZWF0Q291bnQ9J2luZGVmaW5pdGUnLz48L3JlY3Q+PC9zdmc+"
-                            onerror="this.src='https://d2w9m16hs9jc37.cloudfront.net/images/garment/loading.gif'">
+                            onerror="this.src='https://d2w9m16hs9jc37.cloudfront.net/images/garment/loading_new.gif'">
                         <p>
                             Loading...
                         </p>
@@ -691,8 +688,8 @@
                                 <div class="product_type">
                                     Tailored <span>suit</span> </div>
                                 <div class="loading_text">Loading...</div>
-                                <img src="/images/loading.gif"
-                                    onerror="this.src='https://d2w9m16hs9jc37.cloudfront.net/images/garment/loading.gif'">
+                                <img src="/images/loading_new.gif"
+                                    onerror="this.src='https://d2w9m16hs9jc37.cloudfront.net/images/garment/loading_new.gif'">
                             </div>
                         </div>
                     </div> -->
@@ -717,8 +714,8 @@
                         <div id="garment_loading_3062" class="garment_loading" style="display:none;">
                             <div class="loading">
                                 <div class="centered">
-                                    <img src="/images/loading.gif"
-                                        onerror="this.src='https://d2w9m16hs9jc37.cloudfront.net/images/garment/loading.gif'">
+                                    <img src="/images/loading_new.gif"
+                                        onerror="this.src='https://d2w9m16hs9jc37.cloudfront.net/images/garment/loading_new.gif'">
                                 </div>
                             </div>
                         </div>
@@ -759,7 +756,7 @@
                                                                 } else if (components[i].componentItems[j].code == components[i].componentItems[0].code) {                                        
                                                                     styleFlag = "active"
                                                                 }
-                                                            %><label class="option option_mobile " views="front,without_model" id="<%= components[i].componentItems[j].code %>">
+                                                            %><label class="option option_mobile <%= styleFlag %>" views="front,without_model" id="<%= components[i].componentItems[j].code %>">
                                                                 <span class="icon jacket_style_combined_simple_1 icon_3e" icoclass="icon_3e"></span>
                                                                 <input type="radio" name="jacket_style_combined" value="simple_1" />
                                                                 <span class="text"><%= components[i].componentItems[j].name %></span>
@@ -1168,24 +1165,118 @@
             </div>
         </div>
     </div>
+    <style>
+        .garment_block_extra .measure {
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+
+        .garment_block_extra .title {
+            text-align: center;
+            display: block;
+            color: #5F5F5F;
+            text-transform: uppercase;
+            font-size: 12px;
+            /* font-weight: 300;
+            margin-bottom: 4px; */
+        }
+
+        .garment_block_extra .value_box {
+            border: 1px solid #dbdbdb;
+            color: #000;
+            text-align: center;
+            padding: 8px 0px;
+            margin: 5px 0;
+            width: 80%;
+            margin-left: 10%;
+            font-family: Lato;
+            font-size: 15px;
+            text-align-last: center;
+        }
+
+        .garment_block_extra .box_title {
+            text-align: center;
+            font-size: 15px
+        }
+
+        .garment_block_extra .checkbox_option {
+            padding-bottom: 50px;
+        }
+
+        #measure_form input{
+            -webkit-user-select: initial;
+            -khtml-user-select: initial;
+            -moz-user-select: initial;
+            -ms-user-select: initial;
+            user-select: initial;
+        }
+    </style>
     <script
         type="text/javascript">var fabric_options_i18n = { "80lana_20terylene": "80% lana & 20% Terylene", "tone": "Color ", "tone_all": "All", "tone_blue": "Blue", "tone_brown": "Brown", "tone_black": "Black", "tone_gray": "Grey", "tone_light": "Light colors", "tone_other": "Others", "texture": "Pattern", "texture_all": "All", "texture_flat": "Solid", "texture_shredded": "Striped", "texture_spike": "Chevron pattern", "texture_chequered": "Checked", "texture_other": "Others", "material": "Fabric", "material_all": "All", "material_wool": "Wool", "material_corduroy": "Corduroy", "material_linen": "Linen", "material_polyester": "Polyester", "material_velvet": "Velvet", "season": "Season", "season_all": "All", "season_summer": "Summer", "season_autum": "Year round", "season_winter": "Winter", "thread_count": "Thread count", "thread_count_all": "All", "brightness": "Shiny", "brightness_info": "The fabric can be shiny or dull", "brightness_all": "All", "brightness_normal": "Normal", "brightness_midshining": "Slightly shiny", "brightness_shining": "Shiny", "white": "White", "tone_pink": "Pink", "anterior": "previous", "proxima": "next", "info_material": "Material", "info_composition": "Material:", "info_thread_count": "Thread density:", "info_brightness": "Brightness:", "info_tone": "Color shade:", "info_texture": "Pattern:", "info_season": "Season:", "info_code": "Reference:", "coste_adicional": "This fabric has an additional cost of", "no_hay_muestras": "No samples available for this fabric", "imagen_ampliada": "Scroll over the picture to zoom on it", "volver": "Back", "continuar": "continue", "solicitar_muestra": "Order sample", "tela_seleccionada": "Selected fabric", "best_seller": "Best seller fabric", "mas_filtros": "More filters", "collection": "Collection", "all_collection": "All collections", "new_collection": "New collection", "pala": "The width of the tie", "pala_todas": "All", "pala_ancha": "Wide", "pala_mediana": "Medium", "pala_estrecha": "Narrow", "length": "Length", "length_all": "All", "length_normal": "Normal", "length_extra": "Extra large", "stamped": "Stamped", "stamped_all": "all", "stamped_yes": "Stamped", "stamped_no": "No stamped", "wool": "Wool", "corduroy": "Corduroy", "linen": "linen", "polyester": "Polyester", "velvet": "Velvet", "80wool_20terylene": "80% Wool & 20% Terylene", "95wool_3terylene_2elastane": "95% Wool & 3% Terylene & 2% elastane", "midshining": "Glossy touch", "shining": "Shiny", "blue": "Blue", "brown": "Brown", "black": "Black", "gray": "Grey", "ligth": "Light", "other": "Other", "flat": "Plain", "shredded": "Striped", "spike": "Chevron pattern", "chequered": "Checked", "summer": "Summer", "autum": "Year round", "winter": "Winter", "100lana": "100% lana", "coton": "Cotton", "80algodon_20polyester": "80% Cotton & 20% Polyester", "100algodon": "100% Cotton", "100cotton": "100% Cotton", "tone_white": "White", "cotton": "Cotton", "70wool_30polyester": "70% Wool & 30% Polyester", "100wool": "100% Wool", "more_filters": "More filters", "label_all": "All", "label_new": "New", "label_best_seller": "best seller", "label_limited": "Limited edition", "info_weight": "Weight", "double_yarn": "Two-ply 80s", "single_yarn": "One-ply 50s", "material_tweed": "Tweed", "60cotton_40polyester": "60% Cotton & 40% Polyester", "75cotton_25polyester": "75% Cotton & 25% Polyester", "info_thread": "Yarn:", "basic": "Basic", "easy_care": "Easy care", "wrinkle_free": "Wrinkle free", "30silk_70polyester": "30% Silk & 70% Polyester", "bn_select_fabric": "Select fabric", "tejido_interior": "Inside fabric", "tejido_exterior": "Outer Fabric", "info_thread_count_shirt": "Fabric type:", "thread_count_shirt": "Fabric types", "90wool_10terylene": "90% Wool & 10% Terylene", "95wool_5viscose": "95% Wool & 5% viscose", "95wool_5elastane": "95% Wool & 5% elastane", "80polyester_20cotton": "80% Polyester & 20% Cotton", "100cashmere": "100% cashmere", "80cashmere_20wool": "80% cashmere & 20% Wool", "52cotton_48polyester": "52% Cotton & 48% Polyester", "treatment": "Finishing", "weight": "Weight (gr/m2)", "recommended_season": "Season", "tweed": "Tweed", "100lino": "100% lino", "tone_ligth": "Light", "100polyester": "100% Polyester", "55linen_45cotton": "55% Linen & 45% Cotton", "new": "New", "info_thickness": "Thickness", "thick": "Extra Thick", "normal": "Standard ", "info_simple_composition": "", "wool": "Wool", "cotton": "Cotton", "corduroy": "Corduroy", "linen": "Linen", "velvet": "Velvet", "polyester": "Polyester", "100woolmerino": "100% woolmerino", "60wool_40polyester": "60% Wool & 40% Polyester", "97viscose_3elastane": "97% viscose & 3% elastane", "apply_for_fabric": "Order sample", "50wool_50polyester": "50% Wool & 50% Polyester", "order_samples": "<big>Order<\/big><small>fabric swatches<\/small>", "80wool_20silk": "80% Wool & 20% Silk", "72cotton_28modal": "72% Cotton & 28% modal", "92cotton_8polyester": "92% Cotton & 8% Polyester", "45cotton_55polyester": "45% Cotton & 55% Polyester", "tweed": "Tweed", "limited": "Limited edition", "mixture": "mixture_suits", "viscosa": "Viscose", "opacity": "Opacity:", "opacity_medium": "Medium Transparency", "opacity_large": "Transparent", "opacity_full": "Opaque", "95cotton_5elastane": "95% Cotton & 5% elastane", "filter_empty": "No fabric matches your selection criteria. <br />Please select new parameters.", "change_filter": "Change criteria", "thread_style_oxford": "Oxford", "thread_style_poplin": "Poplin", "thread_style_denim": "Denim", "thread_style_chambray": "Chambray", "thread_style_flannel": "Flannel", "thread_style_twill": "Twill", "thread_style_herringbone": "Herringbone", "thread_style_filafil": "End-on-End", "thread_style_pinpoint": "Pinpoint", "80cotton_20polyester": "80% Cotton & 20% Polyester", "seersucker": "Seersucker", "70cotton_30linen": "70% Cotton & 30% Linen", "85cotton_15linen": "85% Cotton & 15% Linen", "woolandpolyester": "Wool & Polyester", "woolmerino": "Merino wool", "tone_green": "Green", "tone_red": "Red", "green": "Green", "simple_composition": "Material", "purple": "Purple", "orange": "Orange", "beige": "Beige", "yellow": "Yellow", "dotted": "Dotted", "tone_yellow": "Yellow", "tone_beige": "Beige", "tone_orange": "Orange", "tone_purple": "Purple", "texture_dotted": "Dotted", "texture_houndstooth": "Houndstooth", "texture_micropattern": "Micropattern", "texture_paisley": "Paisley", "texture_animal_print": "Animal Print", "texture_floral": "Floral", "filcoupe": "Fil Coupé", "viscosa": "Viscose", "mixture": "mixture_suits", "50cotton_40wool_10polyester": "50% Cotton & 40% Wool & 10% Polyester", "cotton_wool": "Cotton & Wool", "85wool_15mohair": "85% Wool & 15% mohair", "thread_style_filcoupe": "Fil coupé", "fabric_simple_composition": "Material", "oxford": "Oxford", "flannel": "Flannel", "wrinkle": "Wrinkle free", "easy": "Easy care", "azules": "Blue", "claro": "Light", "negros": "Black", "otros": "Other", "brillante": "Shiny", "muybrillante": "Very shiny", "executive": "Executive", "premium": "Premium", "bussines": "Business", "urban": "Urban", "pink": "Pink", "houndstooth": "Houndstooth ", "red": "Red", "45cotton_55linen": "45% Cotton & 55% Linen", "80cotton_20linen": "80% Cotton & 20% Linen", "55cotton_45linen": "55% Cotton & 45% Linen", "animal_print": "Animal Print", "vitale_barberis": "Vitale Barberis", "45linen_55cotton": "45% Linen & 55% Cotton", "97cotton_3spandex": "97% Cotton & 3% spandex", "48wool_52silk": "48% Wool & 52% Silk", "95wool_5polyester": "95% Wool & 5% Polyester", "80wool_20lino": "80% Wool & 20% lino", "67cotton_31lino_2spandex": "67% Cotton & 31% lino & 2% spandex", "34wool_33cotton_33polyester": "34% Wool & 33% Cotton & 33% Polyester", "65polyester_35rayon": "65% Polyester & 35% rayon", "72polyester_28rayon": "72% Polyester & 28% rayon", "50wool_50terylene": "50% Wool & 50% Terylene", "30wool_70terylene": "30% Wool & 70% Terylene", "best_seller": "Faves", "80wool_20nylon": "80% Wool & 20% nylon", "50wool_40cotton_10polyester": "50% Wool & 40% Cotton & 10% Polyester", "70wool_30terylene": "70% Wool & 30% Terylene", "floral": "Floral", "55polyester_45viscose": "55% Polyester & 45% viscose", "70_cotton_30_tencel": "70% cotton & 30% tencel", "basic": "Basic", "premium": "Premium", "material_polyester": "polyester", "material_microfibra": "Microfiber", "brightness_brillante": "Shiny", "brightness_all": "Select fabric shine", "get_free_samples": "Request Samples!", "80wool_20polyester": "80% Wool & 20% Polyester", "flannel": "Flannel", "80linen_20cotton": "80% Linen & 20% Cotton", "90wool_10silk": "90% Wool & 10% Silk", "48cotton_52silk": "48% Cotton & 52% Silk", "70terylene_30rayon": "70% Terylene & 30% rayon", "viscose": "Viscose", "silk": "Silk", "waterproof": "Waterproof", "fabric_info": "Fabric", "category_group": "Category", "category_group": "Category", "98wool_2polyester": "98% Wool & 2% Polyester", "dobby": "Dobby", "jacquard": "Jacquard", "silk": "Silk", "55polyester_45wool": "55% Polyester & 45% Wool", "98wool_2polyester": "98% Wool & 2% Polyester", "60wool_20silk_20linen": "60% Wool & 20% Silk & 20% Linen", "50wool_30polyester_20viscose": "50% Wool & 30% Polyester & 20% viscose", "96cotton_4lycra": "96% Cotton & 4% lycra", "90polyester_10viscose": "90% Polyester & 10% viscose", "57polyester_30viscose_11linen_2spandex": "57% Polyester & 30% viscose & 11% Linen & 2% spandex", "mixture_shirt": "Cotton Blends", "mixture_suit": "Wool Blends", "hide_info": "Hide Info", "info_excelence": "Excellence", "info_fineza": "Yarn", "info_warmth": "Warmth", "60wool_38polyester_2lycra": "60% Wool & 38% Polyester & 2% lycra", "90polyester_10nylon": "90% Polyester & 10% nylon", "88polyester_8rayon_4spandex": "88% Polyester & 8% rayon & 4% spandex", "92terylene_8spandex": "92% Terylene & 8% spandex", "55cotton_45wool": "55% Cotton & 45% Wool", "80wool_20polyester": "80% Wool & 20% Polyester", "54linen_44cotton_2spandex": "54% Linen & 44% Cotton & 2% spandex", "99cotton_1spandex": "99% Cotton & 1% spandex", "50wool_35polyester_15cotton": "50% Wool & 35% Polyester & 15% Cotton", "2ply": "2-ply", "algodon": "Cotton", "64terylene_36cotton": "64% Terylene & 36% Cotton", "stretchy": "Stretchy", "wool-blends": "Wool", "thread_style_rustic": "Rustic", "winter_tweed": "Winter Blazer", "terylene": "Terylene", "terylene": "Terylene", "cotton-blends": "Cotton Blend", "linings": "Linings", "fabrics": "Fabrics", "linen-cotton": "Linen-cotton", "cotton-viscose": "Cotton-viscose", "cotton-tencel": "Cotton-tencel", "pure-wool": "Pure wool", "wool-silk": "Wool-Silk", "wool-linen": "Wool-Linen", "wool-cotton": "Wool-cotton", "linen-wool": "Linen-wool", "merino-wool": "Merino Wool", "grey": "Grey", "light_grey": "Light Grey", "silver": "Silver", "dark_grey": "Dark Grey", "anthracite": "Charcoal Grey", "light_blue": "Light Blue", "navy_blue": "Navy Blue", "royal_blue": "Royal Blue", "electric_blue": "Electric Blue", "pastel_blue": "Sky Blue", "steel_blue": "Steel Blue", "black_bean": "Black Bean", "onyx": "Onyx Black", "light_brown": "Light Brown", "chocolate": "Chocolate Brown", "khaki_brown": "Khaki Brown", "intense_brown": "Intense Brown", "camel": "Camel", "snow": "All White", "ivory": "Ivory", "nuclear_white": "Pure White", "light_orange": "Light Orange", "dark_orange": "Dark Orange", "pastel_orange": "Pastel Orange", "cooper": "Copper", "cream": "Cream", "sand": "Sand", "dark_beige": "Dark Beige", "light_yellow": "Light Yellow", "gold": "Gold", "pastel_yellow": "Pastel Yellow", "mustard": "Mustard", "light_pink": "Light Pink", "pastel_pink": "Pastel Pink", "barbie_pink": "Barbie Pink", "fucsia": "Fuchsia", "light_green": "Light Green", "pastel_green": "Pastel Green", "militar": "Army Green", "green_lime": "Lime Green", "coral_red": "Coral Red", "pastel_red": "Pastel Red", "imperial_red": "Imperial Red", "intense_red": "Intense Red", "burgundy": "Burgundy", "light_purple": "Light Purple", "pastel_purple": "Lavender", "electric_purple": "Electric Purple", "dark_purple": "Dark Purple", "cotton-linen": "Cotton-Linen", "thread_style_jacquard": "Jacquard", "thread_style_dobby": "Dobby", "medium_grey": "Medium Grey", "true_blue": "True Blue", "dark_blue": "Dark Blue", "midnight_blue": "Midnight Blue", "dark_brown": "Dark Brown", "off_white": "Off-White", "coppero": "Copper", "tan": "Tan", "khaki": "khaki", "olive": "Olive", "dark_red": "Dark Red", "maroon": "Maroon", "violet": "Violet", "mauve": "Mauve", "waterresistant": "Water resistant", "thread_style": "Fabrics overview", "unlined_coat_more_info": "more info", "78terylene_18rayon_4spandex": "78% Terylene & 18% rayon & 4% spandex", "90polyester_10lycra": "90% Polyester & 10% lycra", "69terylene_28rayon_3spandex": "69% Terylene & 28% rayon & 3% spandex", "lana100": "100% wool", "tencel": "Tencel", "tencel_description": "Some of the Tencel Fabric advantages include; it\'s extreme comfort, it\'s resistant to wrinkles, and it\'s so breatheable it even absorbs moisture better than cotton, it\'s lightweight and therefore very comfortable to wear, and the fabric is very durable (it will last a long time, both in wet and dry condition).", "seersucker": "seersucker" };</script>
     <div class="garment_block garment_block_extra">
         <div class="config_header">
-            <div class="title">Accents</div><a href="javascript:;" class="back">h</a>
-        </div>
-        <div class="row step_block_selector extra_block_selector">
-            <div class="col-xs-6"><a href="#extra_block_man_jacket" class="selector man_jacket"><span>Jacket</span></a>
-            </div>
-            <div class="col-xs-6"><a href="#extra_block_man_waistcoat"
-                    class="selector man_waistcoat"><span>Waistcoat</span></a></div>
+            <div class="title">Measure</div><a href="javascript:;" class="back">h</a>
         </div>
         <div class="extra_block extra_block_man_jacket multiproduct first visible" data-block-name="man_jacket">
-            <div class="config_block_title" rel="man_jacket">
-                <div class="title">Jacket</div><span>f</span>
-            </div>
             <div class="config_block_content man_jacket">
-                <div class="list_option lining ">
+                <!-- <div class="checkbox_option">
+                    <div class="lining option" name="slanted">
+                        <div class="box_title">Select your measure method</div>
+                        <div class="box_options">
+                            <label class="left check_button <%= currentDesign.measure ? 'checked' : ''%>" rel="0" option_filter="jacket_pockets_type"><span
+                                    class="check_radio"></span><span class="title">Measure by your own</span></label>
+                            <label class="left check_button <%= currentDesign.measure ? '' : 'checked'%>" rel="1" option_filter="jacket_pockets_type"><span
+                                    class="check_radio"></span><span class="title">Go to store</span></label>
+                        </div>
+                    </div>
+                </div> -->
+                <div class="list_option lining active">
+                        <div class="drop_head " option="lining"><a href="#lining"
+                                class="icon opt_trigger"></a>
+                            <div class="box_title">Select your measure method<span></span></div>
+                        </div>
+                        <div class="extra_container  lining extra_container_lining active"
+                            data-extra-name="lining" data-extra-type="lining" info-icon="B" option="lining"
+                            views="without_model" style="display: block">
+                            <div class="box_opt">
+                                <div class="box_opt_fix">
+                                    <div class="extra_content" style="display: block;">
+                                        <div class="extra_field extra_field_image options" data-field-name="options">
+                                            <div class="box_opt box_opt_fix box_opt_no_title">
+                                                <label rel="0" class="option option_image t4l_radio active  <%= currentDesign.measure ? 'checked' : '' %>">
+                                                    <span class="image icon icon_27"></span>
+                                                    <input type="radio" name="lining[contrast]" value="default" data-field-name="lining">
+                                                    <span class="name">Measure by your own</span>
+                                                </label><label rel="1"
+                                                    class="option option_image t4l_radio active <%= currentDesign.measure ? '' : 'checked' %>">
+                                                    <span class="image icon icon_29"></span>
+                                                    <input type="radio" name="lining[contrast]" value="personalizado" data-field-name="lining">
+                                                    <span class="name">Go to store</span><span class="price">
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <div id="measure_form" style="display: <%= currentDesign.measure ? 'block' : 'none'%>">
+                    <%  measures.forEach(currentMeasure => { 
+                        let value = "";
+                        if(!!currentDesign.measure)
+                            value = currentDesign.measure[currentMeasure]
+                        %>
+                        <div class="measure">
+                            <div class="title"><%= currentMeasure %></div>
+                            <input name="<%= currentMeasure %>" type="number" required step="0.1" 
+                            class="value_box <%= currentMeasure %>" value="<%= value %>" >
+                        </div>
+                        <% }) %>
+                </div>
+                <!-- <div class="navigate" style="display: block"><a class="select" style="display: block" href="javascript:;"><span>Save</span></a></div> -->
+
+                <!-- <div class="list_option lining ">
                     <div class="drop_head " option="lining"><a href="#lining"
                             class="icon opt_trigger lining icon_42"></a>
                         <div class="box_title">Internal lining<span> +$20</span></div>
@@ -1755,9 +1846,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="navigate"><a class="select" href="javascript:;"><span>APPLY</span></a></div>
+                        
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
         
@@ -1780,213 +1871,20 @@
         <div id="disable_popup"></div>
         <div class="step_options first with_add_to_cart">
             <div class="step first" rel="fabric">
-                <span></span>
-                <div class="message fabric shake"><svg viewBox="0 0 158.5 171.2">
-                        <path d="M93.1,147.1c4.4-11.2,6.2-24,4.1-37.5c-2-13.5-7.6-26.8-15.3-38.8c-1.1-1.7,1.1-2.7,2.2-1c8.2,12.5,13.7,26.3,15.8,40.4
-	c2,14.1,0.2,27.3-4.5,38.9C94.9,150.5,92.5,148.6,93.1,147.1z" />
-                        <path d="M89.3,142.8c1,3.3,2,6.6,3,9.9c2-0.8,4.1-1.6,6.1-2.4c1.5-0.6,2.9,2.2,1.5,2.8c-2.5,1-5,1.9-7.6,2.9c-0.7,0.3-1.7-0.3-2-1.2
-	c-1.2-3.9-2.4-7.8-3.6-11.7C86.2,141.1,88.7,140.9,89.3,142.8z" />
-                        <g>
-                            <path d="M23.7,78.9c0.3,0.1,0.6,0.2,1,0.3c0.3,0.1,0.7,0.1,1,0c1.1-0.1,2.3,0,3.5-0.2c1.9-0.1,3.7-1,5.2-1.9c1.6-1.1,3-2.4,4.1-4
-		c1-1.3,1.8-2.7,2.2-4.3c0.4-1.5,0.4-3-0.1-4.5c-0.6-1.9-1.8-3.5-3.3-4.9c-1.5-1.4-3.4-1.8-5.4-1.3c-1.6,0.4-2.9,1.2-4.1,2.3
-		c-1.3,1.1-2.6,2.3-3.9,3.5c-0.3,0.3-0.5,0.6-1,0.7c0.1-0.4,0.2-0.9,0.3-1.2c0.3-1,0.7-1.9,1.1-2.8c1.3-3,2.3-6.1,4.2-8.8
-		c0.3-0.5,0.2-0.9-0.2-1.2l-1.2-0.9c-0.1,0.1-0.2,0.1-0.3,0.1c-0.6,0.1-0.9,0.4-1.3,0.9c-0.7,1-1.3,2.1-1.7,3.2
-		c-0.3,0.8-0.7,1.6-1,2.4c-0.6,1.4-1.3,2.8-1.8,4.4c0,0.2-0.2,0.4-0.2,0.5c-0.5,0.8-0.7,1.7-0.9,2.6c-0.1,0.7-0.1,1.3,0.5,1.9
-		c0.2,0.3,0.5,0.6,0.8,0.8c0.5,0.6,1.3,0.8,2.2,0.6c0.6-0.1,1.2-0.3,1.7-0.7c1-0.8,1.9-1.6,2.8-2.4c1.1-0.9,2.2-1.9,3.3-2.7
-		c0.8-0.6,1.7-1.1,2.6-1.3c0.5-0.1,0.8-0.1,1.1,0.3c0.8,0.7,1.4,1.5,1.9,2.3c0.8,1.2,1.1,2.4,0.8,3.8c-0.4,2.6-1.6,4.8-3.5,6.6
-		c-0.1,0.1-0.4,0.2-0.4,0.4c-0.1,0.3-0.4,0.5-0.6,0.7c-1.8,1.3-3.9,2-6,2.3c-0.8,0.2-1.6,0.2-2.4,0.4c-0.7,0.1-1.4,0.4-1.9,1.1
-		c0.4,0.1,0.7,0.2,1,0.2C23.8,78.6,23.8,78.7,23.7,78.9z" />
-                            <path d="M37.4,57c1.1,0.3,2.1-0.1,3-0.8c1.1-0.9,2.2-1.7,3.2-2.8l2.8-2.8c0.1-0.1,0.3-0.2,0.4-0.2l0.5,1.2c0.4,1,0.8,1.9,1.2,3
-		c1,2.5,1.9,5,2.8,7.5c0.7,1.7,1.2,3.5,2,5.1c0.4,0.7,0.8,1.4,1.5,1.8c0.6,0.3,1.2,0.3,1.6-0.1c0.3-0.3,0.4-0.6,0.2-0.9
-		c-0.7-0.9-1-1.8-1.4-2.8c-0.7-1.7-1.2-3.3-1.9-5l-3-8.2c-0.4-1.1-0.8-2.2-1.7-3c-0.1-0.1,0-0.2,0-0.2c1.3-1.3,2.7-2.7,4-3.9
-		c1.4-1.4,3-2.6,4.6-3.9c0.1-0.1,0.2-0.2,0.3-0.3c0,0.2,0.1,0.3,0.1,0.5l0.5,1.7c0.2,0.8,0.5,1.6,0.6,2.4c0.3,0.9,0.5,2,0.7,2.9
-		c0.1,1,0.2,2.1,0.3,3.2c0.1,0.4-0.1,0.7-0.4,0.9c-0.5,0.3-0.9,0.7-1.4,1c-1.1,0.8-2.2,1.4-3.4,2.1c-0.4,0.2-0.9,0-0.9,0.7
-		c-0.1,0.4-0.1,0.7,0.2,0.9c0.5,0.4,1.2,0.4,1.8,0.3c0.4-0.1,0.8-0.3,1.2-0.6c0.7-0.4,1.4-0.8,2.1-1.2l0.9-0.6c0,0.2,0,0.2,0.1,0.3
-		c0,0.7-0.1,1.6-0.1,2.3c0,0.5,0,1,0,1.5c0,0.8,0.1,1.6,0,2.5c0,0.6,0.3,1.1,0.5,1.6c0.2,0.6,0.5,1.1,0.7,1.7
-		c0.1,0.3,0.4,0.5,0.7,0.8c0-0.2,0-0.3,0.1-0.4l0.1,0c0.4,0.7,0.9,0.2,1.3,0.2c0.1,0,0.1-0.1,0.1-0.1c0.1-0.4,0.1-0.8-0.2-1.3
-		c-0.2-0.3-0.3-0.6-0.3-0.9c-0.1-0.8-0.1-1.7-0.2-2.5c-0.2-0.9,0-1.9,0-2.8c0-0.5,0.1-0.9,0.1-1.4c0-1,0-2.1,0-3
-		c0-0.2,0.1-0.3,0.3-0.4c0.1-0.1,0.2-0.2,0.3-0.3l1.2-1c0.1,0.1,0.1,0.2,0.2,0.3l2.2,2.8c0.4,0.6,0.9,1.1,1.3,1.6
-		c0.5,0.6,1,1.1,1.7,1.6c0.6,0.5,1.1,0.9,1.7,1.4c0.4,0.3,0.9,0.6,1.3,0.8c1,0.6,2.1,0.9,3.3,1c0.5,0,1-0.1,1.3-0.4
-		c0.2-0.2,0.3-0.7,0.2-0.9c-0.3-0.2-0.6-0.4-0.9-0.5c-0.2,0-0.3,0-0.5,0c-0.8-0.1-1.5-0.3-2.2-0.8c-0.3-0.2-0.6-0.3-0.8-0.5
-		c-0.6-0.5-1.2-1-1.7-1.6c-0.7-0.8-1.4-1.5-2.1-2.2c-0.8-1-1.4-1.9-2.1-2.9c-0.2-0.3-0.4-0.6-0.7-0.9c0-0.1,0-0.2,0-0.3
-		c0.7-0.6,1.5-0.9,2.2-1.2c0.5-0.1,0.8-0.3,1-0.9c0-0.1,0-0.2,0-0.2c-0.3-0.4-0.8-0.7-1.3-0.6c-1.1,0.1-2.1,0.4-3.1,1
-		c-0.2,0.1-0.2,0-0.4-0.2l-0.7-1.2c-0.4-0.7-0.9-1.5-1.3-2.2c-0.3-0.7-0.6-1.4-1-2c-0.7-1.2-1.4-2.7-1.9-4c0-0.1,0-0.3,0-0.4
-		c-0.5-0.3-0.7-0.4-0.9-0.5c-0.2,0-0.3-0.1-0.5-0.1c-0.1,0-0.2,0-0.2,0.1c-0.1,0-0.1,0.1-0.3,0.2c-0.1,0.1-0.3,0.1-0.4,0.2
-		c-1.1,0.5-2,1-2.9,1.6c-2.3,1.7-4.6,3.5-6.7,5.5c-2.6,2.4-5.1,4.9-7.6,7.3c-0.9,0.8-1.7,1.6-2.6,2.4c-0.7,0.6-0.9,0.8-0.5,1.7
-		C37.3,56.9,37.4,56.9,37.4,57z M62.3,49.8c-0.1,0-0.1,0.1-0.2,0.2C62,50,62,50,62,50l-0.2-1.5l0.1,0c0.1,0.2,0.3,0.5,0.5,0.7
-		c0.1,0,0,0.1,0.1,0.1C62.7,49.5,62.7,49.6,62.3,49.8z" />
-                            <path d="M73,43.9c0.2,0.3,0.5,0.3,0.9,0.2c0-0.6-0.1-1.3-0.5-1.9c-0.2-0.5-0.3-1-0.3-1.5c-0.1-0.5,0-1,0-1.4c0-1.2,0.2-2.4,0.6-3.5
-		c0.3-0.7,0.7-1.4,1.3-1.9c0.2-0.2,0.5-0.4,0.7-0.4c1.3-0.1,2.6-0.3,3.8,0.2c1.2,0.4,1.9,1.1,2.4,2.2c0.3,0.7,0.4,1.4,0.5,2.1
-		c0.1,0.8,0.2,1.6,0.2,2.4c0,0.6,0.1,1.2,0,1.8c-0.1,1.3-0.2,2.6-0.4,3.8c0,0.3,0,0.5-0.3,0.8c-0.1-0.2-0.2-0.4-0.3-0.5
-		c-0.9-2.4-1.8-5-2.7-7.4c-0.2-0.5-0.4-0.9-0.8-1.4c-0.3-0.4-0.7-0.7-1.3-0.6c-0.4,0.1-0.7,0.4-0.9,0.7c0.1,0.3,0.4,0.6,0.3,0.9
-		c0,0.7,0.4,1.2,0.3,1.9c0,0.3,0.1,0.5,0.2,0.6c0.1,0.3,0.3,0.5,0.4,0.8c0.6,1.8,1.2,3.5,1.8,5.3c0.1,0.2,0.1,0.5,0,0.7
-		c-0.5,0.6-0.3,1.3-0.3,1.9c0,0.2,0.1,0.3,0.3,0.4c0.4,0.3,0.7,0.6,1.1,0.9c0.4,0.3,0.6,0.5,0.7,0.9c0.2,0.8,0.5,1.6,0.7,2.4
-		c0.3,0.9,0.8,1.7,1.2,2.6c0,0.2,0.2,0.3,0.4,0.4c0.2,0.1,0.5,0.2,0.7,0.3c0.4,0.3,0.7,0.3,1.1,0c0.4-0.2,0.6-0.6,0.4-1.1
-		c0-0.2-0.2-0.5-0.3-0.7c-0.5-1-0.9-2-1.3-3.2c0.3,0.2,0.5,0.2,0.6,0.4c0.4,0.2,0.8,0.4,1.3,0.6c1.3,0.6,2.7,0.9,4.2,0.9
-		c1.4,0.1,2.8-0.8,3.1-2.3c0.2-1.1,0.3-2.2,0.1-3.4c0-1.1-0.4-2-1.2-2.5c-0.4-0.1-0.7,0-1.2,0c0,0.7,0,1.6,0,2.4
-		c0.1,1.1-0.1,2.2-0.4,3.3c-0.2,0.4-0.2,0.5-0.6,0.5l-0.3,0c-1.9-0.5-3.6-1.5-4.9-3.1c-0.2-0.2-0.3-0.4-0.2-0.8
-		c0.2-0.4,0.3-0.8,0.3-1.2c0.3-1.2,0.4-2.5,0.6-3.7c0.2-1.8,0.4-3.5,0.3-5.3c0-1-0.2-1.9-0.5-2.9c-0.7-2.2-2.2-3.4-4.3-4.2
-		c-1.4-0.6-3-0.6-4.5-0.3c-0.5,0.1-0.9,0.2-1.5,0.4c-1.9,0.8-3,2.3-3.7,4.2c-0.1,0.3-0.2,0.5-0.3,0.8c-0.2,1.4-0.3,2.6-0.1,4
-		c0.1,0.6,0.3,1.2,0.6,1.7C71.9,42.8,72.5,43.4,73,43.9z" />
-                            <path d="M86.8,38.1c1.1,0.3,2.1-0.1,3-0.8c1.1-0.9,2.2-1.7,3.2-2.8l2.8-2.8c0.1-0.1,0.3-0.2,0.4-0.2l0.5,1.2c0.4,1,0.8,1.9,1.2,3
-		c1,2.5,1.9,5,2.8,7.5c0.7,1.7,1.2,3.5,2,5.1c0.4,0.7,0.8,1.4,1.5,1.8c0.6,0.3,1.2,0.3,1.6-0.1c0.3-0.3,0.4-0.6,0.2-0.9
-		c-0.7-0.9-1-1.8-1.4-2.8c-0.7-1.7-1.2-3.3-1.9-5l-3-8.2c-0.4-1.1-0.8-2.2-1.7-3c-0.1-0.1,0-0.2,0-0.2c1.3-1.3,2.7-2.7,4-3.9
-		c1.4-1.4,3-2.6,4.6-3.9c0.8-0.6,1.6-1.2,2.4-1.9c0.4-0.2,0.6-0.5,0.4-1c-0.8-0.6-0.9-0.6-1.7-0.2c-1.2,0.5-2.3,1.1-3.4,1.9
-		c-2.3,1.7-4.6,3.5-6.7,5.5c-2.6,2.4-5.1,4.9-7.6,7.3c-0.9,0.8-1.7,1.6-2.6,2.4C86.6,36.9,86.4,37.1,86.8,38.1
-		C86.7,38,86.8,38.1,86.8,38.1z" />
-                            <g>
-                                <path d="M117.3,17.2c-0.4-0.2-0.8-0.1-1,0c-0.2,0.1-0.5,0.3-0.8,0.8c-0.1,0.2-0.3,0.4-0.4,0.6c0,0.2-0.2,0.4-0.1,0.5
-			c0,0.3,0,0.7,0.1,1.3c0.1,0.6,0.2,1,0.3,1.3c0.2,0.6,0.4,1.2,0.6,1.9c0.1,0.7,0.3,1.4,0.4,2.2c0.1,0.7,0.2,1.5,0.4,2.3
-			c0.1,0.8,0.2,1.5,0.4,2.3c0.1,0.7,0.3,1.5,0.4,2.2c0.1,0.7,0.3,1.3,0.6,1.9c0,0.2,0.2,0.4,0.2,0.5c0,0.2,0.1,0.3,0.2,0.4
-			c0.2,0,0.6,0,1.1-0.1c0.3-0.1,0.6-0.1,0.7-0.1c0.2,0,0.4-0.1,0.5-0.2c0-0.3,0.1-0.4,0-0.7s-0.1-0.4-0.1-0.6c0-0.2-0.2-0.5-0.2-0.7
-			c-0.1-0.2-0.2-0.5-0.2-0.8c-0.4-1.6-0.7-3.2-1-4.9c-0.2-1.7-0.5-3.3-0.8-5.1c0-0.5-0.1-1-0.2-1.4c-0.1-0.5-0.1-0.9-0.2-1.4
-			c-0.1-0.9-0.2-1.4-0.3-1.7C117.9,17.6,117.7,17.4,117.3,17.2z" />
-                                <path
-                                    d="M122.1,39.8c-0.3,0-0.5-0.1-0.7,0c-0.2,0-0.4,0.1-0.6,0.1c-0.4,0.2-0.7,0.6-0.9,1.4s-0.2,1.4-0.1,1.8c0.5,1.1,1,1.5,2,1.2
-			c0.3-0.1,0.6-0.5,1-1s0.5-1,0.5-1.4c-0.2-0.9-0.3-1.4-0.3-1.7c0-0.1-0.1-0.1-0.3-0.3C122.5,39.9,122.3,39.9,122.1,39.8z" />
-                            </g>
-                        </g>
-                    </svg>
-                </div>
+                <span>
+                </span>
+                
             </div>
             <div class="step separator"></div>
             <div class="step second" rel="config">
-                <span></span>
-                <div class="message config shake"><svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
-                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 158 239.3"
-                        style="enable-background:new 0 0 158 239.3;" xml:space="preserve">
-                        <g>
-                            <path d="M35.5,28.9c-4.3-0.9-8.6-1.8-12.9-2.8c-1-0.2-2.1,0.4-2.2,1.2c-0.4,2.9-0.8,5.8-1.2,8.7c-0.2,1.7,3.2,1.7,3.4,0
-		c0.4-2.3,0.6-4.7,1-7.1c3.7,0.8,7.3,1.6,10.9,2.3C36.6,31.8,37.7,29.3,35.5,28.9z" />
-                            <path d="M69.1,207.3c-1.6-1.7-3.7-2.1-5.9-1.7c-1.7,0.4-3.3,1.2-4.6,2.3c-1.5,1.2-3,2.5-4.5,3.7c-0.3,0.3-0.5,0.7-1.1,0.7
-		c0.1-0.5,0.3-0.9,0.4-1.3c0.4-1,0.8-2,1.3-3c1.6-3.2,2.9-6.7,5.1-9.5c0.4-0.5,0.3-1-0.2-1.4l-1.2-0.8c-0.1,0.1-0.2,0.2-0.3,0.1
-		c-0.6,0.1-1.1,0.4-1.4,1c-0.8,1.1-1.5,2.2-2.1,3.4c-0.4,0.9-0.8,1.8-1.2,2.6c-0.8,1.5-1.6,3-2.2,4.7c-0.1,0.2-0.2,0.4-0.3,0.6
-		c-0.6,0.9-0.9,1.9-1.1,2.9c-0.2,0.8-0.1,1.5,0.4,2.1c0.2,0.3,0.6,0.6,0.8,0.9c0.6,0.7,1.4,1,2.3,0.8c0.7-0.1,1.3-0.3,1.9-0.7
-		c1.1-0.8,2.2-1.6,3.2-2.4c1.3-1,2.5-2,3.8-2.8c0.9-0.6,1.9-1.1,3-1.3c0.5-0.1,0.9,0,1.2,0.3c0.8,0.8,1.4,1.7,2,2.6
-		c0.8,1.3,1,2.7,0.7,4.2c-0.5,2.9-2,5.3-4.2,7.2c-0.2,0.1-0.4,0.3-0.5,0.5c-0.1,0.4-0.4,0.5-0.7,0.8c-2,1.3-4.3,2-6.7,2.3
-		c-0.9,0.1-1.8,0.2-2.7,0.3c-0.8,0.1-1.6,0.3-2.2,1.1c0.4,0.1,0.8,0.2,1.1,0.3c0,0.2,0,0.3-0.1,0.5c0.3,0.1,0.7,0.3,1.1,0.3
-		c0.3,0.1,0.7,0.1,1.1,0.1c1.3,0,2.5,0,3.8-0.1c2.1-0.1,4.1-0.9,5.9-1.9c1.8-1.1,3.4-2.5,4.7-4.2c1.1-1.4,2.1-2.9,2.6-4.7
-		c0.4-1.6,0.6-3.3,0.1-4.9C71.9,210.7,70.6,208.9,69.1,207.3z" />
-                            <path d="M98.3,181.9c-0.4,0.1-0.8,0.2-1.2,0.3c-0.6,0.2-1,0.6-1.3,1.2c-0.3,0.6-0.5,1.1-0.6,1.7c-0.1,0.8-0.4,1.6-0.6,2.4
-		c-0.2,1.1-0.4,2.2-0.8,3.4c-0.5,1.4-0.8,2.9-0.9,4.4c0,0.1-0.1,0.2-0.1,0.5c-0.3-0.2-0.6-0.4-0.9-0.6l-2.8-2.6
-		c-0.5-0.5-1-0.9-1.5-1.4c1.3-1.1,2.7-2.1,4.2-3.1c0.9-0.7,1.8-1.3,2.7-1.9c0.4-0.3,0.6-0.6,0.5-1c-0.8-0.7-0.9-0.7-1.8-0.4
-		c-1.4,0.5-2.6,1.1-3.8,1.9c-1.3,0.8-2.6,1.7-3.8,2.6c0,0-0.1-0.1-0.1-0.1c-0.4-0.3-0.8-0.7-1.2-1c-0.5-0.3-1-0.4-1.5-0.3
-		c-0.4,0.1-0.6,0.6-0.8,0.9c-0.1,0.1-0.1,0.1-0.2,0.2c0.4,0.7,0.8,1.2,1.4,1.5c0.2,0.1,0.3,0.2,0.4,0.3l0,0c-0.6,0.5-1.2,1-1.8,1.5
-		c-3,2.5-5.8,5.2-8.8,7.7c-1,0.9-2,1.7-3,2.6c-0.8,0.7-1,0.8-0.6,1.9c0,0,0.1,0.1,0.1,0.2c1.3,0.3,2.3,0,3.3-0.7
-		c1.3-0.9,2.5-1.9,3.7-2.9l3.2-2.9c0.1-0.1,0.3-0.2,0.5-0.2l0.5,1.4c0.4,1.1,0.8,2.2,1.1,3.3c0.9,2.8,1.8,5.6,2.7,8.4
-		c0.6,1.9,1.2,3.9,2,5.7c0.4,0.8,0.8,1.6,1.6,2c0.6,0.4,1.3,0.4,1.8,0c0.3-0.3,0.4-0.7,0.3-1c-0.7-1-1-2.1-1.4-3.1
-		c-0.7-1.8-1.2-3.7-1.8-5.6l-2.9-9.2c-0.4-1.2-0.8-2.5-1.7-3.5c-0.1-0.1-0.1-0.2-0.1-0.3c1.3-1.1,2.5-2.3,3.8-3.4l1.6,1.4
-		c1.6,1.5,3.2,2.8,5,4c0.4,0.3,0.6,0.6,0.5,1.1c-0.2,1.2-0.3,2.4-0.5,3.6c-0.5,2.9-0.5,5.8-0.2,8.7c0,0.1,0.1,0.2,0.2,0.3l0.2,0.5
-		c0.2,0.5,0.3,1,0.5,1.5c0.2,0.5,0.5,0.9,0.9,1.3c0.3,0.3,0.8,0.4,1.2,0.1c0.3-0.2,0.5-0.7,0.4-1.1c-0.1-0.3-0.2-0.5-0.3-0.8
-		c-0.1-0.4-0.3-0.8-0.3-1.1c-0.1-0.5-0.1-1-0.2-1.5c-0.1-0.4-0.1-0.8-0.1-1.2c0.1-1.4,0.2-2.8,0.3-4.3c0.1-0.9,0.3-1.7,0.3-2.6
-		c0-1.1,0.2-2.2,0.4-3.3c0-0.3,0.1-0.6,0.4-0.8c0.1-0.1,0.2-0.3,0.3-0.6c0.1-0.2,0.1-0.5-0.1-0.7c-0.1-0.2-0.1-0.4-0.1-0.6
-		c0.1-0.8,0.1-1.5,0.2-2.3c0.1-1,0.2-1.9,0.5-2.9c0.3-1.3,0.8-2.6,1.1-3.9c0.2-0.7,0.4-1.3,0.6-2.1c0.2-0.9,0.1-1.8,0.9-2.6
-		c0.2-0.3,0.1-0.5-0.1-0.8C98.8,182.3,98.6,182.1,98.3,181.9z" />
-                            <path d="M126.6,200.6c-0.3,0-0.5,0-0.8,0.2c-0.9,0.4-1.9,0.8-2.8,1.3l-6.7,3.4c-0.6,0.3-1.1,0.6-1.7,0.9c-0.2-0.5-0.4-0.7-0.6-1.1
-		c-0.4-0.9-0.8-1.8-1.2-2.8c-1.2-2.8-2.4-5.6-3.4-8.5c-0.9-2.6-1.7-5.3-2.6-7.9c-0.4-1.3-0.8-2.6-1.4-3.8c-0.5-1.3-1.8-1.5-2.9-0.6
-		c-0.2,0.2-0.5,0.4-0.6,0.5c-0.1,0.5-0.4,1.1,0.1,1.6c0.1,0.2,0.2,0.4,0.3,0.6c0.5,1.4,1,2.8,1.5,4.3c0.4,1.3,0.8,2.6,1.3,4
-		c1.6,4.6,3.5,9,5.4,13.4l0.6,1.3c0.3,0.8,0.2,0.9-0.4,1.4l-1.9,1.4c-0.5,0.4-0.5,0.8-0.3,1.3l0.4,0.6c1.6-0.1,3.1-0.4,4.3-1.5
-		c0.3-0.3,0.8-0.4,1.2-0.6c0.2-0.1,0.6-0.2,0.7-0.4c0.3-0.6,0.9-0.9,1.4-1.2c2.8-1.6,5.7-3.2,8.4-4.8c0.8-0.5,1.7-0.9,2.4-1.7
-		c0.3-0.3,0.4-0.6,0.3-1C127.3,200.8,127,200.6,126.6,200.6z" />
-                            <path d="M147.8,196.4c-0.2-0.3-0.7-0.4-1.1-0.3c-2.2,0.7-4.2,1.9-6.2,3.1c-0.7,0.5-1.4,0.9-2.1,1.3c-0.5-1.1-0.9-2.2-1.3-3.3
-		c-0.4-1-0.8-2-1.2-3c-0.1-0.3,0-0.4,0.2-0.6c1.4-1,2.9-2,4.3-3c0.5-0.4,1-0.8,1.3-1.3c0.4-0.5,0.1-1.1-0.4-1.4
-		c-0.2-0.1-0.7,0-0.9,0.1c-1.6,0.9-3.1,1.9-4.6,2.9c-0.3,0.2-0.6,0.3-0.9,0.5c-0.5-1.4-0.9-2.7-1.3-4c-0.7-2.2-1.3-4.4-1.9-6.6
-		c-0.1-0.4,0-0.6,0.2-0.9l6.9-5.8c0.4-0.3,0.7-0.7,1-1.1c0.5-0.6,0.4-1.1-0.3-1.4c-0.3-0.1-0.7,0-1,0.1c-1.7,1-3.4,1.9-4.9,3.2
-		c-1,0.8-2.1,1.7-3.1,2.5c-0.1-0.1-0.1-0.1-0.1-0.1c-0.4-0.5-0.8-0.8-1.4-0.6c-0.3,0.1-0.7,0.4-0.9,0.7c-0.3,0.6-0.4,1.3-0.1,1.8
-		c0.2,0.4,0,0.5-0.2,0.7l-2.4,2.4c-0.7,0.7-1.3,1.4-2,2c-0.1,0.1-0.1,0.3-0.1,0.4c0,0.1,0,0.3,0,0.5c0,0.4-0.2,0.7,0.1,1.1
-		c0.1,0,0,0.2,0,0.2c0.5-0.1,1-0.2,1.5-0.4c0.4-0.1,0.8-0.3,1-0.5c0.9-0.9,1.7-1.8,2.5-2.7c0.1-0.1,0.3-0.2,0.4-0.3l0.5,1.6
-		c0.6,1.9,0.9,3.9,1.8,5.7c0.3,0.6,0.5,1.3,0.7,2c0.3,1,0.3,1-0.5,1.6c-0.3,0.3-0.7,0.7-0.9,1.1c-0.1,0.1,0.1,0.4,0.2,0.7
-		c0.1,0.4,0.2,0.7,0.7,0.3c0,0,0.1,0,0.1,0l1.6-0.2c0.3,0.8,0.5,1.6,0.8,2.4c0.5,1.4,1.1,2.7,1.6,4.1c0,0.1,0,0.4-0.1,0.4
-		c-0.7,0.3-0.5,1-0.9,1.5c-0.1,0.1,0,0.2,0,0.3c0.1,0.2,0.2,0.5,0.3,0.7c0.2-0.1,0.4,0,0.5-0.1c0.7-0.5,1.5-0.4,2.3-0.3
-		c0.8,0.1,1.5-0.1,1.7-1c0-0.1,0.1-0.4,0.3-0.5l4.7-3.1c1.1-0.8,2.2-1.6,3.3-2.4C148,197.4,148.1,196.8,147.8,196.4z" />
-                            <path d="M94.9,171.7c0.3,1.1,1.8,0.6,1.7-0.5c-3.8-25.3-13.2-50.2-24.4-73C60.8,75.1,46.4,53.6,29.5,34.1c-1.1-1.3-3,0.6-1.9,1.9
-		c16.7,19.3,30.9,40.7,42.1,63.6C81.1,122.8,88.4,146.9,94.9,171.7z" />
-                        </g>
-                    </svg>
-                </div>
+                <span>
+                </span>
+                
             </div>
             <div class="step separator"></div>
             <div class="step last" rel="extra">
                 <span></span>
-                <div class="message extra shake"><svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
-                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 158.5 171.2"
-                        style="enable-background:new 0 0 158.5 171.2;" xml:space="preserve">
-                        <g>
-                            <path d="M28.7,34.6c11.7,3.2,23.4,9.8,33.9,20.1c10.5,10.3,19,23.5,25.3,38c0.9,2,2.8,0.7,2-1.3C83.3,76.3,74.3,62.7,63.5,52
-		C52.5,41.3,40.3,34.6,28.2,31.3C26.6,30.9,27.1,34.1,28.7,34.6z" />
-                            <path d="M23.6,31.7c1.7-1.3,3.4-2.6,5.1-3.9c1.2-0.9-0.4-3.9-1.6-3c-2.1,1.6-4.2,3.2-6.3,4.8c-0.6,0.5-0.6,1.7,0.1,2.5
-		c2.7,3.5,5.4,7,8.1,10.5c1.3,1.7,2.8-0.3,1.5-2C28.2,37.7,25.9,34.7,23.6,31.7z" />
-                            <path d="M61.3,148c-0.2-0.1-0.4,0-0.5,0c-0.9,0-1.6-0.2-2.4-0.6c-0.3-0.2-0.6-0.3-0.9-0.5c-0.7-0.5-1.3-1-1.9-1.5
-		c-0.8-0.7-1.6-1.4-2.3-2.2c-0.9-0.9-1.7-1.9-2.5-2.9c-0.3-0.3-0.5-0.6-0.7-0.9c0-0.1,0-0.3,0-0.3c0.7-0.6,1.4-1,2.2-1.3
-		c0.4-0.2,0.9-0.4,1-0.9c0-0.1,0-0.2,0-0.2c-0.3-0.5-0.9-0.7-1.4-0.6c-1.1,0.2-2.2,0.6-3.1,1.2c-0.2,0.1-0.3,0-0.4-0.1l-0.8-1.2
-		c-0.5-0.7-1-1.5-1.5-2.2c-0.4-0.6-0.7-1.4-1.1-2c-0.9-1.3-1.6-2.7-2.3-4.1c-0.3-0.5-0.9-0.9-1.5-0.8c-0.1,0-0.1,0.1-0.2,0.1
-		c-0.1,0-0.2,0.1-0.3,0.2c-0.2,0.1-0.4,0.1-0.3,0.4c0,0.1-0.2,0.3-0.3,0.3c-0.3,0.1-0.3,0.3-0.4,0.5c-0.1,0.4,0,0.6,0.3,0.8
-		c0.1,0.1,0.2,0.1,0.2,0.3c0.1,0.3,0.2,0.7,0.2,1l0.6,1.7c0.3,0.8,0.6,1.6,0.9,2.5c0.3,1,0.6,2,0.9,3c0.2,1.1,0.4,2.2,0.6,3.3
-		c0.1,0.4-0.1,0.7-0.3,0.9c-0.5,0.4-1,0.7-1.4,1.1c-1,0.9-2.2,1.6-3.3,2.4c-0.3,0.2-0.9,0.1-1,0.7c-0.1,0.4-0.1,0.7,0.3,1
-		c0.6,0.4,1.2,0.4,1.8,0.2c0.4-0.1,0.8-0.4,1.2-0.6c0.7-0.4,1.4-0.9,2-1.4l0.9-0.7c0,0.2,0.1,0.3,0.1,0.4c0,0.8,0,1.6,0,2.4
-		c0,0.5,0.1,1,0.1,1.5c0.1,0.8,0.2,1.7,0.2,2.5c0,0.6,0.4,1.1,0.6,1.7c0.2,0.6,0.6,1.1,0.9,1.7c0.2,0.3,0.5,0.4,0.8,0.7
-		c0-0.2,0-0.3,0-0.4l0.1,0c0.4,0.6,0.9,0.1,1.3,0.1c0.1,0,0.1-0.1,0.1-0.2c0-0.4,0-0.9-0.3-1.3c-0.2-0.3-0.4-0.6-0.4-0.9
-		c-0.2-0.8-0.2-1.7-0.4-2.6c-0.2-1-0.2-1.9-0.2-2.9c0-0.5,0.1-1,0-1.5c-0.1-1.1-0.1-2.1-0.2-3.1c0-0.2,0.1-0.3,0.2-0.4
-		c0.1-0.1,0.2-0.2,0.3-0.3l1.2-1.1c0.1,0.1,0.2,0.2,0.2,0.3l2.4,2.8c0.5,0.6,0.9,1.1,1.5,1.6c0.6,0.6,1.2,1.1,1.9,1.6
-		c0.6,0.5,1.2,0.9,1.9,1.3c0.4,0.3,0.9,0.5,1.4,0.7c1.1,0.5,2.3,0.8,3.5,0.8c0.5-0.1,1-0.2,1.4-0.5c0.2-0.2,0.3-0.8,0.2-0.9
-		C62,148.3,61.6,148.1,61.3,148z M46.1,139c-0.1,0-0.1,0.1-0.2,0.2c-0.1,0-0.1,0-0.1,0l-0.3-1.6c0,0,0.1,0,0.1,0
-		c0.2,0.2,0.4,0.5,0.5,0.8c0.1,0,0,0.1,0.1,0.1C46.4,138.7,46.4,138.8,46.1,139z" />
-                            <path d="M84.1,125.6c-0.2-0.1-0.3-0.1-0.6-0.1c-0.1,0.1-0.2,0.2-0.3,0.2c-0.4,0-0.4,0.2-0.5,0.5c-0.2,0.6-0.4,1.2-0.6,1.9
-		c-0.3,0.8-0.5,1.5-0.7,2.3c-0.1,0.4-0.2,0.9-0.3,1.4c-0.3,1.4-0.5,2.8-0.9,4.1c-0.4,1.2-0.5,2.5-1.7,3.2c-0.5,0.3-0.9,0.4-1.3-0.1
-		c-0.9-1-1.7-2.1-2.2-3.4c-0.5-1.2-1-2.4-1.5-3.6c-0.4-1-0.7-2.1-1-3.1c-0.3-0.9-0.6-1.9-0.8-2.8c-0.2-1-0.4-2-0.5-3.1
-		c-0.1-1-0.2-2.1-0.2-3.2c0-1,0.2-1.9,0.4-2.9c0.1-0.6,0.4-1.1,0.6-1.7c0.5,0,0.7,0.3,0.9,0.6c0.4,0.6,0.6,1.2,1.3,1.5
-		c0.1,0,0.1,0.1,0.2,0.1c-0.3,0.4,0.1,0.5,0.3,0.7l0.9-0.4c0.2-0.1,0.5-0.2,0.7-0.3c0.5-0.3,0.7-0.9,0.4-1.4l-0.3-0.5
-		c-0.7-1-1.4-1.9-2-2.9c-0.3-0.4-0.7-0.5-1.1-0.4c-1.1,0.1-2,0.5-2.9,1.2c-0.2,0.1-0.3,0.3-0.4,0.5c-0.2,0.3-0.2,0.6-0.4,1
-		c-0.2,0.3-0.4,0.5-0.6,0.8c-0.2,0.5-0.4,1.1-0.6,1.6c-0.1,0.2,0,0.3,0,0.5c0,0.1,0,0.2,0,0.3c0,0.4-0.2,0.7-0.2,1.1
-		c0,1.1-0.3,2.2,0,3.3c0.2,0.8,0.1,1.7,0.3,2.5c0.3,1.3,0.7,2.6,0.9,3.9c0.1,0.5,0.3,0.9,0.4,1.4c0.2,0.7,0.4,1.4,0.6,2.1
-		c-0.1,0.3-0.2,0.6-0.3,0.9c-0.3,0.8-0.5,1.5-0.7,2.3c-0.1,0.4-0.2,0.9-0.3,1.4c-0.3,1.4-0.5,2.8-0.9,4.1c-0.4,1.2-0.5,2.5-1.7,3.2
-		c-0.5,0.3-0.9,0.4-1.3-0.1c-0.9-1-1.7-2.1-2.2-3.4c-0.5-1.2-1-2.4-1.5-3.6c-0.4-1-0.7-2.1-1-3.1c-0.3-0.9-0.6-1.9-0.8-2.8
-		c-0.2-1-0.4-2-0.5-3.1c-0.1-1-0.2-2.1-0.2-3.2c0-1,0.2-1.9,0.4-2.9c0.1-0.6,0.4-1.1,0.6-1.7c0.5,0,0.7,0.3,0.9,0.6
-		c0.4,0.6,0.6,1.2,1.3,1.5c0.1,0,0.1,0.1,0.2,0.1c-0.3,0.4,0.1,0.5,0.3,0.7l0.9-0.4c0.2-0.1,0.5-0.2,0.7-0.3
-		c0.5-0.3,0.7-0.9,0.4-1.4l-0.3-0.5c-0.7-1-1.4-1.9-2-2.9c-0.3-0.4-0.7-0.5-1.1-0.4c-1.1,0.1-2,0.5-2.9,1.2
-		c-0.2,0.1-0.3,0.3-0.4,0.5c-0.2,0.3-0.2,0.6-0.4,1c-0.2,0.3-0.4,0.5-0.6,0.8c-0.2,0.5-0.4,1.1-0.6,1.6c-0.1,0.2,0,0.3,0,0.5
-		c0,0.1,0,0.2,0,0.3c0,0.4-0.2,0.7-0.2,1.1c0,1.1-0.3,2.2,0,3.3c0.2,0.8,0.1,1.7,0.3,2.5c0.3,1.3,0.7,2.6,0.9,3.9
-		c0.1,0.5,0.3,0.9,0.4,1.4c0.3,0.9,0.5,1.8,0.8,2.7c0.3,0.7,0.7,1.5,1,2.2c0.7,1.6,1.5,3.2,2.6,4.5c0.3,0.5,0.7,0.9,1.2,1.2
-		c1.2,0.8,2.5,0.7,3.8,0.3c0.4-0.1,0.8-0.3,1.1-0.5c0.5-0.4,0.9-1,1.4-1.4c0.6-0.6,0.9-1.4,1.1-2.2c0.2-0.8,0.4-1.6,0.6-2.4
-		c0.1-0.5,0.2-1,0.3-1.5l0.3-2.4c0.6,1.2,1.2,2.3,2.1,3.3c0.3,0.5,0.7,0.9,1.2,1.2c1.2,0.8,2.5,0.7,3.8,0.3c0.4-0.1,0.8-0.3,1.1-0.5
-		c0.5-0.4,0.9-1,1.4-1.4c0.6-0.6,0.9-1.4,1.1-2.2c0.2-0.8,0.4-1.6,0.6-2.4c0.1-0.5,0.2-1,0.3-1.5l0.5-3.2c0.1-0.8,0.3-1.6,0.3-2.3
-		c0-0.7-0.2-1.4-0.3-2.1C84.3,125.7,84.2,125.6,84.1,125.6z" />
-                            <path d="M102.1,127.5c-2,0.9-3.7,2.2-5.4,3.5c-0.6,0.5-1.2,0.9-1.9,1.4c-0.5-1-1.1-2-1.6-2.9c-0.5-0.9-0.9-1.8-1.4-2.6
-		c-0.2-0.2-0.1-0.4,0.2-0.6c1.2-1.1,2.5-2.2,3.7-3.3c0.4-0.4,0.9-0.9,1.1-1.4c0.3-0.5,0-1-0.5-1.2c-0.2-0.1-0.6,0-0.9,0.2
-		c-1.4,1-2.7,2.1-4,3.1c-0.3,0.2-0.5,0.3-0.8,0.5c-0.6-1.2-1.2-2.4-1.7-3.6c-0.9-2-1.6-4-2.5-5.9c-0.1-0.3-0.1-0.6,0.1-0.8l5.8-6.1
-		c0.3-0.4,0.6-0.7,0.8-1.1c0.4-0.6,0.3-1.1-0.4-1.2c-0.3,0-0.7,0.1-0.9,0.2c-1.5,1.1-2.9,2.1-4.2,3.4c-0.9,0.9-1.7,1.8-2.6,2.7
-		c-0.1-0.1-0.1-0.1-0.1-0.1c-0.4-0.4-0.9-0.6-1.4-0.4c-0.3,0.1-0.6,0.5-0.7,0.7c-0.3,0.6-0.2,1.2,0.1,1.7c0.2,0.4,0,0.5-0.1,0.7
-		l-2,2.4c-0.5,0.7-1.1,1.4-1.7,2.1c0,0.1,0,0.3,0,0.4c0,0.1,0.1,0.3,0.1,0.5c0,0.3-0.1,0.7,0.2,1c0.1,0,0,0.2,0,0.2
-		c0.4-0.2,0.9-0.3,1.3-0.5c0.3-0.1,0.7-0.3,0.9-0.5c0.7-0.9,1.4-1.8,2.1-2.7c0.1-0.1,0.3-0.2,0.3-0.3l0.7,1.4
-		c0.7,1.7,1.3,3.5,2.3,5.1c0.4,0.6,0.6,1.2,0.9,1.8c0.4,0.9,0.4,0.9-0.3,1.5c-0.3,0.3-0.5,0.7-0.7,1.1c0,0.1,0.2,0.4,0.2,0.6
-		c0.1,0.3,0.3,0.7,0.6,0.2c0,0,0.1,0,0.1,0l1.5-0.4c0.3,0.7,0.6,1.5,1,2.2c0.6,1.2,1.3,2.4,1.9,3.6c0,0.1,0,0.4,0,0.4
-		c-0.6,0.4-0.4,1-0.6,1.5c-0.1,0.1,0,0.2,0,0.3c0.1,0.2,0.2,0.4,0.4,0.6c0.1-0.1,0.4-0.1,0.5-0.2c0.6-0.5,1.4-0.5,2.1-0.5
-		c0.8,0,1.4-0.3,1.4-1.1c0-0.1,0.1-0.3,0.2-0.4l4-3.4c1-0.8,1.9-1.7,2.9-2.5c0.3-0.3,0.3-0.9,0-1.2
-		C103,127.4,102.5,127.4,102.1,127.5z" />
-                            <path d="M147.5,98.9c-0.8-1.9-2.1-3.5-3.7-4.8c-1.7-1.4-3.6-1.6-5.7-0.9c-1.6,0.5-2.9,1.5-4.1,2.6c-1.3,1.2-2.5,2.6-3.8,3.9
-		c-0.3,0.3-0.4,0.7-1,0.8c0.1-0.5,0.2-0.9,0.3-1.3c0.3-1,0.6-1.9,0.9-2.9c1.2-3.1,2-6.5,3.8-9.4c0.3-0.5,0.2-1-0.3-1.2l-1.2-0.6
-		c-0.1,0.1-0.2,0.2-0.3,0.2c-0.6,0.1-0.9,0.5-1.2,1c0,0,0,0.1-0.1,0.1c-0.6-0.3-0.7-0.3-1.4,0c-1.2,0.6-2.3,1.3-3.4,2.2
-		c-2.3,1.9-4.5,3.9-6.5,6.1c-2.5,2.7-4.9,5.4-7.3,8.1c-0.6,0.7-1.3,1.4-2,2.1c0-1.1,0.1-2.2,0.2-3.3c0.1-1.3,0.3-2.6,0.5-3.9
-		c0.1-0.6,0-1.2-0.5-1.7c-0.3-0.4-0.8-0.3-1.2-0.2c-0.2,0.4-0.4,0.8-0.5,1.2c-0.1,0.2-0.1,0.5-0.2,0.7c-0.1,0.3,0,0.7-0.1,1.1
-		c-0.8,3.3-0.9,6.7-0.6,10.1c0,0.8,0,1.4,0.2,2.2c0.5,1.7,0.8,3.5,1.1,5.3c0.1,0.6,0.3,1.2,0.5,1.8l-0.1,0.1
-		c-0.1-0.1-0.3-0.1-0.4-0.2c-1.2-1.3-2.5-2.6-3.6-4c-1.7-2.1-3.6-4.1-5.6-6c-0.9-0.9-2-1.6-2.9-2.5c-0.9-0.9-1.7-1.1-2.8-0.7
-		c-0.6,0.7-0.5,1.2,0,1.9c0.1,0,0.1,0.1,0.1,0.2c0.6,1.3,1.2,2.6,1.8,3.8c0.9,2.1,1.8,4.3,2.6,6.4c0.7,1.7,1.2,3.4,2,5.1
-		c0.9,2.1,2,4.2,3,6.3c0.2,0.3,0.4,0.6,0.6,0.7c0.5,0.2,1,0.3,1.5,0.4c0.8,0.1,1.4-0.5,1.2-1.3c-0.1-0.4-0.2-0.8-0.4-1.1
-		c-0.9-1.9-1.8-3.7-2.7-5.6c-1.1-2.5-2.1-5-3.1-7.5c-0.1-0.2-0.1-0.3-0.2-0.5c0.9,0.7,1.7,1.6,2.5,2.4c1.1,1.2,2.1,2.4,3.2,3.5
-		c1.2,1.3,2.4,2.5,3.6,3.7c0.8,0.8,1.5,1.8,2.7,1.8c0.4,0,0.8,0.1,1.1,0.1c0.7,0,1.1-0.6,1-1.3c-0.1-0.3-0.2-0.6-0.3-0.8
-		c-1.6-3.5-2.7-7.2-3.5-11c-0.3-1.5-0.5-3-0.6-4.6c0.8-0.1,1.4-0.4,2.1-1c1.1-0.9,2.2-2,3.1-3.1l2.7-3.1c0.1-0.1,0.3-0.2,0.4-0.3
-		l0.6,1.2c0.5,1,0.9,1.9,1.4,3c1.1,2.5,2.3,5,3.4,7.5c0.8,1.7,1.5,3.5,2.4,5.1c0.4,0.7,0.9,1.4,1.7,1.7c0.6,0.3,1.2,0.3,1.6-0.2
-		c0.3-0.3,0.3-0.7,0.1-0.9c-0.8-0.8-1.1-1.8-1.6-2.8c-0.8-1.6-1.5-3.3-2.2-5l-3.7-8.3c-0.5-1.1-1-2.2-2-3c-0.1-0.1-0.1-0.2-0.1-0.3
-		c1.3-1.5,2.6-2.9,3.8-4.3c1.4-1.6,2.9-2.9,4.5-4.3c0.4-0.4,0.9-0.8,1.3-1.2c-0.2,0.4-0.3,0.8-0.5,1.2c-0.3,0.9-0.5,1.7-0.9,2.6
-		c-0.6,1.5-1.2,3-1.5,4.6c0,0.2-0.1,0.4-0.2,0.6c-0.5,0.9-0.6,1.8-0.8,2.8c-0.1,0.7,0,1.4,0.6,1.9c0.3,0.3,0.6,0.5,0.9,0.8
-		c0.6,0.6,1.4,0.8,2.3,0.5c0.6-0.2,1.2-0.4,1.7-0.8c1-0.8,1.8-1.8,2.7-2.6c1.1-1,2.1-2.1,3.2-3c0.8-0.7,1.6-1.2,2.6-1.5
-		c0.5-0.1,0.8-0.1,1.2,0.2c0.9,0.6,1.5,1.4,2.2,2.2c0.9,1.1,1.3,2.4,1.1,3.8c-0.2,2.7-1.3,5.1-3.2,7.1c-0.1,0.2-0.3,0.3-0.4,0.5
-		c-0.1,0.3-0.4,0.6-0.6,0.8c-1.8,1.5-3.8,2.3-6,2.9c-0.8,0.2-1.7,0.3-2.5,0.5c-0.7,0.2-1.4,0.4-1.9,1.3c0.4,0.1,0.8,0.1,1.1,0.2
-		c0,0.2,0,0.3,0,0.4c0.3,0.1,0.7,0.2,1,0.2c0.3,0.1,0.7,0,1,0c1.2-0.2,2.4-0.2,3.5-0.5c2-0.3,3.7-1.2,5.3-2.4c1.6-1.2,2.9-2.7,4-4.4
-		c0.9-1.4,1.6-2.9,1.9-4.6C148.1,101.9,148.1,100.3,147.5,98.9z" />
-                        </g>
-                    </svg>
-                </div>
+                
             </div>
         </div>
         <div class="favourite with_add_to_cart">
@@ -2084,7 +1982,16 @@
                                 let currentStyle = currentDesign.style;
                                 Object.keys(currentStyle).forEach(key => {
                                     let componentImgs = images.find(component => component.fabric_id == currentDesign.fabric)                            
-                                    let componentImg = componentImgs.component_item.find(img => img.item_id == currentStyle[key]);
+                                    let component = components.find(component => component.code == key);
+                                    let componentImg;
+                                    if (!!component.parentComponent) {
+                                        let parentStyle = currentDesign.style[component.parentComponent];
+                                        componentImg = componentImgs.component_item.find(img => {
+                                            return img.item_id == currentDesign.style[key] && img.parent_id == parentStyle
+                                        });
+                                    } else {
+                                        componentImg = componentImgs.component_item.find(img => img.item_id == currentDesign.style[key]);
+                                    }
                                     if(!!componentImg.img_url_front) { %>
                                         <img src="<%= componentImg.img_url_front %>" parent="" id="<%=key %>" class="front">
                                     <%  }                                     
@@ -2102,7 +2009,16 @@
                             <%  });                                
                                 Object.keys(currentStyle).forEach(key => {
                                     let componentImgs = images.find(component => component.fabric_id == currentDesign.fabric)                            
-                                    let componentImg = componentImgs.component_item.find(img => img.item_id == currentStyle[key]);
+                                    let component = components.find(component => component.code == key);
+                                    let componentImg;
+                                    if (!!component.parentComponent) {
+                                        let parentStyle = currentDesign.style[component.parentComponent];
+                                        componentImg = componentImgs.component_item.find(img => {
+                                            return img.item_id == currentDesign.style[key] && img.parent_id == parentStyle
+                                        });
+                                    } else {
+                                        componentImg = componentImgs.component_item.find(img => img.item_id == currentDesign.style[key]);
+                                    }
                                     if(!!componentImg.img_url_back) { %>
                                         <img src="<%= componentImg.img_url_back %>" parent="" id="<%=key %>" class="back">
                                         <%  } 

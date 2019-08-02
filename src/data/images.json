@@ -1,0 +1,100 @@
+[
+    {
+        "fabric_id": "fabric_001",
+        "component_item": [
+            {
+                "item_id": "style_001",
+                "img_url_front": "https://d2w9m16hs9jc37.cloudfront.net/3d/new_man/jacket/STD/894_fabric/front/neck_single_breasted+buttons_1+lapel_narrow+style_lapel_notch.png",
+                "img_url_back": "https://d2w9m16hs9jc37.cloudfront.net/3d/new_man/jacket/STD/894_fabric/back/bottom+length_short+back_style_center_vent.png"
+            },
+            {
+                "item_id": "style_002",
+                "img_url_front": "https://d2w9m16hs9jc37.cloudfront.net/3d/new_man/jacket/STD/894_fabric/front/neck_double_breasted+buttons_2+lapel_narrow+style_lapel_notch.png",
+                "img_url_back": "https://d2w9m16hs9jc37.cloudfront.net/3d/new_man/jacket/STD/894_fabric/back/bottom+length_short+back_style_center_vent.png"
+            },
+            {
+                "item_id": "fit_001",
+                "img_url_front": "",
+                "img_url_back": ""
+            },
+            {
+                "item_id": "fit_002",
+                "img_url_front": "https://d2w9m16hs9jc37.cloudfront.net/3d/new_man/jacket/STD/894_fabric/front/body_baggy.png",
+                "img_url_back": "https://d2w9m16hs9jc37.cloudfront.net/3d/new_man/jacket/STD/894_fabric/back/body_baggy.png"
+            },
+            {
+                "item_id": "lapel_001",
+                "parent_id": "style_001",
+                "img_url_front": "https://d2w9m16hs9jc37.cloudfront.net/3d/new_man/jacket/STD/894_fabric/front/neck_single_breasted+buttons_2+lapel_narrow+style_lapel_notch.png",
+                "img_url_back": "https://d2w9m16hs9jc37.cloudfront.net/3d/new_man/jacket/STD/894_fabric/back/neck.png"
+            },
+            {
+                "item_id": "lapel_002",
+                "parent_id": "style_001",
+                "img_url_front": "https://d2w9m16hs9jc37.cloudfront.net/3d/new_man/jacket/STD/894_fabric/front/neck_single_breasted+buttons_2+lapel_narrow+style_lapel_peak.png",
+                "img_url_back": "https://d2w9m16hs9jc37.cloudfront.net/3d/new_man/jacket/STD/894_fabric/back/neck.png"
+            },
+            {
+                "item_id": "lapel_001",
+                "parent_id": "style_002",
+                "img_url_front": "https://d2w9m16hs9jc37.cloudfront.net/3d/new_man/jacket/STD/894_fabric/front/neck_double_breasted+buttons_2+lapel_narrow+style_lapel_notch.png",
+                "img_url_back": "https://d2w9m16hs9jc37.cloudfront.net/3d/new_man/jacket/STD/894_fabric/back/neck.png"
+            },
+            {
+                "item_id": "lapel_002",
+                "parent_id": "style_002",
+                "img_url_front": "https://d2w9m16hs9jc37.cloudfront.net/3d/new_man/jacket/STD/894_fabric/front/neck_double_breasted+buttons_2+lapel_narrow+style_lapel_peak.png",
+                "img_url_back": "https://d2w9m16hs9jc37.cloudfront.net/3d/new_man/jacket/STD/894_fabric/back/neck.png"
+            }
+        ]
+    },
+    {
+        "fabric_id": "fabric_002",
+        "component_item": [
+            {
+                "item_id": "style_001",
+                "img_url_front": "https://d2w9m16hs9jc37.cloudfront.net/3d/new_man/jacket/STD/1904_fabric/front/neck_single_breasted+buttons_1+lapel_narrow+style_lapel_notch.png",
+                "img_url_back": "https://d2w9m16hs9jc37.cloudfront.net/3d/new_man/jacket/STD/1904_fabric/back/bottom+length_short+back_style_center_vent.png"
+            },
+            {
+                "item_id": "style_002",
+                "img_url_front": "https://d2w9m16hs9jc37.cloudfront.net/3d/new_man/jacket/STD/1904_fabric/front/neck_double_breasted+buttons_2+lapel_narrow+style_lapel_notch.png",
+                "img_url_back": "https://d2w9m16hs9jc37.cloudfront.net/3d/new_man/jacket/STD/1904_fabric/back/bottom+length_short+back_style_center_vent.png"
+            },
+            {
+                "item_id": "fit_001",
+                "img_url_front": "",
+                "img_url_back": ""
+            },
+            {
+                "item_id": "fit_002",
+                "img_url_front": "https://d2w9m16hs9jc37.cloudfront.net/3d/new_man/jacket/STD/1904_fabric/front/body_baggy.png",
+                "img_url_back": "https://d2w9m16hs9jc37.cloudfront.net/3d/new_man/jacket/STD/1904_fabric/back/body_baggy.png"
+            },
+            {
+                "item_id": "lapel_001",
+                "parent_id": "style_001",
+                "img_url_front": "https://d2w9m16hs9jc37.cloudfront.net/3d/new_man/jacket/STD/1904_fabric/front/neck_single_breasted+buttons_2+lapel_narrow+style_lapel_notch.png",
+                "img_url_back": "https://d2w9m16hs9jc37.cloudfront.net/3d/new_man/jacket/STD/1904_fabric/back/neck.png"
+            },
+            {
+                "item_id": "lapel_002",
+                "parent_id": "style_001",
+                "img_url_front": "https://d2w9m16hs9jc37.cloudfront.net/3d/new_man/jacket/STD/1904_fabric/front/neck_single_breasted+buttons_2+lapel_narrow+style_lapel_peak.png",
+                "img_url_back": "https://d2w9m16hs9jc37.cloudfront.net/3d/new_man/jacket/STD/1904_fabric/back/neck.png"
+            },
+            {
+                "item_id": "lapel_001",
+                "parent_id": "style_002",
+                "img_url_front": "https://d2w9m16hs9jc37.cloudfront.net/3d/new_man/jacket/STD/1904_fabric/front/neck_double_breasted+buttons_2+lapel_narrow+style_lapel_notch.png",
+                "img_url_back": "https://d2w9m16hs9jc37.cloudfront.net/3d/new_man/jacket/STD/1904_fabric/back/neck.png"
+            },
+            {
+                "item_id": "lapel_002",
+                "parent_id": "style_002",
+                "img_url_front": "https://d2w9m16hs9jc37.cloudfront.net/3d/new_man/jacket/STD/1904_fabric/front/neck_double_breasted+buttons_2+lapel_narrow+style_lapel_peak.png",
+                "img_url_back": "https://d2w9m16hs9jc37.cloudfront.net/3d/new_man/jacket/STD/1904_fabric/back/neck.png"
+            }
+        ]
+    }
+]

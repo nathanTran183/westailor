@@ -1,13 +1,19 @@
-const Promise = require('bluebird');
 const mongoose = require('mongoose');
 
 const OrderItemSchema = new mongoose.Schema({
-    code: { type: String, required: true },
-    percent: { type: Number, enum: [10,20,30,50,70], required: true },
-    date_start: { type: Date, required: true },
-    date_end: { type: Date, required: true },
-    
-}, {timestamps: true});
+    product_id: { type: String, require: true },
+    fabric_id: { type: String, require: true },
+    price: { type: Number, require: true },
+    style: { type: Object, require: true },
+    measure: { type: Object },
+    quantity: { type: Number, require: true },
+    status: { type: Boolean, default: false },
+    img: { type: String, require: true },
+    order_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Order'
+    }
+}, { timestamps: true });
 
 
 

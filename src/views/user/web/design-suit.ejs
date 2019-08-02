@@ -67,6 +67,7 @@
         var mobile_enabled = false;
         var tablet_enabled = false;
         var dataLayer = [{ "contentGroup1": "Configurador", "contentGroup2": "Configurador_man_suit", "config_version": "man_suit_desktop_1fabric", "region": "en-au", "lang": "en", "currency": { "iso": "AUD", "symbol": "$" }, "length_units": "cm", "weigth_units": "kg", "gender": "man", "menu_item": "man_suit_personalize", "isAdmin": null, "mobile_device": false, "tablet_device": false, "mobile_ready": true, "mobile_enabled": false, "customer_logged": 0, "swiss_site": 0, "device_type": "desktop" }];
+        var pos = "<%= pos %>";
         var size_json = {
             "S": {"shoulder": 41, "chest": 99, "stomach":89, "hip": 98,"sleeves": 80},
             "M": {"shoulder": 46, "chest": 109, "stomach":98, "hip": 105,"sleeves": 100},
@@ -1276,25 +1277,40 @@
                     font-size: 15px;
                     text-align-last: center;
                 }
+
+                #extra .box_title {
+                    text-align: center;
+                    font-size: 15px
+                }
+
+                #extra .checkbox_option {
+                    padding-bottom: 25px;
+                }
             </style>
 
             <div class='sidebar-options block' id="extra">
                 <div class="container_options">
-                    <div id="measure_form">
-                        <div class="measure">
-                            <div class="title">Standard Size</div>
-                            <select name="sleeves" class="value_box">
-                                <option value="NoSelect">Select standard size here...</option>
-                                <option value="S">S size</option>
-                                <option value="M">M size</option>
-                                <option value="L">L size</option>
-                            </select>
+                    <div class="checkbox_option">
+                        <div class="lining option" name="slanted">
+                            <div class="box_title">Select your measure method</div>
+                            <div class="box_options">
+                                <label class="left check_button <%= currentDesign.measure ? 'checked' : ''%>" rel="0" option_filter="jacket_pockets_type"><span
+                                        class="check_radio"></span><span class="title">Measure by your own</span></label>
+                                <label class="left check_button <%= currentDesign.measure ? '' : 'checked'%>" rel="1" option_filter="jacket_pockets_type"><span
+                                        class="check_radio"></span><span class="title">Go to store</span></label>
+                            </div>
                         </div>
-                        <% measures.forEach(currentMeasure => { %>
+                    </div>
+                    <div id="measure_form" style="display: <%= currentDesign.measure ? 'block' : 'none'%>">
+                        <%  measures.forEach(currentMeasure => { 
+                            let value = "";
+                            if(!!currentDesign.measure)
+                                value = currentDesign.measure[currentMeasure]
+                            %>
                             <div class="measure">
                                 <div class="title"><%= currentMeasure %></div>
                                 <input name="<%= currentMeasure %>" type="number" required step="0.1" 
-                                class="value_box <%= currentMeasure %>" value="<%= currentDesign.measure[currentMeasure] || '' %>">
+                                class="value_box <%= currentMeasure %>" value="<%= value %>">
                             </div>
                          <% }) %>
                     </div>
@@ -3034,10 +3050,17 @@
                     <%  });
                         let currentStyle = currentDesign.style;
                         Object.keys(currentStyle).forEach(key => {
-                                                         
                             let componentImgs = images.find(component => component.fabric_id == currentDesign.fabric)                            
-                            let componentImg = componentImgs.component_item.find(img => img.item_id == currentStyle[key]);
-                            
+                            let component = components.find(component => component.code == key);
+                            let componentImg;
+                            if (!!component.parentComponent) {
+                                let parentStyle = currentDesign.style[component.parentComponent];
+                                componentImg = componentImgs.component_item.find(img => {
+                                    return img.item_id == currentDesign.style[key] && img.parent_id == parentStyle
+                                });
+                            } else {
+                                componentImg = componentImgs.component_item.find(img => img.item_id == currentDesign.style[key]);
+                            }
                             if(!!componentImg.img_url_front) { %>
                                 <img src="<%= componentImg.img_url_front %>" parent="" id="<%=key %>" class="front">
                                 <%  } 

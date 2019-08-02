@@ -9,7 +9,7 @@ router.get('/health-check', (req, res) =>
 );
 
 router.use('/users', user);
-router.use('/order', order);
+router.use('/orders', order);
 router.use('/discounts', discount);
 router.post('/feedback', (req, res) => {
   console.log(req.body)

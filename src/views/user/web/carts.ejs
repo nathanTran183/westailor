@@ -50,6 +50,7 @@
     <link rel="stylesheet" href="/css/checkout/cross_selling_products.css" type="text/css" charset="utf-8" />
     <link rel="stylesheet" href="/css/checkout/main.css" type="text/css" charset="utf-8" />
     <link rel="stylesheet" href="/bower_components/fontawesome-free-5.9.0-web/css/all.min.css" type="text/css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <!--[if lt IE 9]>
 <script src="https://d2w9m16hs9jc37.cloudfront.net/js/html5shiv.js"></script>
 <script type='text/javascript' src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js"></script>
@@ -421,10 +422,12 @@
                                 </tr>
                                 <tr class="product " >
                                     <td class="image man_suit2 ">
-                                        <a href="/en-au/checkout/product_preview/p2?TB_iframe=1&width=700&height=500&new_cart=1"
-                                            title="Black double breasted suit " class="details prod_mod popup_link ">
+                                        <a href="#" data-toggle="modal" data-target="#product_preview" 
+                                            data-href="/checkout/cart/<%= i %>"
+                                            title="<%= carts[i].gender + ' ' + carts[i].name %>" 
+                                            class="details prod_mod popup_link ">
                                             <div class="image-height-limiter">
-                                                <img src="https://www.hockerty.com/render/150/5cef50d42ff02.png">
+                                                <img src="<%= carts[i].img%>">
                                             </div>
                                         </a>
                                     </td>
@@ -437,14 +440,15 @@
                                                 <%= carts[i].gender + ' ' + carts[i].name %>
                                             </span>
                                         </div>
+                                        <% let fabric = fabrics.find(fab => fab.code == carts[0].fabric);
+                                        if(!!fabric) { %>
                                         <div class="cross_sell">
-                                            <% carts[i].components.forEach(component => { %>
-                                                <div class="element ">
-                                                        <span><%= component.key%> : <%=component.value%></span>
-                                                </div>
-                                            <% }) %>
-                                            
+                                            Fabric: <strong><%= fabric.name %></strong>
                                         </div>
+                                        <div class="cross_sell">
+                                            Material: <strong><%= fabric.material.join('/')%></strong>
+                                        </div>
+                                        <% } %>
                                         <div class="options" id="item_<%= i%>">
                                             <div class="opt"><a class="cart_modify_product" rel="nofollow" href="/<%= carts[i].gender %>/design-<%= carts[i].name%>/<%= i %>">Modify</a>
                                             </div>
@@ -473,16 +477,15 @@
                                                         </span>
                                                     </form>
                                                 </span>
-
-
                                             </div>
                                         </div>
                                     </td>
                                 </tr>
-                                <% } %>
                                 <tr>
                                     <td colspan="2" class="split">&nbsp;</td>
                                 </tr>
+                                <% } %>
+                                
                             </table>
                         </div>
                         <div class="totals">
@@ -518,18 +521,18 @@
                             </div>
         
                             <div class="shipping_info floating_container">
-                                <!-- <div class="shipping floating left desktop_only">
+                                <div class="shipping floating left desktop_only">
                                     <div class="image shipping_truck sprite">&nbsp;</div>
                                     <div class="text_content">
                                         <div class="title">FASTEST DELIVERY WORLDWIDE</div>
-                                        <div class="description">Order today, receive it by June 25th. </br>Free shipping above
-                                            $150.</div>
+                                        <div class="description">Order today, receive it in next 15 days. </br>Free shipping above
+                                            $300.</div>
                                     </div>
-                                </div> -->
+                                </div>
                                 <div class="add_measures floating right">
                                     <a rel="nofollow" class="btn btn-blue add_measures_big " href="/checkout/shipping">
                                         <span>
-                                            PROCESS TO CHECKOUT                                            
+                                            PROCEED TO CHECKOUT                                            
                                         </span>
                                     </a>
                                 </div>
@@ -597,29 +600,6 @@
 
 
                 <style>
-                    #smartModal .mfp-bg { z-index: 0; background: white; opacity: 0.8; }
-		#smartModal a.not_now { display:block; background: none; font-size: 12px; margin-top: 15px!important; color: #3D90D7; }
-		#smartModal .hidden_email_save_cart_block .mfp-close.cancel { font-family: 'Lato'!important; }
-		#smartModal .hidden_email_save_cart_block { display: block; background: #FFF; margin: 0 auto; text-align: center; padding: 60px 80px 80px 80px; box-shadow: 0 0 51px -7px rgba(0,0,0,.55);position: relative; width: 450px; }
-		#smartModal .hidden_email_save_cart_block .mfp-close { color: #3D90D7; text-transform: uppercase; font-weight: 300; position: inherit; text-align: center; font-size: 11px; margin: 10px  auto 0 auto; width: auto; opacity:1; }
-		#smartModal .hidden_email_save_cart_block .email_save_cart {padding:0px}
-		#smartModal .hidden_email_save_cart_block .email_save_cart span{ font-size:18px; font-weight: bold; }
-		#smartModal .hidden_email_save_cart_block .mfp-close, .hidden_email_save_cart_block .mfp-close.cross { position: absolute; right: 20px; font-size: 40px; color: #b2b2b2; font-family: 'nc-nav'; text-transform: lowercase; }
-		#smartModal .hidden_email_save_cart_block { display: block; background: #FFF; margin: 0 auto; }
-		#smartModal .hidden_email_save_cart_block .mfp-close { color: #3D90D7; text-transform: uppercase; font-weight: 300; position: inherit; text-align: center; font-size: 11px; margin: 10px  auto 0 auto; width: auto; opacity:1; }
-		#smartModal .save_cart_info{  padding: 0; font-size: 14px; margin: 20px auto 40px; }
-		#smartModal .email_save_cart{ text-align: center; padding: 30px; }
-		#smartModal .email_save_cart input[name="email"]{ width: 360px; border: 1px solid #d9d9d9; font-size: 15px; text-align: center; height: 50px; margin-right: 18px; font-weight: lighter; display: block; margin:0 auto;}
-		#smartModal .email_save_cart span{ font-size: 28px; text-transform: uppercase; display: block; }
-        #smartModal .hidden_email_save_cart_block .email_save_cart span{font-size:18px;}
-		#smartModal .email_save_cart a.save_cart { position: initial;background: #3D90D7;margin: 0px;display: inline-block;width: auto;height: auto;padding: 0;line-height: 30px;padding: 11px 20px;font-size: 14px;text-transform: uppercase;color: #FFF; text-decoration: none; margin-top:20px;}
-		#smartModal .email_save_cart a.save_cart:hover { background-color: #2C6A9E; }
-		#smartModal .hidden_email_save_cart_block .email_save_cart {padding:0px}
-        #smartModal .hidden_email_save_cart_block .mfp-close, .hidden_email_save_cart_block .mfp-close.cross { position: absolute; right: 20px; font-size: 40px; color: #b2b2b2; font-family: 'nc-nav'; text-transform: lowercase; }
-
-        #floating_email_label { color: #ccc; display: block; font-size: 15px; position: absolute; margin-left: 120px; margin-top: -8px; }
-        #smartModal #floating_email_label span { font-size: 13px; display: block; background: white; padding: 0 10px; font-weight: 300; }
-
 		#privacy_label { display:none;  text-align: left; text-transform: none; font-size: 12px; margin-left: 20px;line-height:17px; margin: 0 25px 0px 65px;}
 		#privacy_label.region_required { display:block; }
 		#privacy_label a{color:#000}
@@ -628,49 +608,39 @@
 		#privacy_label p.error:before { content: ""; position: absolute; left: 0; width: 25px; height: 25px; background: url("https://d2w9m16hs9jc37.cloudfront.net/images/checkout/input_ko.png") left -2px no-repeat; }
 		#privacy_label p.error { padding-left: 25px; }
 
+        
+        /* --- IMAGES --- */
+        img { max-width: 100%; }
+        .cloth_preview img { height: 143px; width: 143px; margin-top: 5px; }
+
+        .color_box { display: table; }
+        .color_box img { display: table-cell; width: 25px; height: 25px; padding: 0px 5px 0px 5px; }
+        .color_box span { display: table-cell; vertical-align: middle; padding-left: 10px; }
+        .color_box.logos img, .extra_polo_shirt img{ height: 70px; width: auto; margin: 5px; text-align: center; }
+        .initials_color_box img { width: 25px; height: 25px; padding: 1px 5px 2px 5px; }
 
 		
-	</style>
+    </style>
+            <% if(carts.length > 0) { %>
+                <div class="modal fade" id="product_preview" role="dialog">
+    <div class="modal-dialog  modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Cart Item Detail</h4>
+            </div>
+            <div class="modal-body"  style="overflow: scroll; max-height: 500px;">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item" src="/" allowfullscreen></iframe>
+                  </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div> 
+<% } %>
 
-
-                <div id="smartModal" class="mfp-wrap mfp-close-btn-in mfp-auto-cursor mfp-ready" style="display:none">
-                    <div class="mfp-container mfp-s-ready mfp-inline-holder">
-                        <div class="mfp-bg mfp-ready"></div>
-                        <div class="mfp-content">
-                            <span class="hidden_email_save_cart_block">
-                                <button type="button" class="mfp-close cross">v</button>
-                                <div class="email_save_cart">
-                                    <span>WAIT, YOU DIDN'T SAVE YOUR DESIGNS</span>
-                                    <div class="save_cart_info">We will send you a message with your order summary so
-                                        you can complete it anytime.</div>
-                                    <label id="floating_email_label" for="email">
-                                        <span>Enter your e-mail address</span>
-                                    </label>
-                                    <input type="email" name="email" value="" />
-                                    <label id="privacy_label" class="ouibounce " style="text-align: left; text-transform: none; width:auto;">
-                                        <input id="privacy" class="ouibounce" type="checkbox" name="privacy"
-                                            required_check="required_check">
-                                        <p class="error">This field is required</p>
-                                        I agree to let my email to be processed in accordance with the <a target="_blank"
-                                            href="/en-au/info/privacy">Privacy Notice</a>
-                                    </label>
-                                    <div class="email_save_cart_error" style="display: none;">
-                                        Error while saving data
-                                    </div>
-
-                                    <div class="email_error_format" style="display: none;">
-                                        The email is not valid
-                                    </div>
-                                    <a class="save_cart btn-blue" href="javascript:;" rel="popup">Save your Designs</a>
-                                    <a class="not_now" href="javascript:;">Not now</a>
-                                </div>
-                                <div class="email_save_cart_ok" style="display: none;">
-                                    Your Order has been Saved.
-                                </div>
-                            </span>
-                        </div>
-                    </div>
-                </div>
 
                 <!-- <script type="text/javascript">
                     var mobile_device = false
@@ -1060,6 +1030,7 @@
     </script> -->
     <script type="text/javascript" src="/js/default.js" charset="utf-8"></script>
     <script type="text/javascript" src="/js/checkout/checkout.js" charset="utf-8"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <script type="text/javascript">$(function () {
             for (var i = 0; i < ready_callbacks.length; i++) {
                 try { ready_callbacks[i](); } catch (ex) { console.log(ex); }

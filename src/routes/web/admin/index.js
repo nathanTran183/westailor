@@ -1,7 +1,8 @@
 /**
  * Created by nathan on 05/10/2017.
  */
-// const usersRoute = require('./user');
+const usersRoute = require('./user');
+const ordersRoute = require('./order');
 const employeeRoute = require('./employee');
 const discountRoute = require('./discount');
 const EmployeeController = require('../../../controllers/web/EmployeeController');
@@ -19,8 +20,9 @@ router.get('/profile', passport.notUserWeb, EmployeeController.profile);
 router.post('/updateInfo', passport.notUserWeb, EmployeeController.updateInfo);
 router.post('/changePassword', passport.notUserWeb, EmployeeController.changePassword);
 
-// router.use('/users', passport.notUserWeb, usersRoute);
-router.use('/employees'/* , passport.isAdminWeb */, employeeRoute);
-router.use('/discounts'/* , passport.isAdminWeb */, discountRoute);
+router.use('/users', passport.notUserWeb, usersRoute);
+router.use('/orders', passport.notUserWeb, ordersRoute);
+router.use('/employees', passport.isAdminWeb, employeeRoute);
+router.use('/discounts', passport.isAdminWeb, discountRoute);
 
 module.exports = router; 

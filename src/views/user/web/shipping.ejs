@@ -362,7 +362,7 @@
                     <% } %>
                 <div class="payment_checkout">
                     <div class="form shipping">
-                        <form id="form_shipping" action="/api/order/addShipping" name="step_shipping" method="POST">
+                        <form id="form_shipping" action="/checkout/shipping" name="step_shipping" method="POST">
                             <div id="shipping_address">
                                 <h3>SHIPPING ADDRESS</h3>
                                 <div id="shipping_errors" class="form_message error" style="display:none;">Check
@@ -490,8 +490,8 @@
                                     <form class="voucher_form" method="POST" action="">
                                         <input class="voucher_code" name="voucher_code" value="" placeholder="ENTER CODE">
                                         
-                                        <!-- <span href="javascript:;" class="send-voucher ds_link"><span class="icon send">></span></span> -->
-                                        <button type="submit" class="btn btn-primary">Check</button>
+                                        <span href="javascript:;" class="send-voucher ds_link"><span class="icon send">f</span></span>
+                                        <!-- <button type="submit" class="btn btn-primary">Check</button> -->
                                     </form>
                                 </div>
                             </div>

@@ -1,0 +1,115 @@
+[
+    {
+        "id": "fabric_001",
+        "code": "fabric_001",
+        "name": "Subiaco",
+        "material": [
+            "tweed",
+            "linen"
+        ],
+        "color": [
+            "black",
+            "blue",
+            "red"
+        ],
+        "season": [
+            "summer"
+        ],
+        "category": [
+            "new",
+            "trending"
+        ],
+        "products": [
+            {
+                "product_id": "product_001",
+                "price": 299
+            }
+        ],
+        "catalog_img": "https://d2w9m16hs9jc37.cloudfront.net/dimg/fabric/suit/894_huge_c300.jpg",
+        "detailed_img": "https://d2w9m16hs9jc37.cloudfront.net/dimg/fabric/suit/894_huge.jpg"
+    },
+    {
+        "id": "fabric_002",
+        "code": "fabric_002",
+        "name": "Perth",
+        "material": [
+            "linen"
+        ],
+        "color": [
+            "black",
+            "blue"
+        ],
+        "season": [
+            "summer"
+        ],
+        "category": [
+            "premium",
+            "promo"
+        ],
+        "products": [
+            {
+                "product_id": "product_001",
+                "price": 299
+            }
+        ],
+        "catalog_img": "https://d2w9m16hs9jc37.cloudfront.net/dimg/fabric/suit/141_huge_c300.jpg",
+        "detailed_img": "https://d2w9m16hs9jc37.cloudfront.net/dimg/fabric/suit/141_huge.jpg"
+    },
+    {
+        "id": "fabric_003",
+        "code": "fabric_003",
+        "name": "Butler",
+        "material": [
+            "tweet",
+            "wool"
+        ],
+        "color": [
+            "green",
+            "blue",
+            "gray"
+        ],
+        "season": [
+            "summer"
+        ],
+        "category": [
+            "new",
+            "premium"
+        ],
+        "products": [
+            {
+                "product_id": "product_002",
+                "price": 199
+            }
+        ],
+        "catalog_img": "https://d2w9m16hs9jc37.cloudfront.net/dimg/fabric/suit/1801_huge_c300.jpg",
+        "detailed_img": "https://d2w9m16hs9jc37.cloudfront.net/dimg/fabric/suit/1801_huge.jpg"
+    },
+    {
+        "id": "fabric_004",
+        "code": "fabric_004",
+        "name": "Joondalup",
+        "material": [
+            "wool",
+            "linen"
+        ],
+        "color": [
+            "yellow",
+            "orange"
+        ],
+        "season": [
+            "summer"
+        ],
+        "category": [
+            "promo",
+            "trending"
+        ],
+        "products": [
+            {
+                "product_id": "product_001",
+                "price": 399
+            }
+        ],
+        "catalog_img": "https://d2w9m16hs9jc37.cloudfront.net/dimg/fabric/suit/1804_huge_c300.jpg",
+        "detailed_img": "https://d2w9m16hs9jc37.cloudfront.net/dimg/fabric/suit/1804_huge.jpg"
+    }
+]

@@ -39,10 +39,12 @@ module.exports = {
                 } else {
                     req.session.cookie.expires = false;
                 }
-                console.log(req.session)
                 req.session.user = {
                     id: account._id,
-                    role: account.role
+                    username: account.username,
+                    email: account.email,
+                    role: account.role,
+                    status: account.status
                 };
                 if (account.role == "Admin")
                     res.redirect('/admin/employees');

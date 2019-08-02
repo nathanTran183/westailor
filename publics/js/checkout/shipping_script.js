@@ -13,6 +13,10 @@ $(document).ready(function () {
 
     checkTotalPrice();
 
+    $('.voucher_form .send-voucher span').click(function() {
+        $('.voucher_form').submit();
+    });
+
     $('.voucher_form').submit(function (e) {
         e.preventDefault();
         let code = $('.voucher_code').val();
@@ -24,6 +28,7 @@ $(document).ready(function () {
                     code: code
                 },
                 success: function (data) {
+                    // console.log('here')
                     $('.voucher_form').parent().find('label').remove();
                     $('.voucher_form').parent().append('<label style="color: green">Valid</label>')
                     $('.coupon').html("- $" + data.data.discount.percent * total_price / 100 + "(" + data.data.discount.percent + "%)")
@@ -31,7 +36,7 @@ $(document).ready(function () {
                     checkTotalPrice()
                 },
                 error: function (error) {
-                    console.log(error);
+                    // console.log(error);
                     $('.voucher_form').parent().find('label').remove();
                     $('.voucher_form').parent().append('<label style="color: red">Code is invalid</label>')
                 }
