@@ -33,34 +33,38 @@ function urlParam(name) {
     return (results !== null) ? results[1] || 0 : false;
 }
 
-function renderImage(component_id, componentImg) {
-    if (!$('.images_render').find('#' + component_id).attr('src')) {
+function renderImage(component_id, componentImg, product_id) {
+    if (!$('.images_render #'+product_id).find('#' + component_id).attr('src')) {
         if (imageRenderFlag && !!componentImg.img_url_front) {
-            $('.images_render').append('<img src="' + componentImg.img_url_front + '" alt="front" id="' + component_id + '" class="front">')
-            $('.images_render').append('<img src="' + componentImg.img_url_back + '" alt="back" id="' + component_id + '" class="back" style="display: none;">')
+            $('.images_render #'+product_id).append('<img src="' + componentImg.img_url_front + '" alt="front" id="' + component_id + '" class="front">')
+            $('.images_render #'+product_id).append('<img src="' + componentImg.img_url_back + '" alt="back" id="' + component_id + '" class="back" style="display: none;">')
         }
         if (!imageRenderFlag && !!componentImg.img_url_back) {
-            $('.images_render').append('<img src="' + componentImg.img_url_back + '" alt="back" id="' + component_id + '" class="back">')
-            $('.images_render').append('<img src="' + componentImg.img_url_front + '" alt="front" id="' + component_id + '" class="front" style="display: none;">')
+            $('.images_render #'+product_id).append('<img src="' + componentImg.img_url_back + '" alt="back" id="' + component_id + '" class="back">')
+            $('.images_render #'+product_id).append('<img src="' + componentImg.img_url_front + '" alt="front" id="' + component_id + '" class="front" style="display: none;">')
         }
     } else {
         if (!!componentImg.img_url_front) {
-            $('.images_render .front#' + component_id).attr('src', componentImg.img_url_front)
+            $('.images_render #'+product_id+' .front#' + component_id).attr('src', componentImg.img_url_front)
         } else
-            $('.images_render .front#' + component_id).remove();
+            $('.images_render #'+product_id+' .front#' + component_id).remove();
         if (!!componentImg.img_url_back)
-            $('.images_render .back#' + component_id).attr('src', componentImg.img_url_back)
+            $('.images_render #'+product_id+' .back#' + component_id).attr('src', componentImg.img_url_back)
         else
-            $('.images_render .back#' + component_id).remove();
+            $('.images_render #'+product_id+' .back#' + component_id).remove();
     }
+    // $('.images_render').children().hide();
+    // $('.images_render #'+product_id).show();
 }
 
 function checkMeasurement() {
     let flag = true;
     $('#extra #measure_form input').each(function () {
         let input = $(this);
+        let product_id = $(this).attr('rel');
         if (!!input.val() && input.val() > 0) {
-            currentDesign.measure[`${input.attr('name')}`] = input.val();
+            let product = currentDesign.products.find(product => product.product_id == product_id)
+            product.measure[`${input.attr('name')}`] = input.val();
         } else {
             flag = false;
             return flag;
@@ -148,12 +152,13 @@ $(document).ready(function () {
             window.history.pushState('next_step', '', '?step=measure');
             step = urlParam('step');
         } else {
+            $('.step_next').addClass('disabled');
             let measureFlag = $('#extra .checkbox_option').find('.checked').attr('rel')
             let url = '/api/orders/orderItem';
-            delete currentDesign.img;
-            if(measureFlag == "0") {
+            currentDesign.products.map(product => {delete product.img; return product});
+            if (measureFlag == "0") {
                 if (checkMeasurement()) {
-                    if(!pos) {
+                    if (!pos) {
                         currentDesign.quantity = 1;
                     } else {
                         url = '/api/orders/orderItem/' + pos
@@ -170,16 +175,18 @@ $(document).ready(function () {
                         },
                         error: function (error) {
                             console.log(error);
+                            $('.step_next').removeClass('disabled');
                         }
                     });
                 } else {
-                    alert('The measure form is not valid!')
+                    alert('The measure form is not valid!');
+                    $('.step_next').removeClass('disabled');
                 }
             }
             else {
                 currentDesign.quantity = 1;
-                delete currentDesign.measure;
-                if(!pos) {
+                currentDesign.products.map(product => {delete product.measure; return product});                
+                if (!pos) {
                     currentDesign.quantity = 1;
                 } else {
                     url = '/api/orders/orderItem/' + pos
@@ -196,6 +203,7 @@ $(document).ready(function () {
                     },
                     error: function (error) {
                         console.log(error);
+                        $('.step_next').removeClass('disabled');
                     }
                 });
             }
@@ -250,27 +258,29 @@ $(document).ready(function () {
         $(this).parent().parent().find('.checked').removeClass('checked');
         $(this).parent().addClass('checked');
         let fabric_id = $(this).attr('id');
-        fabric = fabrics.find(fabric => fabric.code == fabric_id);
-        currentDesign.fabric = fabric_id;
+        let fabric = fabrics.find(fabric => fabric.code == fabric_id);
+        currentDesign.fabric_id = fabric_id;
         $('.preview_fabric .fabric img').attr('src', fabric.detailed_img);
 
         // Handle reload model image
-        let styles = Object.keys(currentDesign.style);
-        let imgFabric = styleImg.find(component => component.fabric_id == fabric_id)
-
-        styles.forEach(component_id => {
-            let component = components.find(component => component.code == component_id);
-            let componentImg;
-            if (!!component.parentComponent) {
-                let parentStyle = currentDesign.style[component.parentComponent];
-                componentImg = imgFabric.component_item.find(img => {
-                    return img.item_id == currentDesign.style[component_id] && img.parent_id == parentStyle
-                });
-                renderImage(component_id, componentImg);
-            } else {
-                componentImg = imgFabric.component_item.find(img => img.item_id == currentDesign.style[component_id]);
-                renderImage(component_id, componentImg);
-            }
+        products.forEach(product => {
+            let productStyle = currentDesign.products.find(prod => prod.product_id == product.code);
+            let styles = Object.keys(productStyle.style);
+            let imgFabric = styleImg.find(image => image.fabric_id == fabric_id && image.product_id == product.code)
+            styles.forEach(component_id => {
+                let component = product.components.find(component => component.code == component_id);
+                let componentImg;
+                if (!!component.parentComponent) {
+                    let parentStyle = productStyle.style[component.parentComponent];
+                    componentImg = imgFabric.component_item.find(img => {
+                        return img.item_id == productStyle.style[component_id] && img.parent_id == parentStyle
+                    });
+                    renderImage(component_id, componentImg, product.code);
+                } else {
+                    componentImg = imgFabric.component_item.find(img => img.item_id == productStyle.style[component_id]);
+                    renderImage(component_id, componentImg, product.code);
+                }
+            });
         });
     });
     // Handle change type of fabric
@@ -396,14 +406,16 @@ $(document).ready(function () {
     });
 
     // Handle change config
-    $('#style_menu span').click(function (event) {
+    $('#style_menu span:not(.submenu)').click(function () {
         let style = $(this).attr('id');
+        let product_id = $(this).attr('product');
         $(this).parent().parent().parent().addClass('min');
         $('.box_opts').find('.box_opt.active').removeClass('active');
         $(this).parent().parent().find('span.active').removeClass('active');
         $(this).addClass('active');
-        console.log($('.box_opts').find('#' + style).attr('id'))
-        $('.box_opts').find('#' + style).addClass('active');
+        $('.box_opts').find('#' + style + "[product="+product_id+"]").addClass('active');
+        $('.images_render').children().hide();
+        $('.images_render #'+product_id).show();
     });
     $('.box_opts .back').click(function (event) {
         $(this).parent().removeClass('active');
@@ -416,31 +428,35 @@ $(document).ready(function () {
     $('.option_trigger').click(function () {
         $(this).parent().find('.active').removeClass('active');
         $(this).addClass('active');
+        let product_id = $(this).parent().attr('product');
         let component_id = $(this).parent().attr('id');
         let componentItem_id = $(this).attr('id');
 
+        let product = products.find(prod => prod.code == product_id);
         // Set style to current design
-        currentDesign.style[component_id] = componentItem_id;
-        // get all image by current fabric
-        let imgFabric = styleImg.find(component => component.fabric_id == fabric.id)
+        let productDesign = currentDesign.products.find(prod => prod.product_id == product_id);
+        productDesign.style[component_id] = componentItem_id;
 
-        let component = components.find(component => component.code == component_id);
+        // get all image by current fabric
+        let imgFabric = styleImg.find(image => image.fabric_id == currentDesign.fabric_id && image.product_id == product_id)
+
+        let component = product.components.find(component => component.code == component_id);
         let componentImg;
         if (!!component.parentComponent) {
-            let parentStyle = currentDesign.style[component.parentComponent];
+            let parentStyle = productDesign.style[component.parentComponent];
             componentImg = imgFabric.component_item.find(img => {
                 return img.item_id == componentItem_id && img.parent_id == parentStyle
             });
-            renderImage(component_id, componentImg);
+            renderImage(component_id, componentImg, product_id);
         } else {
             componentImg = imgFabric.component_item.find(img => img.item_id == componentItem_id);
-            renderImage(component_id, componentImg);
-            let childComponent = components.find(component => component.parentComponent == component_id)
+            renderImage(component_id, componentImg, product_id);
+            let childComponent = product.components.find(component => component.parentComponent == component_id)
             if (!!childComponent) {
                 componentImg = imgFabric.component_item.find(img => {
-                    return img.item_id == currentDesign.style[childComponent.code] && img.parent_id == currentDesign.style[component_id]
+                    return img.item_id == productDesign.style[childComponent.code] && img.parent_id == productDesign.style[component_id]
                 });
-                renderImage(childComponent.code, componentImg);
+                renderImage(childComponent.code, componentImg, product_id);
             }
         }
     });

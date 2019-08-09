@@ -51,6 +51,8 @@
     <link rel="stylesheet" href="/css/checkout/main.css" type="text/css" charset="utf-8" />
     <link rel="stylesheet" href="/bower_components/fontawesome-free-5.9.0-web/css/all.min.css" type="text/css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700&display=swap" rel="stylesheet">
+
     <!--[if lt IE 9]>
 <script src="https://d2w9m16hs9jc37.cloudfront.net/js/html5shiv.js"></script>
 <script type='text/javascript' src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js"></script>
@@ -424,7 +426,7 @@
                                     <td class="image man_suit2 ">
                                         <a href="#" data-toggle="modal" data-target="#product_preview" 
                                             data-href="/checkout/cart/<%= i %>"
-                                            title="<%= carts[i].gender + ' ' + carts[i].name %>" 
+                                            title="<%= carts[i].name %>" 
                                             class="details prod_mod popup_link ">
                                             <div class="image-height-limiter">
                                                 <img src="<%= carts[i].img%>">
@@ -437,10 +439,10 @@
                                                 $<%= carts[i].price * carts[i].quantity %>
                                             </span>
                                             <span class="name">
-                                                <%= carts[i].gender + ' ' + carts[i].name %>
+                                                <%= carts[i].name %>
                                             </span>
                                         </div>
-                                        <% let fabric = fabrics.find(fab => fab.code == carts[0].fabric);
+                                        <% let fabric = fabrics.find(fab => fab.code == carts[0].fabric_id);
                                         if(!!fabric) { %>
                                         <div class="cross_sell">
                                             Fabric: <strong><%= fabric.name %></strong>
@@ -450,15 +452,15 @@
                                         </div>
                                         <% } %>
                                         <div class="options" id="item_<%= i%>">
-                                            <div class="opt"><a class="cart_modify_product" rel="nofollow" href="/<%= carts[i].gender %>/design-<%= carts[i].name%>/<%= i %>">Modify</a>
+                                            <div class="opt"><a class="cart_modify_product" rel="nofollow" href="<%= carts[i].link %>/<%= i %>">Modify</a>
                                             </div>
                                             <div class="opt split">&nbsp;</div>
     
-                                            <div class="opt"><a rel="nofollow" class="cart_modify_product cart_delete_product">Delete</a>
+                                            <div class="opt"><a rel="nofollow" class="cart_delete_product">Delete</a>
                                             </div>
                                             <div class="opt split desktop_only">&nbsp;</div>
 
-                                            <div class="opt"><a rel="nofollow" class="cart_modify_product">View detail</a>
+                                            <div class="opt"><a rel="nofollow" data-toggle="modal" data-target="#product_preview" class="popup_link" data-href="/checkout/cart/<%= i %>">View detail</a>
                                             </div>
                                             <div class="opt split desktop_only">&nbsp;</div>
 
@@ -629,9 +631,9 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Cart Item Detail</h4>
             </div>
-            <div class="modal-body"  style="overflow: scroll; max-height: 500px;">
+            <div class="modal-body"  style="max-height: 500px;">
                 <div class="embed-responsive embed-responsive-16by9">
-                    <iframe class="embed-responsive-item" src="/" allowfullscreen></iframe>
+                    <iframe class="embed-responsive-item" src="" allowfullscreen></iframe>
                   </div>
             </div>
             <div class="modal-footer">

@@ -97,5 +97,5 @@ $(document).ready(function () {
         $('#product_preview iframe').attr('src', $(this).attr('data-href'));
         $('#product_preview_mobile img').attr('src', $('.popup_link img').attr('src'))
         $('#product_preview_mobile').show();
-    })
+    });
 });

@@ -10,61 +10,98 @@ const filePath = path.join(__dirname, '../../../../publics/images/components');
 
 module.exports = {
     add: async (req, res) => {
-        let imgList = [];
-        let currentDesign = req.body.data
-        let productFile = fs.readFileSync(productPath);
-        let productData = JSON.parse(productFile);
-        let imageFile = fs.readFileSync(imagePath);
-        let imageData = JSON.parse(imageFile);
+        try {
+            let imgList = [];
 
-        let product = productData.find(prod => prod.code == req.body.data.product);
-        imgList = product.default_img
-        Object.keys(currentDesign.style).forEach(key => {
-            let componentImgs = imageData.find(component => component.fabric_id == currentDesign.fabric)
-            let component = product.components.find(component => component.code == key);
-            let componentImg;
-            if (!!component.parentComponent) {
-                let parentStyle = currentDesign.style[component.parentComponent];
-                componentImg = componentImgs.component_item.find(img => {
-                    return img.item_id == currentDesign.style[key] && img.parent_id == parentStyle
-                });
-            } else {
-                componentImg = componentImgs.component_item.find(img => img.item_id == currentDesign.style[key]);
-            }
-            if (!!componentImg.img_url_front) {
-                imgList.push(componentImg.img_url_front);
-            }
-        })
-        mergeImages(imgList, {
-            Canvas: Canvas
-        })
-            .then(b64 => {
-                req.body.data.img = b64;
-                if (!!req.params.id) {
-                    if (req.params.id < req.session.carts.length) {
-                        req.session.carts[req.params.id] = req.body.data
+            let currentDesign = req.body.data
+            let productFile = fs.readFileSync(productPath);
+            let productData = JSON.parse(productFile);
+            let imageFile = fs.readFileSync(imagePath);
+            let imageData = JSON.parse(imageFile);
+            for(let i = 0; i < currentDesign.products.length; i ++) {
+            // currentDesign.products.forEach(productItem => {
+                let productItem = currentDesign.products[i];
+                let product = productData.find(prod => prod.code == productItem.product_id);
+                let componentImgs = imageData.find(image => image.fabric_id == currentDesign.fabric_id && image.product_id == product.code);
+                imgList = product.default_img;
+                let productsDesign = Object.keys(productItem.style)
+                for(let j = 0; j < productsDesign.length; j++) {
+                    let key = productsDesign[j];
+                // Object.keys(productItem.style).forEach(key => {
+                    let component = product.components.find(component => component.code == key);
+                    let componentImg;
+                    if (!!component.parentComponent) {
+                        let parentStyle = productItem.style[component.parentComponent];
+                        componentImg = componentImgs.component_item.find(img => {
+                            return img.item_id == productItem.style[key] && img.parent_id == parentStyle
+                        });
+                    } else {
+                        componentImg = componentImgs.component_item.find(img => img.item_id == productItem.style[key]);
                     }
-                } else {
-                    if (!!req.session.carts) {
-                        req.session.carts.push(req.body.data);
+                    if (!!componentImg.img_url_front) {
+                        imgList.push(componentImg.img_url_front);
                     }
-                    else {
-                        req.session.carts = [req.body.data]
-                    }
+                };                
+                await mergeImages(imgList, { Canvas: Canvas })
+                    .then(b64 => {
+                        productItem.img = b64;
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        return res.status(500).json("System error!")
+                    });
+            };
+            if (!!req.params.id) {
+                if (req.params.id < req.session.carts.length) {
+                    req.session.carts[req.params.id] = currentDesign
                 }
-                req.session.currentDesign = null;
-                return res.status(200).json({ success: true })
-                //         // var base64Data = b64.replace(/^data:image\/png;base64,/, "");
-                //         // require("fs").writeFile("out.png", base64Data, { encoding: 'base64' }, function (err) {
-                //         //     if (err) {
-                //         //         console.log(err);
-                //         //     }
-                //         //     else {
-                //         //         console.log('fileCreated')
-                //         //     }
-                //         // });
-            })
-            .catch(err => console.log(err));
+            } else {
+                if (!!req.session.carts) {
+                    req.session.carts.push(currentDesign);
+                }
+                else {
+                    req.session.carts = []
+                    req.session.carts.push(currentDesign);
+                }
+            }
+
+            req.session.currentDesign = null;
+            return res.status(200).json({ success: true })
+        } catch (err) {
+            console.log(err);
+            return res.status(500).json("System error!")
+        }
+
+        // mergeImages(imgList, {
+        //     Canvas: Canvas
+        // })
+        //     .then(b64 => {
+        //         req.body.data.img = b64;
+        //         if (!!req.params.id) {
+        //             if (req.params.id < req.session.carts.length) {
+        //                 req.session.carts[req.params.id] = req.body.data
+        //             }
+        //         } else {
+        //             if (!!req.session.carts) {
+        //                 req.session.carts.push(req.body.data);
+        //             }
+        //             else {
+        //                 req.session.carts = [req.body.data]
+        //             }
+        //         }
+        //         req.session.currentDesign = null;
+        //         return res.status(200).json({ success: true })
+        //         //         // var base64Data = b64.replace(/^data:image\/png;base64,/, "");
+        //         //         // require("fs").writeFile("out.png", base64Data, { encoding: 'base64' }, function (err) {
+        //         //         //     if (err) {
+        //         //         //         console.log(err);
+        //         //         //     }
+        //         //         //     else {
+        //         //         //         console.log('fileCreated')
+        //         //         //     }
+        //         //         // });
+        //     })
+        //     .catch(err => console.log(err));
     },
 
     updateQuantity: async (req, res) => {

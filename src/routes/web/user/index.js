@@ -35,8 +35,8 @@ router.post('/profile', passport.isUserWeb, UserController.updateUserInfo);
 router.post('/change-password', passport.isUserWeb, UserController.changePass);
 
 
-router.get('/men/design-suit', function (req, res, next) { res.locals.gender = "men"; res.locals.product = "suit"; next(); }, FabricController.list);
-router.get('/men/design-suit/:id', function (req, res, next) { res.locals.gender = "men"; res.locals.product = "suit"; next(); }, FabricController.list);
+router.get('/men/design-suit', function (req, res, next) { res.locals.item = "item_001"; next(); }, FabricController.list);
+router.get('/men/design-suit/:id', function (req, res, next) { res.locals.item = "item_001"; next(); }, FabricController.list);
 router.get('/men/design-shirt', function (req, res, next) { res.locals.gender = "men"; res.locals.product = "shirt"; next(); }, FabricController.list);
 router.get('/men/design-shirt/:id', function (req, res, next) { res.locals.gender = "men"; res.locals.product = "shirt"; next(); }, FabricController.list);
 

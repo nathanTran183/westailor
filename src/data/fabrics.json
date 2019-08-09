@@ -19,9 +19,9 @@
             "new",
             "trending"
         ],
-        "products": [
+        "items": [
             {
-                "product_id": "product_001",
+                "item_id": "item_001",
                 "price": 299
             }
         ],
@@ -46,9 +46,9 @@
             "premium",
             "promo"
         ],
-        "products": [
+        "items": [
             {
-                "product_id": "product_001",
+                "item_id": "item_001",
                 "price": 299
             }
         ],
@@ -75,9 +75,9 @@
             "new",
             "premium"
         ],
-        "products": [
+        "items": [
             {
-                "product_id": "product_002",
+                "item_id": "item_002",
                 "price": 199
             }
         ],
@@ -103,9 +103,9 @@
             "promo",
             "trending"
         ],
-        "products": [
+        "items": [
             {
-                "product_id": "product_001",
+                "item_id": "item_001",
                 "price": 399
             }
         ],

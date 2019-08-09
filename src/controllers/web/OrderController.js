@@ -8,6 +8,7 @@ const EmailService = require('../../helpers/EmailService');
 
 const fabricPath = path.join(__dirname, '../../data/fabrics.json');
 const productPath = path.join(__dirname, '../../data/products.json');
+const itemPath = path.join(__dirname, '../../data/items.json');
 const gateway = require('../../../config/gateway');
 
 
@@ -16,11 +17,11 @@ module.exports = {
         try {
             let type = req.query.status, orders;
             if (!type || (!!type && type == 'pending'))
-                orders = await Order.find({ user_id: req.session.user.id, status: { $in: [1, 2] } }).lean();
+                orders = await Order.find({ user_id: req.session.user.id, status: { $in: [1, 2] } }).sort({createdAt: 'desc'}).lean();
             else if (type == 'process')
-                orders = await Order.find({ user_id: req.session.user.id, status: { $in: [3, 4] } }).lean();
+                orders = await Order.find({ user_id: req.session.user.id, status: { $in: [3, 4] } }).sort({createdAt: 'desc'}).lean();
             else if (type == 'history')
-                orders = await Order.find({ user_id: req.session.user.id }).lean();
+                orders = await Order.find({ user_id: req.session.user.id }).sort({createdAt: 'desc'}).lean();
 
             var ua = req.headers['user-agent'];
             var device = /mobile/i.test(ua) ? 'mobile' : 'web';
@@ -106,14 +107,20 @@ module.exports = {
             let fabricData = JSON.parse(fabricFile);
             let productFile = fs.readFileSync(productPath);
             let productData = JSON.parse(productFile);
-            let carts = req.session.carts || [];
+            let itemFile = fs.readFileSync(itemPath);
+            let itemData = JSON.parse(itemFile);
+            let carts = []
+            if(!!req.session.carts)
+                 carts = JSON.parse(JSON.stringify(req.session.carts));
 
-            await carts.map(item => {
-                let product = productData.find(product => product.code == item.product)
-                item.name = product.name
-                item.gender = product.gender
+            await carts.map(cart => {
+                let item = itemData.find(item => item.id == cart.item_id)
+                cart.name = item.name;
+                cart.link = item.link;
+                cart.img = cart.products[0].img
+                return cart
             });
-            console.log(carts);
+            console.log(req.session.carts);
 
             var ua = req.headers['user-agent'];
             var device = /mobile/i.test(ua) ? 'mobile' : 'web';
@@ -235,7 +242,7 @@ module.exports = {
 
                     //send mail to staff
                     var mailOptions = {
-                        to: user.email,
+                        to: req.session.user.email,
                         from: '"DELIVERY FAST 👥" <support@deliveryfast.vn>',
                         subject: 'DeliveryFast DeliMan Password Reset',
                         text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
@@ -244,11 +251,13 @@ module.exports = {
                     };
                     EmailService.sendNodeMailer(mailOptions, function (err) {
                         if (err) {
-                            return res.json(Response.returnError(err.message, err.code));
+                            res.flash('reason_fail', 'Mail system error! Purchase successfully!')
+                            res.redirect('/orders');
                         }
                         req.session.order = null;
                         req.session.carts = null;
-                        res.redirect('/');
+                        req.flash('success', 'Purchase order successfully')
+                        res.redirect('/orders');
                     });
 
 
@@ -294,23 +303,29 @@ module.exports = {
     getCartItem: async (req, res) => {
         try {
             let id = req.params.id;
-            item = req.session.carts[id];
-            if (!!item) {
+            let cartItem = req.session.carts[id];
+            if (!!cartItem) {
                 let fabricFile = fs.readFileSync(fabricPath);
                 let fabricData = JSON.parse(fabricFile);
                 let productFile = fs.readFileSync(productPath);
                 let productData = JSON.parse(productFile);
+                let itemFile = fs.readFileSync(itemPath);
+                let itemData = JSON.parse(itemFile);
 
-                let fabric = fabricData.find(fabric => fabric.code == item.fabric);
-                let product = productData.find(product => product.code == item.product);
-
+                let fabric = fabricData.find(fabric => fabric.code == cartItem.fabric_id);
+                let item = itemData.find(item => item.id == cartItem.item_id);
+                let products = productData.filter(product => {
+                    return cartItem.products.some(prod => prod.product_id == product.code)
+                });
 
                 var ua = req.headers['user-agent'];
                 var device = /mobile/i.test(ua) ? 'mobile' : 'web';
-                res.render('user/' + device + '/product-detail', { fabric: fabric, product: product, item: item });
+                res.render('user/' + device + '/product-detail', { fabric: fabric, products: products, item: item, cartItem: cartItem });
+            } else {
+                res.send("Cannot found item id")
             }
         } catch (error) {
-
+            console.log(error);
         }
     },
 
