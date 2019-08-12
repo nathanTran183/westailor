@@ -67,11 +67,11 @@
 <body class="man  body_personalize_2 mobile   body_en ">
     <script type="text/javascript">
         var fabrics = <%- JSON.stringify(fabrics) %>;
-        var fabric =  <%- JSON.stringify(fabrics.find(fabric => fabric.code == currentDesign.fabric)) %>;
-        var components = <%- JSON.stringify(components) %>;
+        var products = <%- JSON.stringify(products) %>;
+        var item = <%- JSON.stringify(item) %>;
         var currentDesign = <%- JSON.stringify(currentDesign) %>;
         var styleImg = <%- JSON.stringify(images) %>;
-        var modelImg = <%- JSON.stringify(modelImg) %>;
+        var imageRenderFlag = true;
         var filter_list = {
             color: [],
             material: [],
@@ -92,11 +92,11 @@
         var tablet_enabled = false;
         var dataLayer = [{ "contentGroup1": "Configurador", "contentGroup2": "Configurador_man_suit", "config_version": "man_suit_mobile_v2", "region": "en-au", "lang": "en", "currency": { "iso": "AUD", "symbol": "$" }, "length_units": "cm", "weigth_units": "kg", "gender": "man", "menu_item": "man_suit_personalize_2", "isAdmin": null, "mobile_device": true, "tablet_device": false, "mobile_ready": true, "mobile_enabled": true, "customer_logged": 0, "swiss_site": 0, "device_type": "mobile" }];
         var pos = "<%= pos %>";
-        var size_json = {
-            "S": { "shoulder": 41, "chest": 99, "stomach": 89, "hip": 98, "sleeves": 80 },
-            "M": { "shoulder": 46, "chest": 109, "stomach": 98, "hip": 105, "sleeves": 100 },
-            "L": { "shoulder": 48, "chest": 120, "stomach": 107, "hip": 114, "sleeves": 120 },
-        }
+        // var size_json = {
+        //     "S": { "shoulder": 41, "chest": 99, "stomach": 89, "hip": 98, "sleeves": 80 },
+        //     "M": { "shoulder": 46, "chest": 109, "stomach": 98, "hip": 105, "sleeves": 100 },
+        //     "L": { "shoulder": 48, "chest": 120, "stomach": 107, "hip": 114, "sleeves": 120 },
+        // }
     </script>
     <!-- <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-WQMRNX" height="0" width="0"
             style="display:none;visibility:hidden"></iframe></noscript>
@@ -495,676 +495,468 @@
     </div>
     </script> -->
 
-                <!-- <div id="share_popup">
-                    <div class="loading">
-                        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nNjBweCcgaGVpZ2h0PSc2MHB4JyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCIgY2xhc3M9InVpbC1kZWZhdWx0Ij48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0ibm9uZSIgY2xhc3M9ImJrIj48L3JlY3Q+PHJlY3QgIHg9JzQ2LjUnIHk9JzQwJyB3aWR0aD0nNycgaGVpZ2h0PScyMCcgcng9JzUnIHJ5PSc1JyBmaWxsPScjMDAwMDAwJyB0cmFuc2Zvcm09J3JvdGF0ZSgwIDUwIDUwKSB0cmFuc2xhdGUoMCAtMzApJz4gIDxhbmltYXRlIGF0dHJpYnV0ZU5hbWU9J29wYWNpdHknIGZyb209JzEnIHRvPScwJyBkdXI9JzFzJyBiZWdpbj0nMHMnIHJlcGVhdENvdW50PSdpbmRlZmluaXRlJy8+PC9yZWN0PjxyZWN0ICB4PSc0Ni41JyB5PSc0MCcgd2lkdGg9JzcnIGhlaWdodD0nMjAnIHJ4PSc1JyByeT0nNScgZmlsbD0nIzAwMDAwMCcgdHJhbnNmb3JtPSdyb3RhdGUoMzAgNTAgNTApIHRyYW5zbGF0ZSgwIC0zMCknPiAgPGFuaW1hdGUgYXR0cmlidXRlTmFtZT0nb3BhY2l0eScgZnJvbT0nMScgdG89JzAnIGR1cj0nMXMnIGJlZ2luPScwLjA4MzMzMzMzMzMzMzMzMzMzcycgcmVwZWF0Q291bnQ9J2luZGVmaW5pdGUnLz48L3JlY3Q+PHJlY3QgIHg9JzQ2LjUnIHk9JzQwJyB3aWR0aD0nNycgaGVpZ2h0PScyMCcgcng9JzUnIHJ5PSc1JyBmaWxsPScjMDAwMDAwJyB0cmFuc2Zvcm09J3JvdGF0ZSg2MCA1MCA1MCkgdHJhbnNsYXRlKDAgLTMwKSc+ICA8YW5pbWF0ZSBhdHRyaWJ1dGVOYW1lPSdvcGFjaXR5JyBmcm9tPScxJyB0bz0nMCcgZHVyPScxcycgYmVnaW49JzAuMTY2NjY2NjY2NjY2NjY2NjZzJyByZXBlYXRDb3VudD0naW5kZWZpbml0ZScvPjwvcmVjdD48cmVjdCAgeD0nNDYuNScgeT0nNDAnIHdpZHRoPSc3JyBoZWlnaHQ9JzIwJyByeD0nNScgcnk9JzUnIGZpbGw9JyMwMDAwMDAnIHRyYW5zZm9ybT0ncm90YXRlKDkwIDUwIDUwKSB0cmFuc2xhdGUoMCAtMzApJz4gIDxhbmltYXRlIGF0dHJpYnV0ZU5hbWU9J29wYWNpdHknIGZyb209JzEnIHRvPScwJyBkdXI9JzFzJyBiZWdpbj0nMC4yNXMnIHJlcGVhdENvdW50PSdpbmRlZmluaXRlJy8+PC9yZWN0PjxyZWN0ICB4PSc0Ni41JyB5PSc0MCcgd2lkdGg9JzcnIGhlaWdodD0nMjAnIHJ4PSc1JyByeT0nNScgZmlsbD0nIzAwMDAwMCcgdHJhbnNmb3JtPSdyb3RhdGUoMTIwIDUwIDUwKSB0cmFuc2xhdGUoMCAtMzApJz4gIDxhbmltYXRlIGF0dHJpYnV0ZU5hbWU9J29wYWNpdHknIGZyb209JzEnIHRvPScwJyBkdXI9JzFzJyBiZWdpbj0nMC4zMzMzMzMzMzMzMzMzMzMzcycgcmVwZWF0Q291bnQ9J2luZGVmaW5pdGUnLz48L3JlY3Q+PHJlY3QgIHg9JzQ2LjUnIHk9JzQwJyB3aWR0aD0nNycgaGVpZ2h0PScyMCcgcng9JzUnIHJ5PSc1JyBmaWxsPScjMDAwMDAwJyB0cmFuc2Zvcm09J3JvdGF0ZSgxNTAgNTAgNTApIHRyYW5zbGF0ZSgwIC0zMCknPiAgPGFuaW1hdGUgYXR0cmlidXRlTmFtZT0nb3BhY2l0eScgZnJvbT0nMScgdG89JzAnIGR1cj0nMXMnIGJlZ2luPScwLjQxNjY2NjY2NjY2NjY2NjdzJyByZXBlYXRDb3VudD0naW5kZWZpbml0ZScvPjwvcmVjdD48cmVjdCAgeD0nNDYuNScgeT0nNDAnIHdpZHRoPSc3JyBoZWlnaHQ9JzIwJyByeD0nNScgcnk9JzUnIGZpbGw9JyMwMDAwMDAnIHRyYW5zZm9ybT0ncm90YXRlKDE4MCA1MCA1MCkgdHJhbnNsYXRlKDAgLTMwKSc+ICA8YW5pbWF0ZSBhdHRyaWJ1dGVOYW1lPSdvcGFjaXR5JyBmcm9tPScxJyB0bz0nMCcgZHVyPScxcycgYmVnaW49JzAuNXMnIHJlcGVhdENvdW50PSdpbmRlZmluaXRlJy8+PC9yZWN0PjxyZWN0ICB4PSc0Ni41JyB5PSc0MCcgd2lkdGg9JzcnIGhlaWdodD0nMjAnIHJ4PSc1JyByeT0nNScgZmlsbD0nIzAwMDAwMCcgdHJhbnNmb3JtPSdyb3RhdGUoMjEwIDUwIDUwKSB0cmFuc2xhdGUoMCAtMzApJz4gIDxhbmltYXRlIGF0dHJpYnV0ZU5hbWU9J29wYWNpdHknIGZyb209JzEnIHRvPScwJyBkdXI9JzFzJyBiZWdpbj0nMC41ODMzMzMzMzMzMzMzMzM0cycgcmVwZWF0Q291bnQ9J2luZGVmaW5pdGUnLz48L3JlY3Q+PHJlY3QgIHg9JzQ2LjUnIHk9JzQwJyB3aWR0aD0nNycgaGVpZ2h0PScyMCcgcng9JzUnIHJ5PSc1JyBmaWxsPScjMDAwMDAwJyB0cmFuc2Zvcm09J3JvdGF0ZSgyNDAgNTAgNTApIHRyYW5zbGF0ZSgwIC0zMCknPiAgPGFuaW1hdGUgYXR0cmlidXRlTmFtZT0nb3BhY2l0eScgZnJvbT0nMScgdG89JzAnIGR1cj0nMXMnIGJlZ2luPScwLjY2NjY2NjY2NjY2NjY2NjZzJyByZXBlYXRDb3VudD0naW5kZWZpbml0ZScvPjwvcmVjdD48cmVjdCAgeD0nNDYuNScgeT0nNDAnIHdpZHRoPSc3JyBoZWlnaHQ9JzIwJyByeD0nNScgcnk9JzUnIGZpbGw9JyMwMDAwMDAnIHRyYW5zZm9ybT0ncm90YXRlKDI3MCA1MCA1MCkgdHJhbnNsYXRlKDAgLTMwKSc+ICA8YW5pbWF0ZSBhdHRyaWJ1dGVOYW1lPSdvcGFjaXR5JyBmcm9tPScxJyB0bz0nMCcgZHVyPScxcycgYmVnaW49JzAuNzVzJyByZXBlYXRDb3VudD0naW5kZWZpbml0ZScvPjwvcmVjdD48cmVjdCAgeD0nNDYuNScgeT0nNDAnIHdpZHRoPSc3JyBoZWlnaHQ9JzIwJyByeD0nNScgcnk9JzUnIGZpbGw9JyMwMDAwMDAnIHRyYW5zZm9ybT0ncm90YXRlKDMwMCA1MCA1MCkgdHJhbnNsYXRlKDAgLTMwKSc+ICA8YW5pbWF0ZSBhdHRyaWJ1dGVOYW1lPSdvcGFjaXR5JyBmcm9tPScxJyB0bz0nMCcgZHVyPScxcycgYmVnaW49JzAuODMzMzMzMzMzMzMzMzMzNHMnIHJlcGVhdENvdW50PSdpbmRlZmluaXRlJy8+PC9yZWN0PjxyZWN0ICB4PSc0Ni41JyB5PSc0MCcgd2lkdGg9JzcnIGhlaWdodD0nMjAnIHJ4PSc1JyByeT0nNScgZmlsbD0nIzAwMDAwMCcgdHJhbnNmb3JtPSdyb3RhdGUoMzMwIDUwIDUwKSB0cmFuc2xhdGUoMCAtMzApJz4gIDxhbmltYXRlIGF0dHJpYnV0ZU5hbWU9J29wYWNpdHknIGZyb209JzEnIHRvPScwJyBkdXI9JzFzJyBiZWdpbj0nMC45MTY2NjY2NjY2NjY2NjY2cycgcmVwZWF0Q291bnQ9J2luZGVmaW5pdGUnLz48L3JlY3Q+PC9zdmc+"
+                
+    <div id="man_suit2" class="personalize">
+        <div id="personalize_fabrics_info_popup" class="white-popup mfp-hide">
+            <style>
+                /*CSS MOBILE*/
+                #personalize_fabrics_info_popup {
+                    font-family: "Lato";
+                    z-index: 665000;
+                    width: 88%;
+                    position: absolute;
+                    top: 0px !important;
+                    bottom: 0px;
+                    left: -90%;
+                    right: 0px;
+                    display: block;
+                    height: 100%;
+                    background-color: #F7F6F4;
+                    webkit-box-shadow: 2px 0px 20px -9px rgba(0, 0, 0, .35);
+                    -webkit-box-shadow: 2px 0px 20px -9px rgba(0, 0, 0, .35);
+                    box-shadow: 2px 0px 20px -9px rgba(0, 0, 0, .35);
+                    -webkit-transition: left .6s;
+                    transition: left .6s;
+                    border-right: 1px solid #DADADA;
+                }
+
+                #personalize_fabrics_info_popup.visible {
+                    left: 0px;
+                }
+
+
+                #personalize_fabrics_info_popup .back {
+                    font-family: "nc-nav";
+                    position: absolute;
+                    right: 0;
+                    padding: 19px 12px 0 12px;
+                    font-size: 40px;
+                    text-decoration: none;
+                    color: #000;
+                    top: 0;
+                }
+
+                #personalize_fabrics_info_popup .container {
+                    overflow: scroll;
+                    height: 100%;
+                }
+
+                #personalize_fabrics_info_popup {
+                    padding-bottom: 0px;
+                    background: #fff;
+                }
+
+                #personalize_fabrics_info_popup .header {
+                    padding-bottom: 15px;
+                    background: #fff;
+                }
+
+                #personalize_fabrics_info_popup .header .title {
+                    margin: 20px 0px 0px 10px;
+                    color: #666;
+                    left: 55px;
+                    font-size: 22px;
+                    letter-spacing: 2px;
+                    font-weight: lighter;
+                    text-transform: uppercase;
+                }
+
+                #personalize_fabrics_info_popup .header .back {
+                    right: 0px;
+                    padding: 17px 10px;
+                    font-size: 40px;
+                    text-decoration: none;
+                    color: #666;
+                    line-height: 60px;
+                    top: -8px;
+                }
+
+                #personalize_fabrics_info_popup .content {
+                    margin: -20px 20px 0px 20px
+                }
+
+                #personalize_fabrics_info_popup .content .block {
+                    margin: 30px 0px;
+                }
+
+                #personalize_fabrics_info_popup .content .icon {
+                    display: inline-block;
+                    font-family: "nc-nav";
+                    font-size: 30px;
+                    color: #000;
+                    margin: 0px 7px 0px 0px;
+                }
+
+                #personalize_fabrics_info_popup .content .title {
+                    display: inline-block;
+                    font-size: 15px;
+                    color: #000;
+                    top: -8px;
+                    position: relative;
+                }
+
+                #personalize_fabrics_info_popup .content .description {
+                    display: block;
+                    font-size: 13px;
+                    color: #000;
+                }
+
+                #personalize_fabrics_info_popup .content .link {
+                    display: block;
+                    font-size: 10px;
+                    color: #666;
+                    text-decoration: underline;
+                    cursor: pointer;
+                    text-transform: uppercase;
+                    margin-top: 8px;
+                    font-weight: bold;
+                }
+            </style>
+
+            <div class="container">
+                <div class="header">
+                    <div class="title">Info</div>
+                    <a href="javascript:;" class="back" rel="nofollow">h</a>
+
+                </div>
+                <div class="content">
+
+                    <div class="block">
+                        <div class="icon">&</div>
+                        <div class="title">Premium</div>
+                        <div class="description">For the highest quality, we have our premium fabrics. Here
+                            you will only find the best of the best. </div>
+                        <!--<a target="_blank" href="/info/our-fabrics/suit/premium" class="link" rel="premium">VIEW FABRICS</a>-->
+                        <div class="link" filter_cat="category" filter="premium">Apply filters</div>
+
+                    </div>
+
+                    <div class="block">
+                        <div class="icon">%</div>
+                        <div class="title">Limited Edition</div>
+                        <div class="description">Some fabrics and materials are so unique we only sell them
+                            for a specified amount of time.</div>
+                        <!--<a target="_blank" href="/info/our-fabrics/suit/limited-edition" class="link" rel="limited">VIEW FABRICS</a>-->
+                        <div class="link" filter_cat="category" filter="limited">Apply filters</div>
+                    </div>
+
+                    <div class="block">
+                        <div class="icon">/</div>
+                        <div class="title">Basic</div>
+                        <div class="description">Our basic suits/shirts are made from the most affordable
+                            fabrics. The word 'basic' does not suggest the style of the fabric but the
+                            affordability of it.</div>
+                        <!--<a target="_blank" href="/samples_to_basic_suit" class="link" rel="basic">VIEW FABRICS</a>-->
+                        <div class="link" filter_cat="category" filter="basic">Apply filters</div>
+
+                    </div>
+
+
+
+
+
+
+
+                </div>
+
+            </div>
+        </div>
+
+        <!--LOADING GENERAL-->
+        <!-- <div class="loading_general">
+            <div class="loading">
+                <div class="centered">
+                    <div class="product_type">
+                        Tailored <span>suit</span> </div>
+                    <div class="loading_text">Loading...</div>
+                    <img src="/images/loading_new.gif"
+                        onerror="this.src='https://d2w9m16hs9jc37.cloudfront.net/images/garment/loading_new.gif'">
+                </div>
+            </div>
+        </div> -->
+
+
+        <div class="popup_warning_fabric_out personalize_popup">
+            <div class="content">
+                <a class="close">v</a>
+                <div class="title fabric_out">Fabric out of stock</div>
+                <div class="title lining_out">Lining out of stock</div>
+                <div class="image"><img src=""></div>
+                <div class="description fabric_out">The selected fabric is currently out of stock. Please
+                    choose another fabric.</div>
+                <div class="description lining_out">The selected lining is currently out of stock. Please
+                    choose another lining.</div>
+                <div class="button_ok">ok, got it</div>
+            </div>
+        </div>
+
+        <form method="post" class="garment_form" id="garment_form_3062">
+
+            <div id="garment_loading_3062" class="garment_loading" style="display:none;">
+                <div class="loading">
+                    <div class="centered">
+                        <img src="/images/loading_new.gif"
                             onerror="this.src='https://d2w9m16hs9jc37.cloudfront.net/images/garment/loading_new.gif'">
-                        <p>
-                            Loading...
-                        </p>
                     </div>
-                    <div class="container">
-                        <p class="share_title">
-                            Share via:
-                        </p>
-                        <span class="close">v</span>
+                </div>
+            </div>
 
-                        <div class="flex">
 
+
+            <div class="garment_container">
+                <div class="garment_blocks">
+                    <div class="garment_block garment_block_config">
+                        <div class="config_header">
+                            <div class="title">Style</div><a href="javascript:;" class="back">h</a>
                         </div>
-                    </div>
-
-                </div> -->
-                <div id="man_suit2" class="personalize">
-                    <div id="personalize_fabrics_info_popup" class="white-popup mfp-hide">
-                        <style>
-                            /*CSS MOBILE*/
-                            #personalize_fabrics_info_popup {
-                                font-family: "Lato";
-                                z-index: 665000;
-                                width: 88%;
-                                position: absolute;
-                                top: 0px !important;
-                                bottom: 0px;
-                                left: -90%;
-                                right: 0px;
-                                display: block;
-                                height: 100%;
-                                background-color: #F7F6F4;
-                                webkit-box-shadow: 2px 0px 20px -9px rgba(0, 0, 0, .35);
-                                -webkit-box-shadow: 2px 0px 20px -9px rgba(0, 0, 0, .35);
-                                box-shadow: 2px 0px 20px -9px rgba(0, 0, 0, .35);
-                                -webkit-transition: left .6s;
-                                transition: left .6s;
-                                border-right: 1px solid #DADADA;
-                            }
-
-                            #personalize_fabrics_info_popup.visible {
-                                left: 0px;
-                            }
-
-
-                            #personalize_fabrics_info_popup .back {
-                                font-family: "nc-nav";
-                                position: absolute;
-                                right: 0;
-                                padding: 19px 12px 0 12px;
-                                font-size: 40px;
-                                text-decoration: none;
-                                color: #000;
-                                top: 0;
-                            }
-
-                            #personalize_fabrics_info_popup .container {
-                                overflow: scroll;
-                                height: 100%;
-                            }
-
-                            #personalize_fabrics_info_popup {
-                                padding-bottom: 0px;
-                                background: #fff;
-                            }
-
-                            #personalize_fabrics_info_popup .header {
-                                padding-bottom: 15px;
-                                background: #fff;
-                            }
-
-                            #personalize_fabrics_info_popup .header .title {
-                                margin: 20px 0px 0px 10px;
-                                color: #666;
-                                left: 55px;
-                                font-size: 22px;
-                                letter-spacing: 2px;
-                                font-weight: lighter;
-                                text-transform: uppercase;
-                            }
-
-                            #personalize_fabrics_info_popup .header .back {
-                                right: 0px;
-                                padding: 17px 10px;
-                                font-size: 40px;
-                                text-decoration: none;
-                                color: #666;
-                                line-height: 60px;
-                                top: -8px;
-                            }
-
-                            #personalize_fabrics_info_popup .content {
-                                margin: -20px 20px 0px 20px
-                            }
-
-                            #personalize_fabrics_info_popup .content .block {
-                                margin: 30px 0px;
-                            }
-
-                            #personalize_fabrics_info_popup .content .icon {
-                                display: inline-block;
-                                font-family: "nc-nav";
-                                font-size: 30px;
-                                color: #000;
-                                margin: 0px 7px 0px 0px;
-                            }
-
-                            #personalize_fabrics_info_popup .content .title {
-                                display: inline-block;
-                                font-size: 15px;
-                                color: #000;
-                                top: -8px;
-                                position: relative;
-                            }
-
-                            #personalize_fabrics_info_popup .content .description {
-                                display: block;
-                                font-size: 13px;
-                                color: #000;
-                            }
-
-                            #personalize_fabrics_info_popup .content .link {
-                                display: block;
-                                font-size: 10px;
-                                color: #666;
-                                text-decoration: underline;
-                                cursor: pointer;
-                                text-transform: uppercase;
-                                margin-top: 8px;
-                                font-weight: bold;
-                            }
-                        </style>
-
-                        <div class="container">
-                            <div class="header">
-                                <div class="title">Info</div>
-                                <a href="javascript:;" class="back" rel="nofollow">h</a>
-
+                        <div class="navigate">
+                            <a class="select" href="javascript:;"><span>view changes</span></a>
+                        </div>
+                        <% products.forEach((product, idx) => { %>
+                            <div class="config_block config_block_man_jacket multiproduct <%= idx == 0 ? 'first visible' : ''%>"
+                            data-block="man_jacket" id="<%= product.code %>">
+                            <div class="config_block_title" rel="man_jacket">
+                                <div class="title"><%= product.name %></div><span>f</span>
                             </div>
-                            <div class="content">
+                            <div class="config_block_content man_jacket">
+                                <% product.components.forEach(component => { %>
 
-                                <div class="block">
-                                    <div class="icon">&</div>
-                                    <div class="title">Premium</div>
-                                    <div class="description">For the highest quality, we have our premium fabrics. Here
-                                        you will only find the best of the best. </div>
-                                    <!--<a target="_blank" href="/info/our-fabrics/suit/premium" class="link" rel="premium">VIEW FABRICS</a>-->
-                                    <div class="link" filter_cat="category" filter="premium">Apply filters</div>
-
-                                </div>
-
-                                <div class="block">
-                                    <div class="icon">%</div>
-                                    <div class="title">Limited Edition</div>
-                                    <div class="description">Some fabrics and materials are so unique we only sell them
-                                        for a specified amount of time.</div>
-                                    <!--<a target="_blank" href="/info/our-fabrics/suit/limited-edition" class="link" rel="limited">VIEW FABRICS</a>-->
-                                    <div class="link" filter_cat="category" filter="limited">Apply filters</div>
-                                </div>
-
-                                <div class="block">
-                                    <div class="icon">/</div>
-                                    <div class="title">Basic</div>
-                                    <div class="description">Our basic suits/shirts are made from the most affordable
-                                        fabrics. The word 'basic' does not suggest the style of the fabric but the
-                                        affordability of it.</div>
-                                    <!--<a target="_blank" href="/samples_to_basic_suit" class="link" rel="basic">VIEW FABRICS</a>-->
-                                    <div class="link" filter_cat="category" filter="basic">Apply filters</div>
-
-                                </div>
-
-
-
-
-
-
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <!--LOADING GENERAL-->
-                    <!-- <div class="loading_general">
-                        <div class="loading">
-                            <div class="centered">
-                                <div class="product_type">
-                                    Tailored <span>suit</span> </div>
-                                <div class="loading_text">Loading...</div>
-                                <img src="/images/loading_new.gif"
-                                    onerror="this.src='https://d2w9m16hs9jc37.cloudfront.net/images/garment/loading_new.gif'">
-                            </div>
-                        </div>
-                    </div> -->
-
-
-                    <div class="popup_warning_fabric_out personalize_popup">
-                        <div class="content">
-                            <a class="close">v</a>
-                            <div class="title fabric_out">Fabric out of stock</div>
-                            <div class="title lining_out">Lining out of stock</div>
-                            <div class="image"><img src=""></div>
-                            <div class="description fabric_out">The selected fabric is currently out of stock. Please
-                                choose another fabric.</div>
-                            <div class="description lining_out">The selected lining is currently out of stock. Please
-                                choose another lining.</div>
-                            <div class="button_ok">ok, got it</div>
-                        </div>
-                    </div>
-
-                    <form method="post" class="garment_form" id="garment_form_3062">
-
-                        <div id="garment_loading_3062" class="garment_loading" style="display:none;">
-                            <div class="loading">
-                                <div class="centered">
-                                    <img src="/images/loading_new.gif"
-                                        onerror="this.src='https://d2w9m16hs9jc37.cloudfront.net/images/garment/loading_new.gif'">
-                                </div>
-                            </div>
-                        </div>
-
-
-
-                        <div class="garment_container">
-                            <div class="garment_blocks">
-                                <div class="garment_block garment_block_config">
-                                    <div class="config_header">
-                                        <div class="title">Style</div><a href="javascript:;" class="back">h</a>
+                                <div class="list_option jacket_style_combined" id="<%= component.code %>">
+                                    <div class="drop_head " option="jacket_style_combined">
+                                        <a href="javascript:;"
+                                            class="icon opt_trigger jacket_style_combined icon_3f"></a>
+                                        <div class="box_title"><%= component.name %></div>
                                     </div>
-                                    <div class="navigate">
-                                        <a class="select" href="javascript:;"><span>view changes</span></a>
-                                    </div>
-                                    <div class="config_block config_block_man_jacket first visible"
-                                        data-block="man_jacket">
-                                        <div class="config_block_title" rel="man_jacket">
-                                            <div class="title">Jacket</div><span>f</span>
-                                        </div>
-                                        <div class="config_block_content man_jacket">
-                                            <% for(let i = 0 ; i < components.length; i++) { %>
-                                            <div class="list_option jacket_style_combined" id="<%= components[i].code %>">
-                                                <div class="drop_head " option="jacket_style_combined">
-                                                    <a href="javascript:;"
-                                                        class="icon opt_trigger jacket_style_combined icon_3f"></a>
-                                                    <div class="box_title"><%= components[i].name %></div>
-                                                </div>
-                                                <div class="config_field jacket_style_combined " option="jacket_style_combined">
-                                                    <div class="box_opt box_opt_mobile">
-                                                        <div class="box_opt_fix">
-                                                            <% for(let j = 0; j < components[i].componentItems.length; j++) {
-                                                                var styleFlag = "";
-                                                                if(!!currentDesign) {
-                                                                    if(components[i].componentItems[j].code == currentDesign.style[`${components[i].code}`]) {
-                                                                        styleFlag = "active";
-                                                                    }
-                                                                } else if (components[i].componentItems[j].code == components[i].componentItems[0].code) {                                        
-                                                                    styleFlag = "active"
-                                                                }
-                                                            %><label class="option option_mobile <%= styleFlag %>" views="front,without_model" id="<%= components[i].componentItems[j].code %>">
-                                                                <span class="icon jacket_style_combined_simple_1 icon_3e" icoclass="icon_3e"></span>
-                                                                <input type="radio" name="jacket_style_combined" value="simple_1" />
-                                                                <span class="text"><%= components[i].componentItems[j].name %></span>
-                                                            </label><% } %>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <% } %>
-                                        <!-- <div class="list_option jacket_fit">
-                                            <div class="drop_head " option="jacket_fit"><a href="#jacket_fit"
-                                                    class="icon opt_trigger jacket_fit icon_62"></a><div class="
-                                                    box_title">Fit</div>
-                                        </div>
-                                        <div class="config_field jacket_fit " option="jacket_fit">
-                                            <div class="box_opt box_opt_mobile">
-                                                <div class="box_opt_fix"><label class="option option_mobile "
-                                                        views="front,without_model"><span
-                                                            class="icon jacket_fit_1 icon_62"
-                                                            icoclass="icon_62"></span><input type="radio"
-                                                            name="jacket_fit" value="1" checked="checked" /><span
-                                                            class="text">Slim Fit</span></label><label
-                                                        class="option option_mobile " views="front,without_model"><span
-                                                            class="icon jacket_fit_0 icon_61"
-                                                            icoclass="icon_61"></span><input type="radio"
-                                                            name="jacket_fit" value="0" /><span
-                                                            class="text">Regular</span></label></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="list_option jacket_lapel_type_combinated">
-                                        <div class="drop_head " option="jacket_lapel_type_combinated"><a
-                                                href="#jacket_lapel_type_combinated"
-                                                class="icon opt_trigger jacket_lapel_type_combinated icon_63" "></a><div class="
-                                                box_title">Jacket Lapels</div>
-                                    </div>
-                                    <div class="config_field jacket_lapel_type_combinated combinated"
-                                        option="jacket_lapel_type_combinated">
+                                    <div class="config_field jacket_style_combined " option="jacket_style_combined">
                                         <div class="box_opt box_opt_mobile">
                                             <div class="box_opt_fix">
-                                                <div class="sub_config_field jacket_lapel_type config_field_combine"
-                                                    option="jacket_lapel_type">
-                                                    <div class="box_opt box_opt_mobile ">
-                                                        <div class="title_option_combinated">Jacket Lapels</div><label
-                                                            class="option option_mobile "
-                                                            views="front,without_model"><span
-                                                                class="icon jacket_lapel_type_standard icon_63"
-                                                                icoclass="icon_63"></span><input type="radio"
-                                                                name="jacket_lapel_type" value="standard"
-                                                                checked="checked" /><span
-                                                                class="text">Notch</span></label><label
-                                                            class="option option_mobile "
-                                                            views="front,without_model"><span
-                                                                class="icon jacket_lapel_type_peak icon_64"
-                                                                icoclass="icon_64"></span><input type="radio"
-                                                                name="jacket_lapel_type" value="peak" /><span
-                                                                class="text">Peak</span></label><label
-                                                            class="option option_mobile "
-                                                            views="front,without_model"><span
-                                                                class="icon jacket_lapel_type_round icon_65"
-                                                                icoclass="icon_65"></span><input type="radio"
-                                                                name="jacket_lapel_type" value="round" /><span
-                                                                class="text">Shawl</span></label>
-                                                    </div>
-                                                </div>
-                                                <div class="sub_config_field jacket_wide_lapel config_field_combine"
-                                                    option="jacket_wide_lapel">
-                                                    <div class="box_opt box_opt_mobile ">
-                                                        <div class="title_option_combinated">Lapel Width</div><label
-                                                            class="option option_mobile "
-                                                            views="front,without_model"><span
-                                                                class="icon jacket_wide_lapel_narrow icon_4f"
-                                                                icoclass="icon_4f"></span><input type="radio"
-                                                                name="jacket_wide_lapel" value="narrow"
-                                                                checked="checked" /><span
-                                                                class="text">Narrow</span></label><label
-                                                            class="option option_mobile "
-                                                            views="front,without_model"><span
-                                                                class="icon jacket_wide_lapel_standard icon_63"
-                                                                icoclass="icon_63"></span><input type="radio"
-                                                                name="jacket_wide_lapel" value="standard" /><span
-                                                                class="text">Standard</span></label><label
-                                                            class="option option_mobile "
-                                                            views="front,without_model"><span
-                                                                class="icon jacket_wide_lapel_width icon_50"
-                                                                icoclass="icon_50"></span><input type="radio"
-                                                                name="jacket_wide_lapel" value="width" /><span
-                                                                class="text">Wide</span></label>
-                                                    </div>
-                                                </div>
+                                                <% for(let j = 0; j < component.componentItems.length; j++) {
+                                                    var styleFlag = "";
+                                                    if(!!currentDesign) {
+                                                        if(component.componentItems[j].code == currentDesign.products[idx].style[`${component.code}`]) {
+                                                            styleFlag = "active";
+                                                        }
+                                                    } else if (component.componentItems[j].code == component.componentItems[0].code) {                                        
+                                                        styleFlag = "active"
+                                                    }
+                                                %><label class="option option_mobile <%= styleFlag %>" views="front,without_model" id="<%= component.componentItems[j].code %>">
+                                                    <span class="icon jacket_style_combined_simple_1 icon_3e" icoclass="icon_3e"></span>
+                                                    <input type="radio" name="jacket_style_combined" value="simple_1" />
+                                                    <span class="text"><%= component.componentItems[j].name %></span>
+                                                </label><% } %>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="list_option jacket_pockets_type">
-                                    <div class="drop_head " option="jacket_pockets_type"><a href="#jacket_pockets_type"
-                                            class="icon opt_trigger jacket_pockets_type icon_6c" "></a><div class="
-                                            box_title">Pocket style</div>
-                                </div>
-                                <div class="config_field jacket_pockets_type " option="jacket_pockets_type">
-                                    <div class="box_opt box_opt_mobile">
-                                        <div class="box_opt_fix"><label class="option option_mobile "
-                                                views="front,without_model"><span
-                                                    class="icon jacket_pockets_type_0 icon_5a"
-                                                    icoclass="icon_5a"></span><input type="radio"
-                                                    name="jacket_pockets_type" value="0" /><span class="text">No
-                                                    pockets</span></label><label class="option option_mobile "
-                                                views="front,without_model"><span
-                                                    class="icon jacket_pockets_type_2 icon_22"
-                                                    icoclass="icon_22"></span><input type="radio"
-                                                    name="jacket_pockets_type" value="2" checked="checked" /><span
-                                                    class="text">With flap</span></label><label
-                                                class="option option_mobile " views="front,without_model"><span
-                                                    class="icon jacket_pockets_type_2a icon_23"
-                                                    icoclass="icon_23"></span><input type="radio"
-                                                    name="jacket_pockets_type" value="2a" /><span
-                                                    class="text">Piped</span></label><label
-                                                class="option option_mobile " views="front,without_model"><span
-                                                    class="icon jacket_pockets_type_2b icon_6e"
-                                                    icoclass="icon_6e"></span><input type="radio"
-                                                    name="jacket_pockets_type" value="2b" /><span
-                                                    class="text">Patched</span></label><label
-                                                class="option option_mobile " views="front,without_model"><span
-                                                    class="icon jacket_pockets_type_3 icon_22"
-                                                    icoclass="icon_22"></span><input type="radio"
-                                                    name="jacket_pockets_type" value="3" /><span class="text">With flap
-                                                    x3</span></label><label class="option option_mobile "
-                                                views="front,without_model"><span
-                                                    class="icon jacket_pockets_type_3a icon_23"
-                                                    icoclass="icon_23"></span><input type="radio"
-                                                    name="jacket_pockets_type" value="3a" /><span class="text">Piped
-                                                    x3</span></label><label class="option option_mobile "
-                                                views="front,without_model"><span
-                                                    class="icon jacket_pockets_type_2c icon_6c"
-                                                    icoclass="icon_6c"></span><input type="radio"
-                                                    name="jacket_pockets_type" value="2c" /><span class="text">Beveled
-                                                    flap</span></label><label class="option option_mobile "
-                                                views="front,without_model"><span
-                                                    class="icon jacket_pockets_type_3c icon_6c"
-                                                    icoclass="icon_6c"></span><input type="radio"
-                                                    name="jacket_pockets_type" value="3c" /><span class="text">Beveled
-                                                    flap x3</span></label><label class="option option_mobile "
-                                                views="front,without_model"><span
-                                                    class="icon jacket_pockets_type_2d icon_6d"
-                                                    icoclass="icon_6d"></span><input type="radio"
-                                                    name="jacket_pockets_type" value="2d" /><span
-                                                    class="text">Piped</span></label><label
-                                                class="option option_mobile " views="front,without_model"><span
-                                                    class="icon jacket_pockets_type_3d icon_6d"
-                                                    icoclass="icon_6d"></span><input type="radio"
-                                                    name="jacket_pockets_type" value="3d" /><span class="text">Piped
-                                                    x3</span></label></div>
+                                <% }) %>
+                                        
+                            </div>
+                            </div>
+                        <% }) %>
+                                    
+                    </div>
+            <div class="garment_block garment_block_fabric">
+                <div class="fabric_block"><input type="hidden" class="fabric_input required" name="fabric[man_jacket]"
+                        data-block-name="man_jacket" value="" /><input type="hidden" class="fabric_input required"
+                        name="fabric[man_pants]" data-block-name="man_pants" value="" /><input type="hidden"
+                        class="fabric_input required" name="fabric[man_waistcoat]" data-block-name="man_waistcoat"
+                        value="" /><input type="hidden" class="fabric_input required" name="fabric[man_suit2]"
+                        data-block-name="man_suit2" value="" /><input type="hidden" class="fabric_input required"
+                        name="fabric[man_suit3]" data-block-name="man_suit3" value="" /><a href="javascript:;"
+                        class="fabric_filter_trigger">filter</a>
+                    <div class="fabric" id="header_form">
+                        <div class="filter_bar">
+                            <div class="filters num_5">
+                                <div class="filters_list filters_man_suit">
+                                    <div class="filter filter_tone" rel="color">
+                                        <div rel="color" class="option_icon icon colors" title="Colors"></div>
+
+                                    </div>
+                                    <div class="filter filter_texture" rel="pattern">
+                                        <div rel="pattern" class="option_icon icon texture" title="texture"></div>
+
+                                    </div>
+                                    <div class="filter filter_simple_composition" rel="material">
+                                        <div rel="material" class="option_icon icon simple_composition"
+                                            title="simple_composition"></div>
+
+                                    </div>
+                                    <div class="filter filter_season" rel="season">
+                                        <div rel="season" class="option_icon icon season" title="season"></div>
+
+                                    </div>
+                                    <div class="filter filter_sort" rel="sort">
+                                        <div rel="sort" class="option_icon icon order" title="sort"></div>
+
                                     </div>
                                 </div>
                             </div>
-                            <div class="list_option jacket_vent">
-                                <div class="drop_head " option="jacket_vent"><a href="#jacket_vent"
-                                        class="icon opt_trigger jacket_vent icon_70" "></a><div class=" box_title">Back
-                                        style</div>
+                            <div class="filters_content">
+                                <div class="content color noSwipe">
+                                    <div class="title">filter:</div>
+                                    <div class="filter_button color all" rel="all" data-type="color"><span class="all"
+                                            style="background-color:all"></span></div>
+                                    <div class="filter_button color gray" rel="gray" data-type="color"><span class="gray"
+                                            style="background-color:gray"></span></div>
+                                    <div class="filter_button color blue" rel="blue" data-type="color"><span class="blue"
+                                            style="background-color:blue"></span></div>
+                                    <div class="filter_button color black" rel="black" data-type="color"><span class="black"
+                                            style="background-color:black"></span></div>
+                                    <div class="filter_button color brown" rel="brown" data-type="color"><span class="brown"
+                                            style="background-color:brown"></span></div>
+                                    <div class="filter_button color white" rel="white" data-type="color"><span class="white"
+                                            style="background-color:white"></span></div>
+                                    <div class="filter_button color orange" rel="orange" data-type="color"><span class="orange"
+                                            style="background-color:orange"></span></div>
+                                    <div class="filter_button color beige" rel="beige" data-type="color"><span class="beige"
+                                            style="background-color:beige"></span></div>
+                                    <div class="filter_button color yellow" rel="yellow" data-type="color"><span class="yellow"
+                                            style="background-color:yellow"></span></div>
+                                    <div class="filter_button color pink" rel="pink" data-type="color"><span class="pink"
+                                            style="background-color:pink"></span></div>
+                                    <div class="filter_button color green" rel="green" data-type="color"><span class="green"
+                                            style="background-color:green"></span></div>
+                                    <div class="filter_button color red" rel="red" data-type="color"><span class="red"
+                                            style="background-color:red"></span></div>
+                                </div>
+                                <div class="content pattern noSwipe">
+                                    <div class="title">filter:</div>
+                                    <div class="filter_button icon all" rel="all" data-type="pattern"><span></span></div>
+                                    <div class="filter_button icon chequered" rel="chequered" data-type="pattern"><span></span>
+                                    </div>
+                                    <div class="filter_button icon flat" rel="flat" data-type="pattern"><span></span></div>
+                                    <div class="filter_button icon shredded" rel="shredded" data-type="pattern"><span></span>
+                                    </div>
+                                    <div class="filter_button icon houndstooth" rel="houndstooth" data-type="pattern">
+                                        <span></span></div>
+                                    <div class="filter_button icon paisley" rel="paisley" data-type="pattern"><span></span>
+                                    </div>
+                                    <div class="filter_button icon herringbone" rel="herringbone" data-type="pattern">
+                                        <span></span></div>
+                                    <div class="filter_button icon other" rel="other" data-type="pattern"><span></span></div>
+                                </div>
+                                <div class="content material noSwipe">
+                                    <div class="title">filter:</div>
+                                    <div class="filter_button check all" rel="all" data-type="material"><span></span>
+                                        <div class="filter_title">all</div>
+                                    </div>
+                                    <div class="filter_button check wool" rel="wool" data-type="material">
+                                        <span></span>
+                                        <div class="filter_title">Wool</div>
+                                    </div>
+                                    <div class="filter_button check linen" rel="linen" data-type="material">
+                                        <span></span>
+                                        <div class="filter_title">linen</div>
+                                    </div>
+                                    <div class="filter_button check tweed" rel="tweed" data-type="material">
+                                        <span></span>
+                                        <div class="filter_title">Tweed</div>
+                                    </div>
+                                    <div class="filter_button check cotton" rel="cotton" data-type="material">
+                                        <span></span>
+                                        <div class="filter_title">Cotton</div>
+                                    </div>
+                                    <div class="filter_button check velvet" rel="velvet" data-type="material">
+                                        <span></span>
+                                        <div class="filter_title">Velvet</div>
+                                    </div>
+                                    <div class="filter_button check corduroy" rel="corduroy" data-type="material">
+                                        <span></span>
+                                        <div class="filter_title">Corduroy</div>
+                                    </div>
+                                    <div class="filter_button check polyester" rel="polyester" data-type="material">
+                                        <span></span>
+                                        <div class="filter_title">Polyester</div>
+                                    </div>
+                                    <div class="filter_button check seersucker" rel="seersucker" data-type="material">
+                                        <span></span>
+                                        <div class="filter_title">seersucker</div>
+                                    </div>
+                                    <div class="filter_button check silk" rel="silk" data-type="material">
+                                        <span></span>
+                                        <div class="filter_title">Silk</div>
+                                    </div>
+                                    <div class="filter_button check stretchy" rel="stretchy" data-type="material">
+                                        <span></span>
+                                        <div class="filter_title">Stretchy</div>
+                                    </div>
+                                </div>
+                                <div class="content season noSwipe">
+                                    <div class="title">filter:</div>
+                                    <div class="filter_button icon all" rel="all" data-type="season"><span></span></div>
+                                    <div class="filter_button icon summer" rel="summer" data-type="season"><span></span></div>
+                                    <div class="filter_button icon autum" rel="autum" data-type="season"><span></span></div>
+                                    <div class="filter_button icon winter" rel="winter" data-type="season"><span></span></div>
+                                </div>
+                                <div class="content sort noSwipe">
+                                    <div class="title">order:</div>
+                                    <div class="filter_button radio pos active" rel="pos" data-type="sort"><span></span>
+                                        <div class="filter_title">default</div>
+                                    </div>
+                                    <div class="filter_button radio new" rel="new" data-type="sort"><span></span>
+                                        <div class="filter_title">New</div>
+                                    </div>
+                                    <div class="filter_button radio price" rel="price" data-type="sort"><span></span>
+                                        <div class="filter_title">price</div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="config_field jacket_vent " option="jacket_vent">
-                                <div class="box_opt box_opt_mobile">
-                                    <div class="box_opt_fix"><label class="option option_mobile " views="back"><span
-                                                class="icon jacket_vent_0 icon_6f" icoclass="icon_6f"></span><input
-                                                type="radio" name="jacket_vent" value="0" /><span
-                                                class="text">ventless</span></label><label class="option option_mobile "
-                                            views="back"><span class="icon jacket_vent_1 icon_70"
-                                                icoclass="icon_70"></span><input type="radio" name="jacket_vent"
-                                                value="1" checked="checked" /><span class="text">Center
-                                                Vent</span></label><label class="option option_mobile "
-                                            views="back"><span class="icon jacket_vent_2 icon_71"
-                                                icoclass="icon_71"></span><input type="radio" name="jacket_vent"
-                                                value="2" /><span class="text">Side Vents</span></label></div>
+                            <div class="added_filters noSwipe">
+                                <div class="added_filters_wrap">
+                                    <div class="title t">filters:</div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="fabric_filters"><a href="javascript:;" class="back">h</a>
+                        <div class="navigate only_apply"><a class="select" href="javascript:;"><span>APPLY</span></a><a
+                                class="close" href="javascript:;"><span>Back</span></a></div>
+                    </div>
+                    <div class="filter_up multi">
+                        <div class="up">Y</div>
+                    </div>
+                    <p id="empty_list_fabric">The values you have selected do not correspond to any available fabric. Please
+                        change your selection.</p>
+                    <div class="fabric_list">
+                        <% fabrics.forEach(function(fabric) { 
+                            var fabricFlag = "";
+                            if(!!currentDesign) {
+                                if(fabric.code == currentDesign.fabric_id) {
+                                    fabricFlag = "current"
+                                }
+                            } else if (fabric.code == fabrics[0].code) {
+                                fabricFlag = "current"
+                            }
+                        %>
+                        <div class="fabric_thumb active man_suit <%=fabricFlag %>" rel="<%=fabric.code %>">
+                            <div class="fabric_wrap">
+                                <div class="image <%= fabric.code%>" id=<%=fabric.code %> rel=<%= fabric.code %>>
+                                    <span class="select  " rel="<%=fabric.code %>">
+                                        <img class="b-lazy b-loaded" src="<%=fabric.catalog_img %>" alt="<%= fabric.name %>">
+                                    </span>
+                                </div>
+                                <div class="info fabric_type_suit openable">
+                                    <div class="box_price">
+                                        <span class="price man_suit man_suit2 visible">
+                                            $<%= fabric.items.find(item => item.item_id == currentDesign.item_id).price %>
+                                        </span>
+                                    </div>
+                                    <div class="box_title">
+                                        <p class="title"><%= fabric.name %></p>
+                                        <p class="composition">
+                                            <%= fabric.material[0] %>
+                                        </p>
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="list_option jacket_chest_pocket" style="display:none">
-                            <div class="drop_head " option="jacket_chest_pocket"><a href="#jacket_chest_pocket"
-                                    class="icon opt_trigger jacket_chest_pocket icon_21" "></a><div class="
-                                    box_title">Breast Pocket</div>
-                        </div>
-                        <div class="config_field jacket_chest_pocket " option="jacket_chest_pocket"
-                            style="display:none">
-                            <div class="box_opt box_opt_mobile">
-                                <div class="box_opt_fix"><label class="option option_mobile "
-                                        views="front,without_model"><span class="icon jacket_chest_pocket_0 icon_4d"
-                                            icoclass="icon_4d"></span><input type="radio" name="jacket_chest_pocket"
-                                            value="0" /><span class="text">no</span></label><label
-                                        class="option option_mobile " views="front,without_model"><span
-                                            class="icon jacket_chest_pocket_1 icon_21" icoclass="icon_21"></span><input
-                                            type="radio" name="jacket_chest_pocket" value="1" checked="checked" /><span
-                                            class="text">yes</span></label><label class="option option_mobile "
-                                        views="front,without_model"><span
-                                            class="icon jacket_chest_pocket_patched_1 icon_6e"
-                                            icoclass="icon_6e"></span><input type="radio" name="jacket_chest_pocket"
-                                            value="patched_1" /><span class="text">Patched</span></label><label
-                                        class="option option_mobile " views="front,without_model"><span
-                                            class="icon jacket_chest_pocket_patched_2 icon_6e"
-                                            icoclass="icon_6e"></span><input type="radio" name="jacket_chest_pocket"
-                                            value="patched_2" /><span class="text">Patched x2</span></label></div>
-                            </div>
-                        </div>
-                </div> -->
-            </div>
-        </div>
-    </div>
-    <div class="garment_block garment_block_fabric">
-        <div class="fabric_block"><input type="hidden" class="fabric_input required" name="fabric[man_jacket]"
-                data-block-name="man_jacket" value="" /><input type="hidden" class="fabric_input required"
-                name="fabric[man_pants]" data-block-name="man_pants" value="" /><input type="hidden"
-                class="fabric_input required" name="fabric[man_waistcoat]" data-block-name="man_waistcoat"
-                value="" /><input type="hidden" class="fabric_input required" name="fabric[man_suit2]"
-                data-block-name="man_suit2" value="" /><input type="hidden" class="fabric_input required"
-                name="fabric[man_suit3]" data-block-name="man_suit3" value="" /><a href="javascript:;"
-                class="fabric_filter_trigger">filter</a>
-            <div class="fabric" id="header_form">
-                <div class="filter_bar">
-                    <div class="filters num_5">
-                        <div class="filters_list filters_man_suit">
-                            <div class="filter filter_tone" rel="color">
-                                <div rel="color" class="option_icon icon colors" title="Colors"></div>
-
-                            </div>
-                            <div class="filter filter_texture" rel="pattern">
-                                <div rel="pattern" class="option_icon icon texture" title="texture"></div>
-
-                            </div>
-                            <div class="filter filter_simple_composition" rel="material">
-                                <div rel="material" class="option_icon icon simple_composition"
-                                    title="simple_composition"></div>
-
-                            </div>
-                            <div class="filter filter_season" rel="season">
-                                <div rel="season" class="option_icon icon season" title="season"></div>
-
-                            </div>
-                            <div class="filter filter_sort" rel="sort">
-                                <div rel="sort" class="option_icon icon order" title="sort"></div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="filters_content">
-                        <div class="content color noSwipe">
-                            <div class="title">filter:</div>
-                            <div class="filter_button color all" rel="all" data-type="color"><span class="all"
-                                    style="background-color:all"></span></div>
-                            <div class="filter_button color gray" rel="gray" data-type="color"><span class="gray"
-                                    style="background-color:gray"></span></div>
-                            <div class="filter_button color blue" rel="blue" data-type="color"><span class="blue"
-                                    style="background-color:blue"></span></div>
-                            <div class="filter_button color black" rel="black" data-type="color"><span class="black"
-                                    style="background-color:black"></span></div>
-                            <div class="filter_button color brown" rel="brown" data-type="color"><span class="brown"
-                                    style="background-color:brown"></span></div>
-                            <div class="filter_button color white" rel="white" data-type="color"><span class="white"
-                                    style="background-color:white"></span></div>
-                            <div class="filter_button color orange" rel="orange" data-type="color"><span class="orange"
-                                    style="background-color:orange"></span></div>
-                            <div class="filter_button color beige" rel="beige" data-type="color"><span class="beige"
-                                    style="background-color:beige"></span></div>
-                            <div class="filter_button color yellow" rel="yellow" data-type="color"><span class="yellow"
-                                    style="background-color:yellow"></span></div>
-                            <div class="filter_button color pink" rel="pink" data-type="color"><span class="pink"
-                                    style="background-color:pink"></span></div>
-                            <div class="filter_button color green" rel="green" data-type="color"><span class="green"
-                                    style="background-color:green"></span></div>
-                            <div class="filter_button color red" rel="red" data-type="color"><span class="red"
-                                    style="background-color:red"></span></div>
-                        </div>
-                        <div class="content pattern noSwipe">
-                            <div class="title">filter:</div>
-                            <div class="filter_button icon all" rel="all" data-type="pattern"><span></span></div>
-                            <div class="filter_button icon chequered" rel="chequered" data-type="pattern"><span></span>
-                            </div>
-                            <div class="filter_button icon flat" rel="flat" data-type="pattern"><span></span></div>
-                            <div class="filter_button icon shredded" rel="shredded" data-type="pattern"><span></span>
-                            </div>
-                            <div class="filter_button icon houndstooth" rel="houndstooth" data-type="pattern">
-                                <span></span></div>
-                            <div class="filter_button icon paisley" rel="paisley" data-type="pattern"><span></span>
-                            </div>
-                            <div class="filter_button icon herringbone" rel="herringbone" data-type="pattern">
-                                <span></span></div>
-                            <div class="filter_button icon other" rel="other" data-type="pattern"><span></span></div>
-                        </div>
-                        <div class="content material noSwipe">
-                            <div class="title">filter:</div>
-                            <div class="filter_button check all" rel="all" data-type="material"><span></span>
-                                <div class="filter_title">all</div>
-                            </div>
-                            <div class="filter_button check wool" rel="wool" data-type="material">
-                                <span></span>
-                                <div class="filter_title">Wool</div>
-                            </div>
-                            <div class="filter_button check linen" rel="linen" data-type="material">
-                                <span></span>
-                                <div class="filter_title">linen</div>
-                            </div>
-                            <div class="filter_button check tweed" rel="tweed" data-type="material">
-                                <span></span>
-                                <div class="filter_title">Tweed</div>
-                            </div>
-                            <div class="filter_button check cotton" rel="cotton" data-type="material">
-                                <span></span>
-                                <div class="filter_title">Cotton</div>
-                            </div>
-                            <div class="filter_button check velvet" rel="velvet" data-type="material">
-                                <span></span>
-                                <div class="filter_title">Velvet</div>
-                            </div>
-                            <div class="filter_button check corduroy" rel="corduroy" data-type="material">
-                                <span></span>
-                                <div class="filter_title">Corduroy</div>
-                            </div>
-                            <div class="filter_button check polyester" rel="polyester" data-type="material">
-                                <span></span>
-                                <div class="filter_title">Polyester</div>
-                            </div>
-                            <div class="filter_button check seersucker" rel="seersucker" data-type="material">
-                                <span></span>
-                                <div class="filter_title">seersucker</div>
-                            </div>
-                            <div class="filter_button check silk" rel="silk" data-type="material">
-                                <span></span>
-                                <div class="filter_title">Silk</div>
-                            </div>
-                            <div class="filter_button check stretchy" rel="stretchy" data-type="material">
-                                <span></span>
-                                <div class="filter_title">Stretchy</div>
-                            </div>
-                        </div>
-                        <div class="content season noSwipe">
-                            <div class="title">filter:</div>
-                            <div class="filter_button icon all" rel="all" data-type="season"><span></span></div>
-                            <div class="filter_button icon summer" rel="summer" data-type="season"><span></span></div>
-                            <div class="filter_button icon autum" rel="autum" data-type="season"><span></span></div>
-                            <div class="filter_button icon winter" rel="winter" data-type="season"><span></span></div>
-                        </div>
-                        <div class="content sort noSwipe">
-                            <div class="title">order:</div>
-                            <div class="filter_button radio pos active" rel="pos" data-type="sort"><span></span>
-                                <div class="filter_title">default</div>
-                            </div>
-                            <div class="filter_button radio new" rel="new" data-type="sort"><span></span>
-                                <div class="filter_title">New</div>
-                            </div>
-                            <div class="filter_button radio price" rel="price" data-type="sort"><span></span>
-                                <div class="filter_title">price</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="added_filters noSwipe">
-                        <div class="added_filters_wrap">
-                            <div class="title t">filters:</div>
-                        </div>
-                    </div>
-
-
-                </div>
-            </div>
-            <div class="fabric_filters"><a href="javascript:;" class="back">h</a>
-                <div class="navigate only_apply"><a class="select" href="javascript:;"><span>APPLY</span></a><a
-                        class="close" href="javascript:;"><span>Back</span></a></div>
-            </div>
-            <div class="filter_up multi">
-                <div class="up">Y</div>
-            </div>
-            <p id="empty_list_fabric">The values you have selected do not correspond to any available fabric. Please
-                change your selection.</p>
-            <div class="fabric_list">
-                <% fabrics.forEach(function(fabric) { 
-                    var fabricFlag = "";
-                    if(!!currentDesign) {
-                        if(fabric.code == currentDesign.fabric) {
-                            fabricFlag = "current"
-                        }
-                    } else if (fabric.code == fabrics[0].code) {
-                        fabricFlag = "current"
-                    }
-                %>
-                <div class="fabric_thumb active man_suit <%=fabricFlag %>" rel="<%=fabric.code %>">
-                    <div class="fabric_wrap">
-                        <div class="image <%= fabric.code%>" id=<%=fabric.code %> rel=<%= fabric.code %>>
-                            <span class="select  " rel="<%=fabric.code %>">
-                                <img class="b-lazy b-loaded" src="<%=fabric.catalog_img %>" alt="<%= fabric.name %>">
-                            </span>
-                        </div>
-                        <div class="info fabric_type_suit openable">
-                            <div class="box_price">
-                                <span class="price man_suit man_suit2 visible">
-                                    $<%= fabric.products.find(product => product.product_id == currentDesign.product).price %>
-                                </span>
-                            </div>
-                            <div class="box_title">
-                                <p class="title"><%= fabric.name %></p>
-                                <p class="composition">
-                                    <%= fabric.material[0] %>
-                                </p>
-
-                            </div>
-                        </div>
+                        <% }) %>
                     </div>
                 </div>
-                <% }) %>
             </div>
-        </div>
-    </div>
     <style>
         .garment_block_extra .measure {
             margin-bottom: 15px;
@@ -1262,17 +1054,21 @@
                         </div>
                     </div>
                 <div id="measure_form" style="display: <%= currentDesign.measure ? 'block' : 'none'%>">
-                    <%  measures.forEach(currentMeasure => { 
-                        let value = "";
-                        if(!!currentDesign.measure)
-                            value = currentDesign.measure[currentMeasure]
-                        %>
-                        <div class="measure">
-                            <div class="title"><%= currentMeasure %></div>
-                            <input name="<%= currentMeasure %>" type="number" required step="0.1" 
-                            class="value_box <%= currentMeasure %>" value="<%= value %>" >
-                        </div>
+                    <%  products.forEach((product, idx) => { %>
+                            <h4><%= product.name %></h4>
+                            <% product.measure.forEach(currentMeasure => { 
+                                let value = "";
+                                if(!!currentDesign.products[idx].measure)
+                                    value = currentDesign.products[idx].measure[currentMeasure]
+                                %>
+                                <div class="measure">
+                                    <div class="title"><%= currentMeasure %></div>
+                                    <input name="<%= currentMeasure %>" type="number" required step="0.1" 
+                                    class="value_box <%= currentMeasure %>" value="<%= value %>" >
+                                </div>
+                                <% }) %>
                         <% }) %>
+                        
                 </div>
                 <!-- <div class="navigate" style="display: block"><a class="select" style="display: block" href="javascript:;"><span>Save</span></a></div> -->
 
@@ -1971,68 +1767,47 @@
             </div>
             <div class="add_to_cart visible">SAVE & CONTINUE</div>
         </div>
-        <div class="scroll_wrap">
+        <% products.forEach((product, index) => { 
+            let flag = index == 0 ? "block" : "none";
+            %>
+        <div class="scroll_wrap" id="<%= product.code %>" style="display: <%= flag %>">
             <div id="slider" class="slider">
                 <div class="holder animate" style="transform: translate3d(0px, 0px, 0px);">
-                    <div class="slide-wrapper front index_0 visible">
-                        <div class='slide layers viewport active front'>
-                            <% modelImg.front.forEach(image => { %>
-                                <img src="<%= image%>" alt="front" class="model front">
-                            <%  });
-                                let currentStyle = currentDesign.style;
-                                Object.keys(currentStyle).forEach(key => {
-                                    let componentImgs = images.find(component => component.fabric_id == currentDesign.fabric)                            
-                                    let component = components.find(component => component.code == key);
-                                    let componentImg;
-                                    if (!!component.parentComponent) {
-                                        let parentStyle = currentDesign.style[component.parentComponent];
-                                        componentImg = componentImgs.component_item.find(img => {
-                                            return img.item_id == currentDesign.style[key] && img.parent_id == parentStyle
-                                        });
-                                    } else {
-                                        componentImg = componentImgs.component_item.find(img => img.item_id == currentDesign.style[key]);
-                                    }
-                                    if(!!componentImg.img_url_front) { %>
-                                        <img src="<%= componentImg.img_url_front %>" parent="" id="<%=key %>" class="front">
-                                    <%  }                                     
-                                }) %>
+                    
+                        <%  
+                        let productStyle = currentDesign.products.find(prod => prod.product_id == product.code);
+                        let currentStyle = productStyle.style;
+                        let componentImgs = images.find(img => img.fabric_id == currentDesign.fabric_id && img.product_id == product.code)                            
+                        for(let i = 0 ; i <= 1; i++) { %>
+                            <div class="slide-wrapper front index_0 <%= i == 0 ? 'visible' : ''%>">
+                                <div class="slide layers viewport active <%= i == 0 ? 'front' : 'back' %>">
+
+                            <% Object.keys(currentStyle).forEach(key => {
+                                let component = product.components.find(component => component.code == key);
+                                let componentImg;
+                                if (!!component.parentComponent) {
+                                    let parentStyle = currentStyle[component.parentComponent];
+                                    componentImg = componentImgs.component_item.find(img => {
+                                        return img.item_id == currentStyle[key] && img.parent_id == parentStyle
+                                    });
+                                } else {
+                                    componentImg = componentImgs.component_item.find(img => img.item_id == currentStyle[key]);
+                                }
+                                if(!!componentImg.img_url_front && i == 0) { %>
+                                    <img src="<%= componentImg.img_url_front %>" parent="" id="<%=key %>" class="front">
+                                    <%  } 
+                                if(!!componentImg.img_url_back && i == 1) { %>
+                                    <img src="<%= componentImg.img_url_back %>" parent="" id="<%=key %>" class="back">
+                                    <%  } 
+                            }) %>
+                            </div>
                         </div>
-                        <div class="slide view_loading front_view">
-                            <div class="loading_view"><div class="centered"><div class="product_type">Front</div><div class="loading_text">Loading...</div>
-                                <img src="/images/loading_new.gif">
-                            </div></div></div>
-                    </div>
-                    <div class="slide-wrapper back index_1 ">
-                        <div class='slide layers viewport active back'>
-                            <% modelImg.back.forEach(image => { %>
-                                <img src="<%= image%>" alt="back" class="model back">
-                            <%  });                                
-                                Object.keys(currentStyle).forEach(key => {
-                                    let componentImgs = images.find(component => component.fabric_id == currentDesign.fabric)                            
-                                    let component = components.find(component => component.code == key);
-                                    let componentImg;
-                                    if (!!component.parentComponent) {
-                                        let parentStyle = currentDesign.style[component.parentComponent];
-                                        componentImg = componentImgs.component_item.find(img => {
-                                            return img.item_id == currentDesign.style[key] && img.parent_id == parentStyle
-                                        });
-                                    } else {
-                                        componentImg = componentImgs.component_item.find(img => img.item_id == currentDesign.style[key]);
-                                    }
-                                    if(!!componentImg.img_url_back) { %>
-                                        <img src="<%= componentImg.img_url_back %>" parent="" id="<%=key %>" class="back">
-                                        <%  } 
-                                }) %>
-                        </div>
-                        <div class="slide view_loading back_view ">
-                            <div class="loading_view"><div class="centered"><div class="product_type">Back</div><div class="loading_text">Loading...</div>
-                                <img src="https://d2w9m16hs9jc37.cloudfront.net/images/garment/loading_new.gif">
-                            </div></div></div>
-                    </div>
+                        <% } %>
                     
                 </div>
             </div>
         </div>
+        <% }) %>
         <div id="zoom_scroll_layer" class=""></div>
     </div>
     </div>

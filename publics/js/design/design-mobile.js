@@ -53,24 +53,44 @@ function urlParam(name) {
     return (results !== null) ? results[1] || 0 : false;
 }
 
-function renderImage(component_id, componentImg) {
-    if (!$('.slide.layers.front').find('#' + component_id).attr('src')) {
-        if (!!componentImg.img_url_front)
-            $('.slide.layers.front').append('<img src="' + componentImg.img_url_front + '" alt="front" id="' + component_id + '" class="front">')
+function renderImage(component_id, componentImg, product_id) {
+    // if (!$('#'+product_id+' .slide.layers.front').find('#' + component_id).attr('src')) {
+    //     if (!!componentImg.img_url_front)
+    //         $('.slide.layers.front').append('<img src="' + componentImg.img_url_front + '" alt="front" id="' + component_id + '" class="front">')
+    // } else {
+    //     if (!!componentImg.img_url_front)
+    //         $('.slide.layers.front .front#' + component_id).attr('src', componentImg.img_url_front)
+    //     else
+    //         $('.slide.layers.front .front#' + component_id).remove();
+    // }
+    // if (!$('.slide.layers.back').find('#' + component_id).attr('src')) {
+    //     if (!!componentImg.img_url_back)
+    //         $('.slide.layers.back').append('<img src="' + componentImg.img_url_back + '" alt="back" id="' + component_id + '" class="back">')
+    // } else {
+    //     if (!!componentImg.img_url_back)
+    //         $('.slide.layers.back .back#' + component_id).attr('src', componentImg.img_url_back)
+    //     else
+    //         $('.slide.layers.back .back#' + component_id).remove();
+    // }
+
+    if (!$('#'+product_id+' .slide.layers').find('#' + component_id).attr('src')) {
+        if (imageRenderFlag && !!componentImg.img_url_front) {
+            $('#'+product_id+' .slide.layers.front').append('<img src="' + componentImg.img_url_front + '" alt="front" id="' + component_id + '" class="front">')
+            $('#'+product_id+' .slide.layers.front').append('<img src="' + componentImg.img_url_back + '" alt="back" id="' + component_id + '" class="back" style="display: none;">')
+        }
+        if (!imageRenderFlag && !!componentImg.img_url_back) {
+            $('#'+product_id+' .slide.layers.back').append('<img src="' + componentImg.img_url_back + '" alt="back" id="' + component_id + '" class="back">')
+            $('#'+product_id+' .slide.layers.back').append('<img src="' + componentImg.img_url_front + '" alt="front" id="' + component_id + '" class="front" style="display: none;">')
+        }
     } else {
-        if (!!componentImg.img_url_front)
-            $('.slide.layers.front .front#' + component_id).attr('src', componentImg.img_url_front)
-        else
-            $('.slide.layers.front .front#' + component_id).remove();
-    }
-    if (!$('.slide.layers.back').find('#' + component_id).attr('src')) {
+        if (!!componentImg.img_url_front) {
+            $('#'+product_id+' .slide.layers.front .front#' + component_id).attr('src', componentImg.img_url_front)
+        } else
+            $('#'+product_id+' .slide.layers.front .front#' + component_id).remove();
         if (!!componentImg.img_url_back)
-            $('.slide.layers.back').append('<img src="' + componentImg.img_url_back + '" alt="back" id="' + component_id + '" class="back">')
-    } else {
-        if (!!componentImg.img_url_back)
-            $('.slide.layers.back .back#' + component_id).attr('src', componentImg.img_url_back)
+            $('#'+product_id+' .slide.layers.back .back#' + component_id).attr('src', componentImg.img_url_back)
         else
-            $('.slide.layers.back .back#' + component_id).remove();
+            $('#'+product_id+' .slide.layers.back .back#' + component_id).remove();
     }
 }
 
@@ -88,6 +108,63 @@ function checkMeasurement() {
     return flag;
 }
 
+slides_generator = function () {
+    var t = this, e = $(".slider"), i = $(".slide-wrapper", e);
+    t.available_views = ["front", "back"];
+    t.view = "front";
+    t.navigate_configurator_button = $(".garment_block_config .navigate");
+    t.changeView = function (t, e) {
+        if (e = void 0 !== e && e, "without_jacket" == t) {
+            i = this.view;
+            return this.view = "front",
+                $("#available_window").removeClass(i), $("#available_window").addClass("front"),
+                $("#available_window .views li.active").removeClass("active"),
+                $('#available_window .views li[rel="without_jacket"]').addClass("active")
+        }
+        this.previous_view = this.view; var i = this.view; this.view = t, $("#available_window").removeClass(i), $("#available_window").addClass(t), $("#available_window .views li.active").removeClass("active"), $('#available_window .views li[rel="' + t + '"]').addClass("active");
+    }
+
+    if (navigator.msMaxTouchPoints) e.addClass("ms-touch");
+    else {
+        t.slider = {
+            el: { slider: e, holder: $(".holder", e) },
+            slideWidth: e.width(),
+            touchstartx: void 0,
+            touchmovex: void 0,
+            movex: void 0,
+            index: 0,
+            longTouch: void 0,
+            init: function () {
+                this.bindUIEvents()
+            },
+            bindUIEvents: function () {
+                this.el.holder.on("touchstart", function (e) { t.slider.start(e) }),
+                    this.el.holder.on("touchmove", function (e) { t.slider.move(e) }),
+                    this.el.holder.on("touchend", function (e) { t.slider.end(e) })
+            },
+            start: function (t) { this.touchstartx = t.originalEvent.touches[0].pageX, $(".animate").removeClass("animate") },
+            move: function (e) { this.touchmovex = e.originalEvent.touches[0].pageX, this.movex = this.index * this.slideWidth + (this.touchstartx - this.touchmovex), this.movex < this.slideWidth * t.available_views.length - 100 && this.el.holder.css("transform", "translate3d(-" + this.movex + "px,0,0)") },
+            end: function (e) { Math.abs(this.index * this.slideWidth - this.movex) > this.slideWidth / 6 && (this.movex > this.index * this.slideWidth && this.index < t.available_views.length - 1 ? this.index++ : this.movex < this.index * this.slideWidth && this.index > 0 && this.index--), this.el.holder.addClass("animate").css("transform", "translate3d(-" + this.index * this.slideWidth + "px,0,0)"), t.view != t.available_views[this.index] && this.change_view() },
+            set: function (t) {
+                this.index = t,
+                    this.el.holder.addClass("animate").css("transform", "translate3d(-" + this.index * this.slideWidth + "px,0,0)"),
+                    this.change_view(),
+                    $(window).resize()
+            },
+            change_view: function () {
+                i.removeClass("visible").filter(".index_" + this.index).addClass("visible"),
+                    t.changeView(t.available_views[this.index], !0);
+                var e = i.not("." + t.available_views[this.index]).find(".slide");
+                // e.filter(".layers").removeClass("active")
+                // e.filter(".view_loading").addClass("active")
+            }
+        };
+        var a = 100 / t.available_views.length;
+        $(".slide-wrapper").css("width", a + "%");
+        var r = 100 * t.available_views.length;
+        $(".holder").css("width", r + "%"), t.slider.init(), t.navigate_configurator_button.removeClass("visible")
+    }
+}
 
 $(document).ready(function () {
     $(window).on('popstate', function () {
@@ -163,16 +240,16 @@ $(document).ready(function () {
     // Handle change fabric
     $('.fabric_list .fabric_thumb').click(function () {
         let fabric_id = $(this).find('.image').attr('id');
-        let tempFabric = fabrics.find(fabric => fabric.code == fabric_id);
-
+        let fabric = fabrics.find(fabric => fabric.code == fabric_id);
+        
+        $('#fabric_view_opt #fabric_view_zoom').attr('src', fabric.detailed_img);
         $('#fabric_view_opt').attr('rel', fabric_id);
-        $('#fabric_view_opt .price').html('$' + tempFabric.products.find(product => product.product_id == currentDesign.product).price);
-        $('#fabric_view_opt .title').html(tempFabric.name);
-        $('#fabric_view_opt .season').html(" - " + tempFabric.season.join('/'));
-        $('#fabric_view_opt .texture').html(" - " + tempFabric.color.join('/'));
-        $('#fabric_view_opt .material').html(tempFabric.material.join("/"));
+        $('#fabric_view_opt .price').html('$' + fabric.items.find(item => item.item_id == currentDesign.item_id).price);
+        $('#fabric_view_opt .title').html(fabric.name);
+        $('#fabric_view_opt .season').html(" - " + fabric.season.join('/'));
+        $('#fabric_view_opt .texture').html(" - " + fabric.color.join('/'));
+        $('#fabric_view_opt .material').html(fabric.material.join("/"));
 
-        $('#fabric_view_opt #fabric_view_zoom').attr('src', tempFabric.detailed_img);
         $('#fabric_view_opt').addClass('visible')
     });
 
@@ -181,31 +258,31 @@ $(document).ready(function () {
     })
     // Apply fabric
     $('.fabric_apply a').click(function () {
-        let fabric_code = $(this).parent().parent().attr('rel');
+        let fabric_id = $(this).parent().parent().attr('rel');
         $('.fabric_list').find('.current').removeClass('current');
-        $('.fabric_list .fabric_thumb[rel=' + fabric_code + "]").addClass('current');
-        fabric = fabrics.find(fabric => fabric.code == fabric_code);
-        currentDesign.fabric = fabric_code;
+        $('.fabric_list .fabric_thumb[rel=' + fabric_id + "]").addClass('current');
+        fabric = fabrics.find(fabric => fabric.code == fabric_id);
+        currentDesign.fabric_id = fabric_id;
 
-        // Handle reload model image
-        let styles = Object.keys(currentDesign.style);
-        let imgFabric = styleImg.find(component => component.fabric_id == fabric_code)
-
-        styles.forEach(component_id => {
-            let component = components.find(component => component.code == component_id);
-            let componentImg;
-            if (!!component.parentComponent) {
-                let parentStyle = currentDesign.style[component.parentComponent];
-                componentImg = imgFabric.component_item.find(img => {
-                    return img.item_id == currentDesign.style[component_id] && img.parent_id == parentStyle
-                });
-                renderImage(component_id, componentImg);
-            } else {
-                componentImg = imgFabric.component_item.find(img => img.item_id == currentDesign.style[component_id]);
-                renderImage(component_id, componentImg);
-            }
+        products.forEach(product => {
+            let productStyle = currentDesign.products.find(prod => prod.product_id == product.code);
+            let styles = Object.keys(productStyle.style);
+            let imgFabric = styleImg.find(image => image.fabric_id == fabric_id && image.product_id == product.code)
+            styles.forEach(component_id => {
+                let component = product.components.find(component => component.code == component_id);
+                let componentImg;
+                if (!!component.parentComponent) {
+                    let parentStyle = productStyle.style[component.parentComponent];
+                    componentImg = imgFabric.component_item.find(img => {
+                        return img.item_id == productStyle.style[component_id] && img.parent_id == parentStyle
+                    });
+                    renderImage(component_id, componentImg, product.code);
+                } else {
+                    componentImg = imgFabric.component_item.find(img => img.item_id == productStyle.style[component_id]);
+                    renderImage(component_id, componentImg, product.code);
+                }
+            });
         });
-
         //Close panel
         backToMain();
     });
@@ -216,68 +293,19 @@ $(document).ready(function () {
         backToMain();
     })
 
-    slides_generator = function () {
-        var t = this, e = $("#slider"), i = $(".slide-wrapper", e);
-        t.available_views = ["front", "back"];
-        t.view = "front";
-        t.navigate_configurator_button = $(".garment_block_config .navigate");
-        t.changeView = function (t, e) {
-            if (e = void 0 !== e && e, "without_jacket" == t) {
-                i = this.view;
-                return this.view = "front",
-                    $("#available_window").removeClass(i), $("#available_window").addClass("front"),
-                    $("#available_window .views li.active").removeClass("active"),
-                    $('#available_window .views li[rel="without_jacket"]').addClass("active")
-            }
-            this.previous_view = this.view; var i = this.view; this.view = t, $("#available_window").removeClass(i), $("#available_window").addClass(t), $("#available_window .views li.active").removeClass("active"), $('#available_window .views li[rel="' + t + '"]').addClass("active");
-        }
-
-        if (navigator.msMaxTouchPoints) e.addClass("ms-touch");
-        else {
-            t.slider = {
-                el: { slider: e, holder: $(".holder", e) },
-                slideWidth: e.width(),
-                touchstartx: void 0,
-                touchmovex: void 0,
-                movex: void 0,
-                index: 0,
-                longTouch: void 0,
-                init: function () {
-                    this.bindUIEvents()
-                },
-                bindUIEvents: function () {
-                    this.el.holder.on("touchstart", function (e) { t.slider.start(e) }),
-                        this.el.holder.on("touchmove", function (e) { t.slider.move(e) }),
-                        this.el.holder.on("touchend", function (e) { t.slider.end(e) })
-                },
-                start: function (t) { this.touchstartx = t.originalEvent.touches[0].pageX, $(".animate").removeClass("animate") },
-                move: function (e) { this.touchmovex = e.originalEvent.touches[0].pageX, this.movex = this.index * this.slideWidth + (this.touchstartx - this.touchmovex), this.movex < this.slideWidth * t.available_views.length - 100 && this.el.holder.css("transform", "translate3d(-" + this.movex + "px,0,0)") },
-                end: function (e) { Math.abs(this.index * this.slideWidth - this.movex) > this.slideWidth / 6 && (this.movex > this.index * this.slideWidth && this.index < t.available_views.length - 1 ? this.index++ : this.movex < this.index * this.slideWidth && this.index > 0 && this.index--), this.el.holder.addClass("animate").css("transform", "translate3d(-" + this.index * this.slideWidth + "px,0,0)"), t.view != t.available_views[this.index] && this.change_view() },
-                set: function (t) {
-                    this.index = t,
-                        this.el.holder.addClass("animate").css("transform", "translate3d(-" + this.index * this.slideWidth + "px,0,0)"),
-                        this.change_view(),
-                        $(window).resize()
-                },
-                change_view: function () {
-                    i.removeClass("visible").filter(".index_" + this.index).addClass("visible"),
-                        t.changeView(t.available_views[this.index], !0);
-                    var e = i.not("." + t.available_views[this.index]).find(".slide");
-                    // e.filter(".layers").removeClass("active")
-                    // e.filter(".view_loading").addClass("active")
-                }
-            };
-            var a = 100 / t.available_views.length;
-            $(".slide-wrapper").css("width", a + "%");
-            var r = 100 * t.available_views.length;
-            $(".holder").css("width", r + "%"), t.slider.init(), t.navigate_configurator_button.removeClass("visible")
-        }
-    }
+    
     slides_generator();
 
     $('#available_window .views li a').click(function (event) {
         event.preventDefault();
     });
+
+    $('.favourite.with_add_to_cart').click(function() {
+        $('.scroll_wrap#product_001').hide()
+        $('.scroll_wrap#product_002').show();
+        // slides_generator();
+
+    })
 
     // Handle open fabric filter
     $('.num_5 .filter').click(function () {
