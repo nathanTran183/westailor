@@ -75,7 +75,7 @@
                     <b>Order ID</b><%= order._id %><br>
                     <b>Order Date:</b> <%= order.createdAt.toLocaleString() %><br>
                     <b>Bag Price:</b> <%= order.bag_price %><br>
-                    <% if(order.discount_id) { %><b>Total Amount:</b> <%= order.discount_id %><br><% } %>
+                    <% if(order.discount_id) { %><b>Discount:</b> <%= order.discount_id %><br><% } %>
                     <b>Ship Fee:</b> <%= order.ship_fee %><br>
                     <b>Total Amount:</b> <%= order.total_price %><br>
                     <b>Status:</b><% if(order.status == 1) { %> <span class="label label-danger">Pending</span>
@@ -90,9 +90,11 @@
                 <h4>Other info</h4>
                 <address>
                     <b>Transaction ID:</b> <%= order.transaction_id %><br>
+                    <% if(!!order.user_id) { %>
                     <b>Buyer ID:</b> <%= order.user_id._id %><br>
                     <b>Buyer Name:</b> <%= order.user_id.full_name %><br>
                     <b>Buyer Phone:</b> <%= order.user_id.phone_number %><br>
+                    <% } %>
                 </address>
             </div>
             <!-- /.col -->
@@ -126,28 +128,37 @@
                         %>
                         <tr>
                             <td><%= i++ %></td>
-                            <td><%= orderDetail.product_id.gender + " " + orderDetail.product_id.name %></td>
+                            <td><%= orderDetail.item_id.name %></td>
                             <td>
                                 Code: <b><%= orderDetail.fabric_id.code %></b><br>
                                 Name: <b><%= orderDetail.fabric_id.name %></b>
                             </td>
 
                             <td>
-                                <% Object.keys(orderDetail.style).forEach(component => {
-                                let type = orderDetail.product_id.components.find(comp => comp.code == component);
-                                let value = type.componentItems.find(item => item.code == orderDetail.style[component])
+                                <%  orderDetail.products.forEach(product => { %>
+                                    <b style="text-transform: uppercase"><%= product.product_id.name %></b><br>
+                                <%
+                                Object.keys(product.style).forEach(component => {
+                                let type = product.product_id.components.find(comp => comp.code == component);
+                                let value = type.componentItems.find(item => item.code == product.style[component])
                                 %>
                                 <%= type.name %>: <b><%= value.name %></b><br>
                                 <% }) %>
+                                <p></p>
+                            <% }) %>
                             </td>
 
-                            <td><% if(!orderDetail.measure) { %>
+                            <td>
+                                <%  orderDetail.products.forEach(product => { %>
+                                    <b style="text-transform: uppercase"><%= product.product_id.name %></b><br>
+                                <% if(!product.measure) { %>
                                 <span class="label label-warning">No measure information</span>
                                 <% } else { 
-                                    Object.keys(orderDetail.measure).forEach(item => { %>
-                                <%= item%>: <b><%= orderDetail.measure[item] %> (cm)</b><br>
-                                <% })
-                                } %>
+                                    Object.keys(product.measure).forEach(item => { %>
+                                <%= item%>: <b><%= product.measure[item] %> (cm)</b><br>
+                                <% }) %>
+                                <p></p>
+                                <% } }) %>
                             </td>
 
                             <td><%= orderDetail.quantity %></td>

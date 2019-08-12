@@ -61,7 +61,11 @@
                                 <% orders.forEach(order => { %>
                                 <tr>
                                     <td><%= order._id %></td>
-                                    <td><%= order.user_id.email %></td>
+                                    <% if (!!order.user_id) { %>
+                                        <td><%= order.user_id.email %></td>
+                                    <% } else { %> 
+                                        <td></td>                                        
+                                    <% } %>
                                     <td><%= new Date(order.createdAt).toLocaleString() %></td>
                                     <td><%= order.total_price %></td>
                                     <td><% if(order.status == 1) { %>

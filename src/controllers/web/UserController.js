@@ -100,7 +100,7 @@ module.exports = {
         req.session.destroy();
         // req.session.user = null;
         // req.session.cookie.maxAge = 0;
-        res.redirect('/admin/signIn');
+        res.redirect('/');
     },
 
     // forgotPassword (req, res,next){

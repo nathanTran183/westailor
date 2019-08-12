@@ -567,21 +567,6 @@
                             </ul>
                         </div>
                     </div>
-                    <% if (messages.errors) {
-                        for (i = 0; i < messages.errors.length; i++) { %>
-                    <div class="form_message error">
-                        <p><%= messages.errors[i].msg %></p>
-                    </div>
-                    <% } 
-                    } if (messages.reason_fail) { %>
-                    <div class="form_message error">
-                        <p><%= messages.reason_fail %></p>
-                    </div>
-                    <% } if (messages.success) { %>
-                    <div class="form_message success">
-                        <p><%= messages.success %></p>
-                    </div>
-                    <% } %>
                     <div class="account_content">
                         <div class="opt_box">
                             <div class="title">
@@ -609,7 +594,22 @@
                                     </a>
                                 </div>
 
-
+                                <% if (messages.errors) {
+                                    for (i = 0; i < messages.errors.length; i++) { %>
+                                <div class="form_message error">
+                                    <p><%= messages.errors[i].msg %></p>
+                                </div>
+                                <% } 
+                                } if (messages.reason_fail) { %>
+                                <div class="form_message error">
+                                    <p><%= messages.reason_fail %></p>
+                                </div>
+                                <% } if (messages.success) { %>
+                                <div class="form_message success">
+                                    <p><%= messages.success %></p>
+                                </div>
+                                <% } %>
+                                
                                 <div class="orders">
                                     <% if (orders.length > 0) { %>
                                     <table id="tableListDiscounts" class="table table-bordered table-striped dataTable">

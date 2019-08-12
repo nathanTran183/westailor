@@ -20,7 +20,7 @@ router.get('/', function (req, res) {
     else
         res.render('user/web/index');
 });
-router.get('/signIn', function (req, res) {
+router.get('/signIn', passport.notLogIn, function (req, res) {
     var ua = req.headers['user-agent'];
     if (/mobile/i.test(ua))
         res.render('user/mobile/index');
@@ -30,6 +30,7 @@ router.get('/signIn', function (req, res) {
 
 router.post('/signIn', passport.notLogIn, UserController.postSignIn);
 router.post('/signUp', passport.notLogIn, UserController.postSignUp);
+router.get('/signOut', passport.isUserWeb, UserController.signOut);
 router.get('/profile', passport.isUserWeb, UserController.userProfile);
 router.post('/profile', passport.isUserWeb, UserController.updateUserInfo);
 router.post('/change-password', passport.isUserWeb, UserController.changePass);
@@ -37,8 +38,8 @@ router.post('/change-password', passport.isUserWeb, UserController.changePass);
 
 router.get('/men/design-suit', function (req, res, next) { res.locals.item = "item_001"; next(); }, FabricController.list);
 router.get('/men/design-suit/:id', function (req, res, next) { res.locals.item = "item_001"; next(); }, FabricController.list);
-router.get('/men/design-shirt', function (req, res, next) { res.locals.gender = "men"; res.locals.product = "shirt"; next(); }, FabricController.list);
-router.get('/men/design-shirt/:id', function (req, res, next) { res.locals.gender = "men"; res.locals.product = "shirt"; next(); }, FabricController.list);
+router.get('/men/design-vest', function (req, res, next) { res.locals.item = "item_002"; next(); }, FabricController.list);
+router.get('/men/design-vest/:id', function (req, res, next) { res.locals.item = "item_002"; next(); }, FabricController.list);
 
 router.use('/orders', orderRoute);
 router.use('/checkout', checkoutRoute);

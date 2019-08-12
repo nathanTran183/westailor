@@ -58,6 +58,7 @@
                                 <th>Item</th>
                                 <th>Fabric</th>
                                 <th>Style</th>
+                                <th>Measure</th>
                                 <th>Quantity</th>
                                 <th>Price</th>
                                 <th>Total Price</th>
@@ -269,12 +270,10 @@
                                     <div class="form-group">
                                         <label class="col-sm-4 control-label">Product</label>
                                         <div class="col-sm-6">
-                                            <select class="form-control select2" id="product" name="product"
+                                            <select class="form-control select2" id="item_id" name="item_id"
                                                 data-placeholder="Select A Product" style="width: 100%;">
-                                                <% products.forEach(product => { %>
-                                                <option value="<%= product.code %>"><%= product.gender %>
-                                                    <%= product.name%>
-                                                </option>
+                                                <% items.forEach(item => { %>
+                                                <option value="<%= item.id %>"><%= item.name %></option>
                                                 <% }) %>
                                             </select>
                                         </div>
@@ -283,14 +282,12 @@
                                     <div class="form-group">
                                         <label class="col-sm-4 control-label">Fabric</label>
                                         <div class="col-sm-6">
-                                            <select class="form-control select2" id="fabric" name="fabric"
+                                            <select class="form-control select2" id="fabric_id" name="fabric_id"
                                                 data-placeholder="Select A Fabric" style="width: 100%;">
                                                 <% fabrics.forEach(fabric => { 
-                                                    if(fabric.products.some(prod => prod.product_id == "product_001")) {
+                                                    if(fabric.items.some(prod => prod.item_id == "item_001")) {
                                                     %>
-                                                <option value="<%= fabric.code %>"><%= fabric.code %> -
-                                                    <%= fabric.name%>
-                                                </option>
+                                                <option value="<%= fabric.code %>"><%= fabric.code %> - <%= fabric.name%></option>
                                                 <% }}) %>
                                             </select>
                                         </div>
@@ -311,15 +308,16 @@
                             <div id="style_config">
                                 <div class="box-header">
                                     <h3 class="box-title">Style</h3>
-                                </div>
-                                <div class="box-body">
-                                    <% products[0].components.forEach(component => { %>
+                                </div><div class="box-body">
+                                    <% items[0].products.forEach(productId => { 
+                                        let product = products.find(prod => prod.code == productId); %>
+                                        <h4 style="text-align: center; text-transform: uppercase"><%= product.name %></h4>                                        
+                                    <% product.components.forEach(component => { %>
                                     <div class="form-group">
-                                        <label class="col-sm-4 control-label"
-                                            style="text-transform: capitalize"><%= component.name%></label>
+                                        <label class="col-sm-4 control-label" style="text-transform: capitalize"><%= component.name%></label>
                                         <div class="col-sm-6">
-                                            <select class="form-control select2" id="<%= component.code %>"
-                                                name="<%= component.code %>" style="width: 100%;">
+                                            <select class="form-control select2" id="<%= component.code %>" product="<%= productId %>" name="<%= component.code %>"
+                                                style="width: 100%;">
                                                 <% component.componentItems.forEach(item => { %>
                                                 <option value="<%= item.code %>"><%= item.name%>
                                                 </option>
@@ -327,7 +325,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <% }) %>
+                                    <% }) }) %>
                                 </div>
                             </div>
                             <hr>
@@ -336,16 +334,19 @@
                                     <h3 class="box-title">Measure</h3>
                                 </div>
                                 <div class="box-body">
-                                    <% products[0].measure.forEach(measurePart => { %>
+                                    <% items[0].products.forEach(productId => { 
+                                        let product = products.find(prod => prod.code == productId); %>
+                                        <h4 style="text-align: center; text-transform: uppercase"><%= product.name %></h4>
+                                    <% product.measure.forEach(measurePart => { %>
                                     <div class="form-group">
                                         <label class="col-sm-4 control-label"
                                             style="text-transform: capitalize"><%= measurePart %></label>
                                         <div class="col-sm-6">
-                                            <input type="number" class="form-control" id="<%= measurePart %>"
+                                            <input type="number" class="form-control" id="<%= measurePart %>" product="<%= productId %>"
                                                 name="<%= measurePart %>">
                                         </div>
                                     </div>
-                                    <% }) %>
+                                    <% }) }) %>
 
                                 </div>
                             </div>
@@ -366,17 +367,19 @@
 </div>
 <script>
     function getTotalPrice(fabrics) {
-        let product_id = $('#product_config #product').val();
-        let fabric_id = $('#product_config #fabric').val();
+        let item_id = $('#product_config #item_id').val();
+        let fabric_id = $('#product_config #fabric_id').val();
         let quantity = $('#product_config #quantity').val();
         let fabric = fabrics.find(fabr => fabr.code == fabric_id);
-        let price = fabric.products.find(prod => prod.product_id == product_id).price;
+        let price = fabric.items.find(prod => prod.item_id == item_id).price;
         let total_price = price * quantity;
         $('#product_config #total_price').html('Total Price: ' + quantity + ' x ' + price + '$ = <b>' + total_price + '$</b>')
-    }
+    };
+
     $(document).ready(function () {
         let products = <%- JSON.stringify(products) %>;
         let fabrics = <%- JSON.stringify(fabrics) %>;
+        let items = <%- JSON.stringify(items) %>;
 
         let tableListPendingCarts = $('#tableListPendingCarts').DataTable({
             "searching": false,
@@ -399,8 +402,8 @@
                 },
                 {
                     'data': function (data) {
-                        let product = products.find(product => product.code == data.product);
-                        return product.gender + " " + product.name;
+                        let item = items.find(itm => itm.id == data.item_id);
+                        return item.name;
                     },
                     'render': function (data) {
                         return data;
@@ -409,8 +412,8 @@
                 },
                 {
                     'data': function (data) {
-                        let fabric = fabrics.filter(fabric => fabric.code == data.fabric)[0]
-                        return fabric.code + " - " + fabric.name;
+                        let fabric = fabrics.find(fabric => fabric.code == data.fabric_id)
+                        return "Code: <b>" + fabric.code + "</b><br>Name: <b>" + fabric.name + "</b>";
                     },
                     'render': function (data) {
                         return data;
@@ -419,27 +422,50 @@
                 },
                 {
                     'data': function (data) {
-                        let product = products.find(product => product.code == data.product);
-                        let result = ""
-                        Object.keys(data.style).forEach(component => {
-                            let type = product.components.find(comp => comp.code == component);
-                            let value = type.componentItems.find(item => item.code == data.style[component])
-                            result += type.name + ": <b>" + value.name + "</b><br>"
+                        let result = "";
+                        data.products.forEach(productItem => {
+                            let product = products.find(product => product.code == productItem.product_id);
+                            result += "<b style='text-transform: uppercase'>" + product.name + "</b><br>";
+                            Object.keys(productItem.style).forEach(component => {
+                                let type = product.components.find(comp => comp.code == component);
+                                let value = type.componentItems.find(item => item.code == productItem.style[component])
+                                result += type.name + ": <b>" + value.name + "</b><br>"
+                            })
+                            result+= "<p></p>";
+                        })
+                        
+                        return result;
+                    },
+                    'render': function (data) {
+                        return data;
+                    },
+                    "width": "25%"
+                },
+                {
+                    'data': function (data) {
+                        let result = "";
+                        data.products.forEach(productItem => {
+                            let product = products.find(product => product.code == productItem.product_id);
+                            result += "<b style='text-transform: uppercase'>" + product.name + "</b><br>";
+                            Object.keys(productItem.measure).forEach(item => {
+                                result += item + ": <b>" + productItem.measure[item] + "(cm)</b><br>"
+                            });
+                            result+= "<p></p>";
                         })
                         return result;
                     },
                     'render': function (data) {
                         return data;
                     },
-                    "width": "35%"
+                    "width": "20%"
                 },
                 {
                     'data': 'quantity',
-                    "width": "10%"
+                    "width": "5%"
                 },
                 {
                     'data': 'price',
-                    "width": "10%"
+                    "width": "7%"
                 },
                 {
                     'data': function (data) {
@@ -448,7 +474,7 @@
                     'render': function (data) {
                         return data;
                     },
-                    "width": "10%"
+                    "width": "8%"
                 },
                 {
                     'data': 'idx',
@@ -482,7 +508,6 @@
         getTotalPrice(fabrics);
 
         $('#clear-carts').click(function() {
-            console.log('here')
             $.ajax({
                 type: 'POST',
                 contentType: 'application/json',
@@ -509,20 +534,30 @@
                 orderItem[$(item).attr('id')] = $(item).val()
             });
             orderItem.quantity = +$('#product_config #quantity').val();
-            let fabric = fabrics.find(fabr => fabr.code == orderItem.fabric);
-            orderItem.price = fabric.products.find(prod => prod.product_id == orderItem.product).price;
-            orderItem.style = {}
-            $('#order_item #style_config select').each(function (idx, item) {
-                orderItem.style[$(item).attr('id')] = $(item).val()
-            });
-            orderItem.measure = {}
-            $('#order_item #measure_config input').each(function (idx, item) {
-                if (!$(item).val()) {
-                    flag = false;
-                    return false;
-                }
-                orderItem.measure[$(item).attr('id')] = +$(item).val()
-            });
+            let fabric = fabrics.find(fabr => fabr.code == orderItem.fabric_id);
+            orderItem.price = fabric.items.find(item => item.item_id == orderItem.item_id).price;
+            orderItem.products = [];
+            let item = items.find(itm => itm.id == orderItem.item_id);
+            item.products.forEach(productItem => {
+                let product = {
+                    product_id: productItem
+                };
+                product.style = {}
+                $('#order_item #style_config select[product="'+productItem+'"]').each(function (idx, item) {
+                    product.style[$(item).attr('id')] = $(item).val()
+                });
+
+                product.measure = {}
+                $('#order_item #measure_config input[product="'+productItem+'"]').each(function (idx, item) {
+                    if (!$(item).val()) {
+                        flag = false;
+                        return false;
+                    }
+                    product.measure[$(item).attr('id')] = +$(item).val()
+                });
+                orderItem.products.push(product);
+            })
+            
 
             if (flag == true) {
                 $.ajax({
@@ -548,50 +583,56 @@
 
         });
 
-        $('#product_config #product').change(function (event) {
-            let productId = $(this).children("option:selected").val();
-            let product = products.find(prod => prod.code == productId);
-            $('#product_config #fabric').empty();
+        $('#product_config #item_id').change(function (event) {
+            let itemId = $(this).children("option:selected").val();
+            let item = items.find(item => item.id == itemId);
+            $('#product_config #fabric_id').empty();
             fabrics.forEach(fabric => {
-                if (fabric.products.some(prod => prod.product_id == productId)) {
+                if (fabric.items.some(item => item.item_id == itemId)) {
                     let appendStr = '<option value="' + fabric.code + '">' + fabric.code + ' - ' + fabric.name + '</option>'
-                    $('#product_config #fabric').append(appendStr)
+                    $('#product_config #fabric_id').append(appendStr)
                 }
             });
 
             $('#style_config .box-body').empty();
-            product.components.forEach(component => {
-                let appendStr = `
+            $('#measure_config .box-body').empty();
+
+            item.products.forEach(productId => {
+                let product = products.find(prod => prod.code == productId);
+                $('#style_config .box-body').append('<h4 style="text-align: center; text-transform: uppercase">' + product.name + '</h4>')
+                product.components.forEach(component => {
+                    let appendStyle = `
                 <div class="form-group">
                     <label class="col-sm-4 control-label"
                         style="text-transform: capitalize">${component.name}</label>
                     <div class="col-sm-6">
-                        <select class="form-control select2" id="${component.code}"
+                        <select class="form-control select2" product="${product.code}" id="${component.code}"
                             name="${component.code}" style="width: 100%;">
                         </select>
                     </div>
                 </div>`;
-                $('#style_config .box-body').append(appendStr)
-                component.componentItems.forEach(item => {
-                    $('#style_config .box-body #' + component.code).append('<option value="' + item.code + '">' + item.name + '</option>')
-                })
-            })
-            setTimeout(function () { $('.select2').select2() });
+                    $('#style_config .box-body').append(appendStyle);
+                    component.componentItems.forEach(item => {
+                        $('#style_config .box-body #' + component.code).append('<option value="' + item.code + '">' + item.name + '</option>')
+                    })
+                });
 
-            getTotalPrice(fabrics);
-            $('#measure_config .box-body').empty();
-            product.measure.forEach(measure => {
-                let appendStr = `
+                $('#measure_config .box-body').append('<h4 style="text-align: center; text-transform: uppercase">' + product.name + '</h4>')
+                product.measure.forEach(measure => {
+                    let appendStr = `
                 <div class="form-group">
                     <label class="col-sm-4 control-label"
                         style="text-transform: capitalize">${measure}</label>
                     <div class="col-sm-6">
-                        <input type="number" required class="form-control" id="${measure}"
+                        <input type="number" required product="${product.code}" class="form-control" id="${measure}"
                             name="${measure}">
                     </div>
                 </div>`
-                $('#measure_config .box-body').append(appendStr)
+                    $('#measure_config .box-body').append(appendStr)
+                })
             })
+            setTimeout(function () { $('.select2').select2() });
+            getTotalPrice(fabrics);
         });
 
         $('#product_config #quantity').change(function () {

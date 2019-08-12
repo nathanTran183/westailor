@@ -59,11 +59,20 @@ module.exports = {
                 return res.redirect('back');
             }
             let order = await Order.findOne({ user_id: req.session.user.id, _id: id })
-                .populate({ path: 'order_item', select: "_id img quantity price" })
+                .populate({ path: 'order_item', select: "_id quantity item_id price products" })
                 .lean();
+            
             if (!order) {
                 return res.redirect('back');
             }
+            let itemFile = fs.readFileSync(itemPath);
+            let itemData = JSON.parse(itemFile);
+            order.order_item.map(orderItem => {
+                let item = itemData.find(item => item.id == orderItem.item_id);
+                orderItem.name = item.name;
+                return orderItem;
+            });
+            console.log(order.order_item)
 
             var ua = req.headers['user-agent'];
             var device = /mobile/i.test(ua) ? 'mobile' : 'web';
@@ -80,24 +89,29 @@ module.exports = {
             if (!item_id) {
                 res.send("Cannot found item id")
             }
-            let item = await OrderItem.findById(item_id).lean();
-            if (!!item) {
+            let orderItem = await OrderItem.findById(item_id).lean();
+            if (!!orderItem) {
                 let fabricFile = fs.readFileSync(fabricPath);
                 let fabricData = JSON.parse(fabricFile);
                 let productFile = fs.readFileSync(productPath);
                 let productData = JSON.parse(productFile);
+                let itemFile = fs.readFileSync(itemPath);
+                let itemData = JSON.parse(itemFile);
 
-                let fabric = fabricData.find(fabric => fabric.code == item.fabric_id);
-                let product = productData.find(product => product.code == item.product_id);
+                let fabric = fabricData.find(fabric => fabric.code == orderItem.fabric_id);
+                let item = itemData.find(item => item.id == orderItem.item_id);
+                let products = productData.filter(product => {
+                    return orderItem.products.some(prod => prod.product_id == product.code)
+                });
 
                 var ua = req.headers['user-agent'];
                 var device = /mobile/i.test(ua) ? 'mobile' : 'web';
-                res.render('user/' + device + '/product-detail', { fabric: fabric, product: product, item: item });
+                res.render('user/' + device + '/product-detail', { fabric: fabric, products: products, cartItem: orderItem, item: item });
             } else {
                 res.send("Cannot found item")
             }
         } catch (error) {
-
+            console.log(error)
         }
     },
 
@@ -105,8 +119,8 @@ module.exports = {
         try {
             let fabricFile = fs.readFileSync(fabricPath);
             let fabricData = JSON.parse(fabricFile);
-            let productFile = fs.readFileSync(productPath);
-            let productData = JSON.parse(productFile);
+            // let productFile = fs.readFileSync(productPath);
+            // let productData = JSON.parse(productFile);
             let itemFile = fs.readFileSync(itemPath);
             let itemData = JSON.parse(itemFile);
             let carts = []
@@ -228,12 +242,13 @@ module.exports = {
                     orderTemp = await order.save();
                     for (var i = 0; i < req.session.carts.length; i++) {
                         let cart = new OrderItem(req.session.carts[i]);
-                        cart.product_id = req.session.carts[i].product;
-                        cart.fabric_id = req.session.carts[i].fabric;
-                        if (!cart.measure)
-                            order.status = 1
-                        else
-                            cart.status = true;
+                        cart.products.forEach(product => {
+                            if (!product.measure)
+                                order.status = 1
+                            else
+                                cart.status = true;
+                        })
+
                         cart.order_id = orderTemp._id
                         cart = await cart.save();
                         await order.order_item.push(cart._id);
@@ -252,12 +267,12 @@ module.exports = {
                     EmailService.sendNodeMailer(mailOptions, function (err) {
                         if (err) {
                             res.flash('reason_fail', 'Mail system error! Purchase successfully!')
-                            res.redirect('/orders');
+                            res.redirect('/orders/'+order._id);
                         }
                         req.session.order = null;
                         req.session.carts = null;
                         req.flash('success', 'Purchase order successfully')
-                        res.redirect('/orders');
+                        res.redirect('/orders/'+order._id);
                     });
 
 
@@ -361,7 +376,7 @@ module.exports = {
 
     processingList: async (req, res) => {
         try {
-            let orders = await Order.find({ status: 2 }).populate('user_id').lean();
+            let orders = await Order.find({ status: {$in: [3,4]} }).populate('user_id').lean();
             res.render('admin/orders/index', { orders: orders, title: "Processing Order List" });
         } catch (err) {
             console.log(err);
@@ -371,22 +386,34 @@ module.exports = {
 
     get: async (req, res) => {
         try {
+            
+
+            let id = req.params.id;
+            if (!id) {
+                req.flash('reason_fail', 'Invalid query!')
+                res.redirect('back');
+            }
+            let order = await Order.findById(id).populate("order_item").populate("user_id").lean();
+            if(!order) {
+                req.flash('reason_fail', 'Order does not exist!')
+                res.redirect('back');
+            }
+
             let fabricFile = fs.readFileSync(fabricPath);
             let fabricData = JSON.parse(fabricFile);
             let productFile = fs.readFileSync(productPath);
             let productData = JSON.parse(productFile);
+            let itemFile = fs.readFileSync(itemPath);
+            let itemData = JSON.parse(itemFile);
 
-            let id = req.params.id;
-            if (!id) {
-                req.flash('reason_fail', 'Order does not exist!')
-                res.redirect('back');
-            }
-            let order = await Order.findById(id).populate("order_item").populate("user_id").lean();
             order.order_item.map(item => {
-                let fabric = fabricData.find(fabric => fabric.code == item.fabric_id);
-                let product = productData.find(product => product.code == item.product_id);
-                item.fabric_id = fabric;
-                item.product_id = product;
+                item.fabric_id = fabricData.find(fabric => fabric.code == item.fabric_id);
+                item.item_id = itemData.find(ite => ite.id == item.item_id);
+                item.products.map(product => {
+                    product.product_id = productData.find(data => data.code == product.product_id);
+                    return product
+                });
+                
                 return item;
             })
 
@@ -469,8 +496,10 @@ module.exports = {
             let productData = JSON.parse(productFile);
             let fabricFile = fs.readFileSync(fabricPath);
             let fabricData = JSON.parse(fabricFile);
+            let itemFile = fs.readFileSync(itemPath);
+            let itemData = JSON.parse(itemFile);
 
-            res.render('admin/orders/create', { products: productData, fabrics: fabricData });
+            res.render('admin/orders/create', { products: productData, fabrics: fabricData, items: itemData });
         } catch (error) {
             console.log(err);
             req.flash('errors', { msg: err.message })
@@ -517,8 +546,6 @@ module.exports = {
             orderTemp = await order.save();
             for (var i = 0; i < req.session.carts.length; i++) {
                 let cart = new OrderItem(req.session.carts[i]);
-                cart.product_id = req.session.carts[i].product;
-                cart.fabric_id = req.session.carts[i].fabric;
                 cart.status = true;
                 cart.order_id = orderTemp._id
                 cart = await cart.save();

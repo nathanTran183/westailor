@@ -7,8 +7,8 @@
     },
     {
         "id": "item_002",
-        "name": "Men Vent",
-        "link": "/men/design-vent",
+        "name": "Men Vest",
+        "link": "/men/design-vest",
         "products": ["product_002"]
     }
 ]
