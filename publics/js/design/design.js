@@ -36,12 +36,12 @@ function urlParam(name) {
 function renderImage(component_id, componentImg, product_id) {
     if (!$('.images_render #'+product_id).find('#' + component_id).attr('src')) {
         if (imageRenderFlag && !!componentImg.img_url_front) {
-            $('.images_render #'+product_id).append('<img src="' + componentImg.img_url_front + '" alt="front" id="' + component_id + '" class="front">')
-            $('.images_render #'+product_id).append('<img src="' + componentImg.img_url_back + '" alt="back" id="' + component_id + '" class="back" style="display: none;">')
+            $('.images_render #'+product_id).append('<img src="' + componentImg.img_url_front + '" alt="front" product="'+product_id+'" id="' + component_id + '" class="front">')
+            $('.images_render #'+product_id).append('<img src="' + componentImg.img_url_back + '" alt="back" product="'+product_id+'" id="' + component_id + '" class="back" style="display: none;">')
         }
         if (!imageRenderFlag && !!componentImg.img_url_back) {
-            $('.images_render #'+product_id).append('<img src="' + componentImg.img_url_back + '" alt="back" id="' + component_id + '" class="back">')
-            $('.images_render #'+product_id).append('<img src="' + componentImg.img_url_front + '" alt="front" id="' + component_id + '" class="front" style="display: none;">')
+            $('.images_render #'+product_id).append('<img src="' + componentImg.img_url_back + '" alt="back" product="'+product_id+'" id="' + component_id + '" class="back">')
+            $('.images_render #'+product_id).append('<img src="' + componentImg.img_url_front + '" alt="front" product="'+product_id+'" id="' + component_id + '" class="front" style="display: none;">')
         }
     } else {
         if (!!componentImg.img_url_front) {
@@ -433,10 +433,10 @@ $(document).ready(function () {
         let componentItem_id = $(this).attr('id');
 
         let product = products.find(prod => prod.code == product_id);
-        // Set style to current design
         let productDesign = currentDesign.products.find(prod => prod.product_id == product_id);
-        productDesign.style[component_id] = componentItem_id;
 
+        // Set style to current design
+        productDesign.style[component_id] = componentItem_id;
         // get all image by current fabric
         let imgFabric = styleImg.find(image => image.fabric_id == currentDesign.fabric_id && image.product_id == product_id)
 

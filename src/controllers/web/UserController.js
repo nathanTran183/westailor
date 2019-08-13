@@ -3,12 +3,15 @@ const validate = require('../../services/Validate');
 module.exports = {
 
     postSignIn: async (req, res) => {
+        let page = req.body.action;
+        req.flash('page', page);
         // check validation
         req.assert('email', 'Email is required').notEmpty();
         req.assert('password', 'A valid password (length between 6 to 48) is required').len(6, 48);  //Validate password
         var errors = req.validationErrors();
         if (errors) {   //Display errors to user
             req.flash('errors', errors);
+            req.flash('page', page);
             res.redirect('/signIn');
             return;
         }
@@ -55,6 +58,8 @@ module.exports = {
     },
 
     postSignUp: async (req, res) => {
+        let page = req.body.action;
+        req.flash('page', page);
         req.assert('email', 'Email is required').notEmpty();
         req.assert('password', 'A valid password (length between 6 to 48) is required').len(6, 48);
         req.assert('full_name', 'Full Name is required').notEmpty();
@@ -82,10 +87,10 @@ module.exports = {
                 return res.redirect('back');
             }
             req.session.user = {
-                id: account._id,
-                email: account.email,
+                id: user._id,
+                email: user.email,
                 role: "Customer",
-                status: account.status
+                status: user.status
             };
             return res.redirect('/');
         } catch (err) {

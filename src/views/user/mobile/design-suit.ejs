@@ -718,7 +718,7 @@
                             <div class="config_block_title" rel="man_jacket">
                                 <div class="title"><%= product.name %></div><span>f</span>
                             </div>
-                            <div class="config_block_content man_jacket">
+                            <div class="config_block_content man_jacket" style="display: <%= idx == 0 ? 'block' : 'none'%>">
                                 <% product.components.forEach(component => { %>
 
                                 <div class="list_option jacket_style_combined" id="<%= component.code %>">
@@ -1053,20 +1053,22 @@
                             </div>
                         </div>
                     </div>
-                <div id="measure_form" style="display: <%= currentDesign.measure ? 'block' : 'none'%>">
+                <div id="measure_form" style="display: <%= currentDesign.products[0].measure ? 'block' : 'none'%>">
                     <%  products.forEach((product, idx) => { %>
+                        <div id="<%= product.code %>">
                             <h4><%= product.name %></h4>
                             <% product.measure.forEach(currentMeasure => { 
                                 let value = "";
                                 if(!!currentDesign.products[idx].measure)
                                     value = currentDesign.products[idx].measure[currentMeasure]
                                 %>
-                                <div class="measure">
+                                <div class="measure" id="<%= currentMeasure %>">
                                     <div class="title"><%= currentMeasure %></div>
                                     <input name="<%= currentMeasure %>" type="number" required step="0.1" 
                                     class="value_box <%= currentMeasure %>" value="<%= value %>" >
                                 </div>
                                 <% }) %>
+                        </div>
                         <% }) %>
                         
                 </div>
@@ -1779,7 +1781,7 @@
                         let currentStyle = productStyle.style;
                         let componentImgs = images.find(img => img.fabric_id == currentDesign.fabric_id && img.product_id == product.code)                            
                         for(let i = 0 ; i <= 1; i++) { %>
-                            <div class="slide-wrapper front index_0 <%= i == 0 ? 'visible' : ''%>">
+                            <div class="slide-wrapper <%= i == 0 ? 'front' : 'back' %> index_0 <%= i == 0 ? 'visible' : ''%>">
                                 <div class="slide layers viewport active <%= i == 0 ? 'front' : 'back' %>">
 
                             <% Object.keys(currentStyle).forEach(key => {

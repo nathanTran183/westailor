@@ -23,7 +23,7 @@ router.get('/', function (req, res) {
 router.get('/signIn', passport.notLogIn, function (req, res) {
     var ua = req.headers['user-agent'];
     if (/mobile/i.test(ua))
-        res.render('user/mobile/index');
+        res.render('user/mobile/signIn');
     else
         res.render('user/web/signIn');
 });

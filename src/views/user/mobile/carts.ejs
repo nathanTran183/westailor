@@ -82,9 +82,9 @@
         var tablet_enabled = false;
         var dataLayer = [{ "cart_version": "mobile_cart", "cart_products_types": "man_suit2", "voucher_code": null, "contentGroup1": "Cart", "contentGroup2": "Cart", "promotion_active": "4x3shirt19", "promotion_popup_firsttime": "0", "promotion_valid": "2019-07-21", "region": "en-au", "lang": "en", "currency": { "iso": "AUD", "symbol": "$" }, "length_units": "cm", "weigth_units": "kg", "gender": "man", "menu_item": "checkout_cart", "isAdmin": false, "mobile_device": true, "tablet_device": false, "mobile_ready": true, "mobile_enabled": true, "customer_logged": 0, "swiss_site": 0, "cart_n_products": 1, "cart_price": 299, "device_type": "mobile" }];
     </script>
-    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-WQMRNX" height="0" width="0"
+    <!-- <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-WQMRNX" height="0" width="0"
             style="display:none;visibility:hidden"></iframe></noscript>
-    <script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-WQMRNX');</script>
+    <script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-WQMRNX');</script> -->
 
     <div id="body_height" class=" ">
         <!--googleoff: all-->
@@ -829,7 +829,7 @@
                         <tr class="product ">
                             <td class="image man_suit2 ">
                                 <a href="/en-au/checkout/product_preview/p2?TB_iframe=1&width=700&height=500&new_cart=1"
-                                    title="Blue wool blend suit " class="details prod_mod popup_link ">
+                                    title="Blue wool blend suit " class="details prod_mod popup_link " rel="<%= i %>">
                                     <div class="image-height-limiter">
                                         <img src="<%= carts[i].img%>">
                                     </div>
@@ -841,21 +841,22 @@
                                         $<%= carts[i].price * carts[i].quantity %>
                                     </span>
                                     <span class="name">
-                                        <%= carts[i].gender + ' ' + carts[i].name %>
+                                        <%= carts[i].name %>
                                     </span>
                                 </div>
                                 <div class="cross_sell">
-
-                                    <% carts[i].components.forEach(component => { %>
+                                    <%  let fabric = fabrics.find(fabric => fabric.code == carts[i].fabric_id); %>
                                         <div class="element ">
-                                            <span><%= component.key%> : <%=component.value%></span>
+                                            <span>Fabric Code : <%=fabric.code%></span>
                                         </div>
-                                    <% }) %>
+                                        <div class="element ">
+                                            <span>Fabric Name : <%=fabric.name%></span>
+                                        </div>
 
                                 </div>
                                 <div class="options" id="item_<%= i%>">
                                     <div class="opt"><a class="cart_modify_product" rel="nofollow"
-                                        href="/<%= carts[i].gender %>/design-<%= carts[i].name%>/<%= i %>">Modify</a>
+                                        href="<%= carts[i].link %>/<%= i %>">Modify</a>
                                     </div>
                                     <div class="opt split">&nbsp;</div>
 
@@ -2395,7 +2396,7 @@
             </div>
             <% if(carts.length > 0) { %>
             <div id="product_preview_mobile" style="display: none;">
-                <img src="<%= carts[0].img%>" pagespeed_no_transform="">
+                <!-- <img src="" pagespeed_no_transform=""> -->
             </div>
             <% } %>
             <!-- <link rel="stylesheet"
