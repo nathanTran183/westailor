@@ -611,6 +611,9 @@
                                 <h4 rel="optbox"><%= pending == false ? 'Order Detail' : 'Pending Cart' %></h4>
                             </div>
                             <div class="content">
+                                <% if(pending == true && order.order_item.length == 0 ) { %>
+                                    <h3 style="text-align: center">Your cart is empty</h3>
+                                <% } else { %>
                                 <div class="orders">
                                     <div class="order order_10071095 " id="10071095">
                                         <% if (pending == false) { %>
@@ -674,10 +677,10 @@
                                         <div class="footer">
                                             <div class="options">
                                                 <a rel_cart="10071095" rel_cart_detail="" class="finish "
-                                                    href="/checkout/finalize/10071095">FINISH ORDER</a>
+                                                    href="/checkout/shipping">FINISH ORDER</a>
                                                 <a class="option modify " href="/checkout/cart" rel_cart="10071095"
                                                     rel_cart_detail="">Modify</a>
-                                                <div class="sep"></div>
+                                                <!-- <div class="sep"></div> -->
                                                 <!-- <a class="option remove confirmDelete"
                                                         href="/en-au/customer/order/del/10071095/-1/1">Delete</a> -->
                                             </div>
@@ -769,6 +772,7 @@
                                         <% } %>
                                     </div>
                                 </div>
+                                <% } %>
                             </div>
                         </div>
                         <div class="modal fade" id="product_preview" role="dialog">

@@ -36,8 +36,13 @@ module.exports = {
         try {
             let order = {}, bag_price = 0, ship_fee = 0, total_price = 0;
             order.order_item = req.session.carts || [];
-            order.order_item.forEach(item => {
+            let itemFile = fs.readFileSync(itemPath);
+            let itemData = JSON.parse(itemFile);
+
+            order.order_item.map(item => {
+                item.name = itemData.find(itm => itm.id == item.item_id).name;
                 bag_price += item.quantity * item.price;
+                return item;
             });
             order.bag_price = bag_price;
             order.ship_fee = bag_price > 300 ? 0 : 15;
@@ -68,8 +73,7 @@ module.exports = {
             let itemFile = fs.readFileSync(itemPath);
             let itemData = JSON.parse(itemFile);
             order.order_item.map(orderItem => {
-                let item = itemData.find(item => item.id == orderItem.item_id);
-                orderItem.name = item.name;
+                orderItem.name = itemData.find(item => item.id == orderItem.item_id);
                 return orderItem;
             });
             console.log(order.order_item)
