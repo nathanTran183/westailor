@@ -73,7 +73,7 @@ module.exports = {
             let itemFile = fs.readFileSync(itemPath);
             let itemData = JSON.parse(itemFile);
             order.order_item.map(orderItem => {
-                orderItem.name = itemData.find(item => item.id == orderItem.item_id);
+                orderItem.name = itemData.find(item => item.id == orderItem.item_id).name;
                 return orderItem;
             });
             console.log(order.order_item)

@@ -71,7 +71,7 @@
     },
     {
         "code": "product_002",
-        "name": "men vest",
+        "name": "men pant",
         "measure": ["shoulder", "chest", "stomach", "hip"],
         "model_img": {
             "front": [
@@ -85,6 +85,67 @@
             "https://d2w9m16hs9jc37.cloudfront.net/3d/new_man/jacket/STD/894_fabric/front/interior+espalda_arriba.png",
             "https://d2w9m16hs9jc37.cloudfront.net/3d/new_man/jacket/STD/linings/192_fabric/front/interior+espalda_arriba.png",
             "https://d2w9m16hs9jc37.cloudfront.net/3d/new_man/jacket/STD/linings/192_fabric/front/interior+espalda_abajo+length_short.png"
+        ],
+        "components": [
+            {
+                "code": "component_004",
+                "name": "style",
+                "icon_img": "",
+                "componentItems": [
+                    {
+                        "code": "style_003",
+                        "name": "4 buttons",
+                        "icon_img": "https://cdn2.iconfinder.com/data/icons/world-flag-icons/256/Flag_of_England.png"
+                    },
+                    {
+                        "code": "style_004",
+                        "name": "5 buttons",
+                        "icon_img": "https://cdn3.iconfinder.com/data/icons/finalflags/256/England-Flag.png"
+                    }
+                ]
+            },
+            {
+                "code": "component_005",
+                "name": "pocket",
+                "componentItems": [
+                    {
+                        "code": "pocket_001",
+                        "name": "Single Opening",
+                        "icon_img": ""
+                    },
+                    {
+                        "code": "pocket_002",
+                        "name": "Double Opening",
+                        "icon_img": ""
+                    }
+                ]
+            },
+            {
+                "code": "component_006",
+                "name": "lapel",
+                "parentComponent": "component_004",
+                "componentItems": [
+                    {
+                        "code": "lapel_003",
+                        "name": "Peak",
+                        "icon_img": ""
+                    },
+                    {
+                        "code": "lapel_004",
+                        "name": "Shawl",
+                        "icon_img": ""
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "code": "product_003",
+        "name": "men shirt",
+        "measure": ["shoulder", "chest", "stomach", "hip"],
+        "model_img": {
+        },
+        "default_img": [
         ],
         "components": [
             {

@@ -7,8 +7,50 @@
     },
     {
         "id": "item_002",
+        "name": "Men Pant",
+        "link": "/men/design-pant",
+        "products": ["product_002"]
+    },
+    {
+        "id": "item_003",
+        "name": "Men Shirt",
+        "link": "/men/design-shirt",
+        "products": ["product_003"]
+    },
+    {
+        "id": "item_004",
         "name": "Men Vest",
         "link": "/men/design-vest",
-        "products": ["product_002"]
+        "products": ["product_004"]
+    },
+    {
+        "id": "item_005",
+        "name": "Women Suit",
+        "link": "/women/design-suit",
+        "products": ["product_005", "product_006"]
+    },
+    {
+        "id": "item_006",
+        "name": "Women Pant",
+        "link": "/women/design-pant",
+        "products": ["product_006"]
+    },
+    {
+        "id": "item_007",
+        "name": "Women Shirt",
+        "link": "/women/design-shirt",
+        "products": ["product_007"]
+    },
+    {
+        "id": "item_008",
+        "name": "Women Vest",
+        "link": "/women/design-Vest",
+        "products": ["product_008"]
+    },
+    {
+        "id": "item_009",
+        "name": "Women Skirt",
+        "link": "/women/design-skirt",
+        "products": ["product_009"]
     }
 ]

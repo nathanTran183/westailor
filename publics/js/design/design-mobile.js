@@ -454,6 +454,7 @@ $(document).ready(function () {
     $('.action .add_to_cart').click(function () {
         let measureVal = $('.garment_block_extra .box_opt_fix .checked').attr('rel')
         delete currentDesign.img;
+        $('.loading_general').show()
         if (measureVal == "0")
             if (checkMeasurement()) {
                 if(!pos) {
@@ -473,11 +474,13 @@ $(document).ready(function () {
                     },
                     error: function (error) {
                         console.log(error);
+                        $('.loading_general').hide()
                     }
                 });
             } else {
                 alert('The measure form is not valid!')
                 setContentByStep("measure");
+                $('.loading_general').hide()
             }
         else {
             currentDesign.quantity = 1;
@@ -499,6 +502,7 @@ $(document).ready(function () {
                 },
                 error: function (error) {
                     console.log(error);
+                    $('.loading_general').hide()
                 }
             });
         }
