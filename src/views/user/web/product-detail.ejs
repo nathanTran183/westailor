@@ -190,11 +190,11 @@ div.sin_extras_box p {text-align:center;}
                     Object.keys(currentStyle).forEach(key => {
                         let component = product.components.find(component => component.code == key);
                         let label = component.name;
-                        let value = component.componentItems.find(item => item.code == currentStyle[key]).name;
+                        let value = component.componentItems.find(item => item.code == currentStyle[key]);                        
                         %>
                             <li>
                                 <p class="label" style="text-transform: capitalize"><%= label %>: </p>
-                                <p class="value"><%= value %></p>
+                                <p class="value"><%= value.name %></p>
                             </li>
                             <% }); %>
                         </ul>

@@ -19,10 +19,15 @@
             "new",
             "trending"
         ],
+        "pattern": [],
         "items": [
             {
                 "item_id": "item_001",
                 "price": 299
+            },
+            {
+                "item_id": "item_003",
+                "price": 99
             }
         ],
         "catalog_img": "https://d2w9m16hs9jc37.cloudfront.net/dimg/fabric/suit/894_huge_c300.jpg",
@@ -46,6 +51,7 @@
             "premium",
             "promo"
         ],
+        "pattern": [],
         "items": [
             {
                 "item_id": "item_001",
@@ -75,6 +81,7 @@
             "new",
             "premium"
         ],
+        "pattern": [],
         "items": [
             {
                 "item_id": "item_002",
@@ -103,6 +110,7 @@
             "promo",
             "trending"
         ],
+        "pattern": [],
         "items": [
             {
                 "item_id": "item_001",

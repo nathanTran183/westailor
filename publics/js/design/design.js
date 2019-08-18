@@ -34,24 +34,24 @@ function urlParam(name) {
 }
 
 function renderImage(component_id, componentImg, product_id) {
-    if (!$('.images_render #'+product_id).find('#' + component_id).attr('src')) {
+    if (!$('.images_render #' + product_id).find('#' + component_id).attr('src')) {
         if (imageRenderFlag && !!componentImg.img_url_front) {
-            $('.images_render #'+product_id).append('<img src="' + componentImg.img_url_front + '" alt="front" product="'+product_id+'" id="' + component_id + '" class="front">')
-            $('.images_render #'+product_id).append('<img src="' + componentImg.img_url_back + '" alt="back" product="'+product_id+'" id="' + component_id + '" class="back" style="display: none;">')
+            $('.images_render #' + product_id).append('<img src="' + componentImg.img_url_front + '" alt="front" product="' + product_id + '" id="' + component_id + '" class="front">')
+            $('.images_render #' + product_id).append('<img src="' + componentImg.img_url_back + '" alt="back" product="' + product_id + '" id="' + component_id + '" class="back" style="display: none;">')
         }
         if (!imageRenderFlag && !!componentImg.img_url_back) {
-            $('.images_render #'+product_id).append('<img src="' + componentImg.img_url_back + '" alt="back" product="'+product_id+'" id="' + component_id + '" class="back">')
-            $('.images_render #'+product_id).append('<img src="' + componentImg.img_url_front + '" alt="front" product="'+product_id+'" id="' + component_id + '" class="front" style="display: none;">')
+            $('.images_render #' + product_id).append('<img src="' + componentImg.img_url_back + '" alt="back" product="' + product_id + '" id="' + component_id + '" class="back">')
+            $('.images_render #' + product_id).append('<img src="' + componentImg.img_url_front + '" alt="front" product="' + product_id + '" id="' + component_id + '" class="front" style="display: none;">')
         }
     } else {
         if (!!componentImg.img_url_front) {
-            $('.images_render #'+product_id+' .front#' + component_id).attr('src', componentImg.img_url_front)
+            $('.images_render #' + product_id + ' .front#' + component_id).attr('src', componentImg.img_url_front)
         } else
-            $('.images_render #'+product_id+' .front#' + component_id).remove();
+            $('.images_render #' + product_id + ' .front#' + component_id).remove();
         if (!!componentImg.img_url_back)
-            $('.images_render #'+product_id+' .back#' + component_id).attr('src', componentImg.img_url_back)
+            $('.images_render #' + product_id + ' .back#' + component_id).attr('src', componentImg.img_url_back)
         else
-            $('.images_render #'+product_id+' .back#' + component_id).remove();
+            $('.images_render #' + product_id + ' .back#' + component_id).remove();
     }
     // $('.images_render').children().hide();
     // $('.images_render #'+product_id).show();
@@ -155,7 +155,7 @@ $(document).ready(function () {
             $('.step_next').addClass('disabled');
             let measureFlag = $('#extra .checkbox_option').find('.checked').attr('rel')
             let url = '/api/orders/orderItem';
-            currentDesign.products.map(product => {delete product.img; return product});
+            currentDesign.products.map(product => { delete product.img; return product });
             if (measureFlag == "0") {
                 if (checkMeasurement()) {
                     if (!pos) {
@@ -185,7 +185,7 @@ $(document).ready(function () {
             }
             else {
                 currentDesign.quantity = 1;
-                currentDesign.products.map(product => {delete product.measure; return product});                
+                currentDesign.products.map(product => { delete product.measure; return product });
                 if (!pos) {
                     currentDesign.quantity = 1;
                 } else {
@@ -413,9 +413,9 @@ $(document).ready(function () {
         $('.box_opts').find('.box_opt.active').removeClass('active');
         $(this).parent().parent().find('span.active').removeClass('active');
         $(this).addClass('active');
-        $('.box_opts').find('#' + style + "[product="+product_id+"]").addClass('active');
+        $('.box_opts').find('#' + style + "[product=" + product_id + "]").addClass('active');
         $('.images_render').children().hide();
-        $('.images_render #'+product_id).show();
+        $('.images_render #' + product_id).show();
     });
     $('.box_opts .back').click(function (event) {
         $(this).parent().removeClass('active');
@@ -434,6 +434,18 @@ $(document).ready(function () {
 
         let product = products.find(prod => prod.code == product_id);
         let productDesign = currentDesign.products.find(prod => prod.product_id == product_id);
+
+        // Handle change style for shirt only
+        if (product_id == "product_003" || product_id == "product_007") {
+            if (component_id == "component_002" && componentItem_id == "sleeve_002") {
+                let parentComponent = product.components.find(component => component.parentComponent == component_id);
+                $('#style_menu #'+parentComponent.code).hide();
+            }
+            if (component_id == "component_002" && componentItem_id !== "sleeve_002") {
+                let parentComponent = product.components.find(component => component.parentComponent == component_id);
+                $('#style_menu #'+parentComponent.code).show();
+            }
+        }
 
         // Set style to current design
         productDesign.style[component_id] = componentItem_id;

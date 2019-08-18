@@ -40,6 +40,8 @@ router.get('/men/design-suit', function (req, res, next) { res.locals.item = "it
 router.get('/men/design-suit/:id', function (req, res, next) { res.locals.item = "item_001"; next(); }, FabricController.list);
 router.get('/men/design-vest', function (req, res, next) { res.locals.item = "item_002"; next(); }, FabricController.list);
 router.get('/men/design-vest/:id', function (req, res, next) { res.locals.item = "item_002"; next(); }, FabricController.list);
+router.get('/men/design-shirt', function (req, res, next) { res.locals.item = "item_003"; next(); }, FabricController.list);
+router.get('/men/design-shirt/:id', function (req, res, next) { res.locals.item = "item_003"; next(); }, FabricController.list);
 
 router.use('/orders', orderRoute);
 router.use('/checkout', checkoutRoute);

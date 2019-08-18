@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="en-au" xml:lang="en-au">
+<!DOCTYPE html >
+<html lang="en-au" xml:lang="en-au" class="css-fonts-lato css-fonts-nc-nav svg localstorage canvas webgl rgba inlinesvg hsla touchevents fontface backgroundsize flexbox flexboxlegacy webp webp-alpha webp-animation webp-lossless gr__hockerty_com">
 
 <head>
     <meta charset="utf-8">
@@ -1035,12 +1035,12 @@
                                     <div class="extra_content" style="display: block;">
                                         <div class="extra_field extra_field_image options" data-field-name="options">
                                             <div class="box_opt box_opt_fix box_opt_no_title">
-                                                <label rel="0" class="option option_image t4l_radio active  <%= currentDesign.measure ? 'checked' : '' %>">
+                                                <label rel="0" class="option option_image t4l_radio active  <%= Object.keys(currentDesign.products[0].measure).length > 0 ? 'checked' : '' %>">
                                                     <span class="image icon icon_27"></span>
                                                     <input type="radio" name="lining[contrast]" value="default" data-field-name="lining">
                                                     <span class="name">Measure by your own</span>
                                                 </label><label rel="1"
-                                                    class="option option_image t4l_radio active <%= currentDesign.measure ? '' : 'checked' %>">
+                                                    class="option option_image t4l_radio active <%= Object.keys(currentDesign.products[0].measure).length > 0 ? '' : 'checked' %>">
                                                     <span class="image icon icon_29"></span>
                                                     <input type="radio" name="lining[contrast]" value="personalizado" data-field-name="lining">
                                                     <span class="name">Go to store</span><span class="price">
@@ -1053,7 +1053,7 @@
                             </div>
                         </div>
                     </div>
-                <div id="measure_form" style="display: <%= currentDesign.products[0].measure ? 'block' : 'none'%>">
+                <div id="measure_form" style="display: <%= Object.keys(currentDesign.products[0].measure).length > 0 ? 'block' : 'none'%>">
                     <%  products.forEach((product, idx) => { %>
                         <div id="<%= product.code %>">
                             <h4><%= product.name %></h4>
@@ -1064,7 +1064,7 @@
                                 %>
                                 <div class="measure" id="<%= currentMeasure %>">
                                     <div class="title"><%= currentMeasure %></div>
-                                    <input name="<%= currentMeasure %>" type="number" required step="0.1" 
+                                    <input name="<%= currentMeasure %>" type="number" required step="0.1" rel="<%= product.code %>"
                                     class="value_box <%= currentMeasure %>" value="<%= value %>" >
                                 </div>
                                 <% }) %>
@@ -1662,22 +1662,18 @@
             </a>
 
             <a id="favorites" href="/en-au/customer/favorites" class=""><span></span></a>
-            <a id="mobile-cart-trigger" href="/en-au/checkout/" class=""><span></span></a>
+            <a id="mobile-cart-trigger" href="/en-au/checkout/" class=""><span><%= session.carts ? session.carts.length : '' %></span></a>
 
         </div>
         <div id="action_colum_desplaced"></div>
         <div id="disable_popup"></div>
         <div class="step_options first with_add_to_cart">
             <div class="step first" rel="fabric">
-                <span>
-                </span>
-                
+                <span></span>
             </div>
             <div class="step separator"></div>
             <div class="step second" rel="config">
-                <span>
-                </span>
-                
+                <span></span>
             </div>
             <div class="step separator"></div>
             <div class="step last" rel="extra">
@@ -1685,9 +1681,11 @@
                 
             </div>
         </div>
+        <% if(item.products.length > 1) {%>
         <div class="favourite with_add_to_cart">
             <div class="fav"><span></span></div>
         </div>
+        <% } %>
         <div class="arrow_fav"><svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 158.5 171.2"
                 style="enable-background:new 0 0 158.5 171.2;" xml:space="preserve">
@@ -1737,11 +1735,11 @@
                 </g>
             </svg>
         </div>
-        <div class="shareButton with_add_to_cart"><span><svg viewBox="-5752 -11408 25.449 27.3">
+        <!-- <div class="shareButton with_add_to_cart"><span><svg viewBox="-5752 -11408 25.449 27.3">
                     <path id="Path_44" data-name="Path 44" class="cls-1"
                         d="M17.537,19.387a5.326,5.326,0,0,0-.648.787L8.93,15.316A4.183,4.183,0,0,0,9.254,13.6a5.349,5.349,0,0,0-.324-1.712l8-4.812a4.582,4.582,0,1,0-.74-2.452,3.966,3.966,0,0,0,.324,1.666l-8,4.812a4.627,4.627,0,1,0,0,5.09l8,4.858a3.9,3.9,0,0,0-.324,1.619,4.58,4.58,0,0,0,1.342,3.285,4.693,4.693,0,0,0,6.57,0,4.692,4.692,0,0,0,0-6.57A4.664,4.664,0,0,0,17.537,19.387ZM20.822.925a3.7,3.7,0,1,1-3.7,3.7A3.713,3.713,0,0,1,20.822.925ZM4.627,17.352a3.7,3.7,0,1,1,3.7-3.7A3.713,3.713,0,0,1,4.627,17.352ZM23.459,25.31a3.725,3.725,0,0,1-6.339-2.637,3.829,3.829,0,0,1,1.064-2.637,3.8,3.8,0,0,1,5.275,0,3.668,3.668,0,0,1,1.064,2.637A3.747,3.747,0,0,1,23.459,25.31Z"
                         transform="translate(-5752 -11408)" />
-                </svg></span></div>
+                </svg></span></div> -->
         <ul class="views num_4 with_add_to_cart">
             <li rel="front" class="active"><a href="" info-hover="front">
                     <div class="circle"></div>
@@ -1782,7 +1780,7 @@
                         let componentImgs = images.find(img => img.fabric_id == currentDesign.fabric_id && img.product_id == product.code)                            
                         for(let i = 0 ; i <= 1; i++) { %>
                             <div class="slide-wrapper <%= i == 0 ? 'front' : 'back' %> index_0 <%= i == 0 ? 'visible' : ''%>">
-                                <div class="slide layers viewport active <%= i == 0 ? 'front' : 'back' %>">
+                                <div class="slide layers viewport active <%= i == 0 ? 'front' : 'back' %>" style="max-width: 70%; padding-top: 15%">
 
                             <% Object.keys(currentStyle).forEach(key => {
                                 let component = product.components.find(component => component.code == key);

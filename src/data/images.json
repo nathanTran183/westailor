@@ -100,6 +100,56 @@
         ]
     },
     {
+        "fabric_id": "fabric_001",
+        "product_id": "product_003",
+        "component_item": [
+            {
+                "item_id": "collar_001",
+                "img_url_front": "https://d2w9m16hs9jc37.cloudfront.net/3d/new_man/shirt/STD/699_fabric/front/necklines_classic+number_1+button_close_standard.png",
+                "img_url_back": "https://d2w9m16hs9jc37.cloudfront.net/3d/new_man/jacket/STD/894_fabric/back/bottom+length_short+back_style_center_vent.png"
+            },
+            {
+                "item_id": "collar_002",
+                "img_url_front": "https://d2w9m16hs9jc37.cloudfront.net/3d/new_man/shirt/STD/699_fabric/front/necklines_mao+number_1+button_close_standard.png",
+                "img_url_back": "https://d2w9m16hs9jc37.cloudfront.net/3d/new_man/jacket/STD/894_fabric/back/bottom+length_short+back_style_center_vent.png"
+            },
+            {
+                "item_id": "sleeve_001",
+                "img_url_front": "https://d2w9m16hs9jc37.cloudfront.net/3d/new_man/shirt/STD/699_fabric/front/sleeves_long+cuffs_2_button.png",
+                "img_url_back": "https://d2w9m16hs9jc37.cloudfront.net/3d/new_man/shirt/STD/699_fabric/front/sleeves_long+cuffs_2_button.png"
+            },
+            {
+                "item_id": "sleeve_002",
+                "img_url_front": "https://d2w9m16hs9jc37.cloudfront.net/3d/new_man/shirt/STD/699_fabric/front/sleeves_short.png",
+                "img_url_back": "https://d2w9m16hs9jc37.cloudfront.net/3d/new_man/shirt/STD/699_fabric/front/sleeves_short.png"
+            },
+            {
+                "item_id": "cuff_001",
+                "parent_id": "sleeve_001",
+                "img_url_front": "https://d2w9m16hs9jc37.cloudfront.net/3d/new_man/shirt/STD/699_fabric/front/pockets_1+pockets_type_flap.png",
+                "img_url_back": "https://d2w9m16hs9jc37.cloudfront.net/3d/new_man/jacket/STD/894_fabric/back/neck.png"
+            },
+            {
+                "item_id": "cuff_002",
+                "parent_id": "sleeve_001",
+                "img_url_front": "https://d2w9m16hs9jc37.cloudfront.net/3d/new_man/shirt/STD/699_fabric/front/pockets_2+pockets_type_flap.png",
+                "img_url_back": "https://d2w9m16hs9jc37.cloudfront.net/3d/new_man/jacket/STD/894_fabric/back/neck.png"
+            },
+            {
+                "item_id": "cuff_001",
+                "parent_id": "sleeve_002",
+                "img_url_front": "",
+                "img_url_back": ""
+            },
+            {
+                "item_id": "cuff_002",
+                "parent_id": "sleeve_002",
+                "img_url_front": "",
+                "img_url_back": ""
+            }
+        ]
+    },
+    {
         "fabric_id": "fabric_002",
         "product_id": "product_001",
         "component_item": [

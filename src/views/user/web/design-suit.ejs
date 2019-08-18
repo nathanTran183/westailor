@@ -1231,14 +1231,14 @@
                         <div class="lining option" name="slanted">
                             <div class="box_title">Select your measure method</div>
                             <div class="box_options">
-                                <label class="left check_button <%= currentDesign.measure ? 'checked' : ''%>" rel="0" option_filter="jacket_pockets_type"><span
+                                <label class="left check_button <%= Object.keys(currentDesign.products[0].measure).length > 0 ? 'checked' : ''%>" rel="0" option_filter="jacket_pockets_type"><span
                                         class="check_radio"></span><span class="title">Measure by your own</span></label>
-                                <label class="left check_button <%= currentDesign.measure ? '' : 'checked'%>" rel="1" option_filter="jacket_pockets_type"><span
+                                <label class="left check_button <%= Object.keys(currentDesign.products[0].measure).length > 0 ? '' : 'checked'%>" rel="1" option_filter="jacket_pockets_type"><span
                                         class="check_radio"></span><span class="title">Go to store</span></label>
                             </div>
                         </div>
                     </div>
-                    <div id="measure_form" style="display: <%= currentDesign.measure ? 'block' : 'none'%>">
+                    <div id="measure_form" style="display: <%= Object.keys(currentDesign.products[0].measure).length > 0 ? 'block' : 'none'%>">
                         <%  products.forEach(prod => {
                             let measure = prod.measure; 
                             let currentProd = currentDesign.products.find(productItem => productItem.product_id == prod.code)

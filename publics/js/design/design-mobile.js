@@ -78,8 +78,10 @@ function checkMeasurement() {
     let flag = true;
     $('.garment_block_extra #measure_form input').each(function () {
         let input = $(this);
+        let product_id = $(this).attr('rel');
         if (!!input.val() && input.val() > 0) {
-            currentDesign.measure[`${input.attr('name')}`] = input.val();
+            let product = currentDesign.products.find(product => product.product_id == product_id)
+            product.measure[`${input.attr('name')}`] = input.val();
         } else {
             flag = false;
             return flag;
@@ -315,13 +317,13 @@ $(document).ready(function () {
         //execute filter fabric
         fabrics.forEach(fabric => {
             let flag = 0;
-            Object.keys(filter_list).forEach(item => {
-                if (filter_list[item].length == 0) {
+            Object.keys(filter_list).forEach(filterItem => {
+                if (filter_list[filterItem].length == 0) {
                     flag++;
                 } else {
                     let subFlag = false;
-                    for (var subItem of fabric[item]) {
-                        if (filter_list[item].indexOf(subItem) !== -1) {
+                    for (var subItem of fabric[filterItem]) {
+                        if (filter_list[filterItem].indexOf(subItem) !== -1) {
                             subFlag = true;
                             break;
                         }
@@ -360,10 +362,10 @@ $(document).ready(function () {
     });
 
     $('.garment_block_config .config_block_title').click(function() {
-        $('.garment_block_config .config_block').removeClass('visible');
-        $(this).parent().addClass('visible');
-        $('.garment_block_config .config_block_content').slideUp();
-        $(this).parent().find('.config_block_content').slideDown();
+        $('.garment_block_config .config_block').not($(this).parent()).removeClass('visible');
+        $(this).parent().toggleClass('visible');
+        $('.garment_block_config .config_block_content').not($(this).parent().find('.config_block_content')).slideUp();
+        $(this).parent().find('.config_block_content').slideToggle();
 
     });
 
@@ -377,6 +379,19 @@ $(document).ready(function () {
 
         let product = products.find(product => product.code == product_id);
         let productDesign = currentDesign.products.find(prod => prod.product_id == product_id);        
+
+
+        // Handle change style for shirt only
+        if (product_id == "product_003" || product_id == "product_007") {
+            if (component_id == "component_002" && componentItem_id == "sleeve_002") {
+                let parentComponent = product.components.find(component => component.parentComponent == component_id);
+                $('.garment_block_config .list_option#'+parentComponent.code).hide();
+            }
+            if (component_id == "component_002" && componentItem_id !== "sleeve_002") {
+                let parentComponent = product.components.find(component => component.parentComponent == component_id);
+                $('.garment_block_config .list_option#'+parentComponent.code).show();
+            }
+        }
 
         // Set style to current design
         productDesign.style[component_id] = componentItem_id;
