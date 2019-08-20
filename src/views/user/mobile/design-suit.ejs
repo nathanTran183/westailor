@@ -1056,7 +1056,7 @@
                 <div id="measure_form" style="display: <%= Object.keys(currentDesign.products[0].measure).length > 0 ? 'block' : 'none'%>">
                     <%  products.forEach((product, idx) => { %>
                         <div id="<%= product.code %>">
-                            <h4><%= product.name %></h4>
+                            <h3 style="text-align: center; text-transform: uppercase; padding: 20px 0 10px;"><%= product.name %></h3>
                             <% product.measure.forEach(currentMeasure => { 
                                 let value = "";
                                 if(!!currentDesign.products[idx].measure)
@@ -1657,8 +1657,7 @@
             <a id="mobile-menu-step" href="#mobile-menu">
                 <div class="icon_menu">.</div>
                 <img class="img_logo"
-                    xlink:href="https://d2w9m16hs9jc37.cloudfront.net/images/logos/symbol_hockerty.svg"
-                    src="https://d2w9m16hs9jc37.cloudfront.net/images/logos/symbol_hockerty.svg" width="22">
+                    src="/images/logos/westailor-logo-icon.png" style="height: 100%">
             </a>
 
             <a id="favorites" href="/en-au/customer/favorites" class=""><span></span></a>
@@ -1683,7 +1682,7 @@
         </div>
         <% if(item.products.length > 1) {%>
         <div class="favourite with_add_to_cart">
-            <div class="fav"><span></span></div>
+            <div class="fav"><span style="content:'!'"></span></div>
         </div>
         <% } %>
         <div class="arrow_fav"><svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"

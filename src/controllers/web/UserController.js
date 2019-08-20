@@ -43,7 +43,7 @@ module.exports = {
                     status: account.status
                 };
                 console.log(req.session.user)
-                res.redirect('/')
+                res.redirect('/orders')
             } else {
                 req.flash('reason_fail', 'Password is not correct!');
                 res.redirect('/signIn');
@@ -92,7 +92,7 @@ module.exports = {
                 role: "Customer",
                 status: user.status
             };
-            return res.redirect('/');
+            return res.redirect('/orders');
         } catch (err) {
             console.log(err)
             req.flash('reason_fail', 'Something was broken!')

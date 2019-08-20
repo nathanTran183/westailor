@@ -213,16 +213,34 @@ $(document).ready(function () {
     // Handle view fabric detail
     $('.thumb_preview').click(function (event) {
         let fabric_id = $(this).parent().attr('id');
-        fabric_view = fabrics.find(fabric => fabric.code == fabric_id);
-        $('.preview_fabric .fabric img').attr('src', fabric_view.detailed_img);
+        let fabric = fabrics.find(fabric => fabric.code == fabric_id);
+        $('.preview_fabric .fabric img').attr('src', fabric.detailed_img);
+        $('.preview_fabric .fabric .details .title').html(fabric.name);
+        $('.preview_fabric .fabric .details .composition').html(fabric.material.join(' & '));
+        $('.preview_fabric .fabric .details .season b').html(fabric.season.join(" - "));
+        $('.preview_fabric .fabric .details .tone b').html(fabric.color.join(" - "));
+        $('.preview_fabric .fabric .details .category b').html(fabric.category.join(" - "));
+        $('.preview_fabric .fabric .details .pattern b').html(fabric.pattern.join(" - "));
+
         $('.preview_fabric').css("display", "block");
     });
     $('.fabric_detail').click(function () {
+        $('.preview_fabric').css("display", "block");
+    });
+    $('.action_column .general .simple_composition .name').click(function () {
         $('.preview_fabric').css("display", "block");
     })
 
     $('.close').click(function (event) {
         $('.preview_fabric').css("display", "none");
+    });
+    $('.options_render .fabric').click(function (event) {
+        event.preventDefault();
+        $('.preview_fabric').css("display", "block");
+    });
+    $('.options_render a.movement').click(function (event) {
+        event.preventDefault();
+        $('.images_render div').toggle();
     });
 
     $(".image_render .layers").css("left", "10%");
@@ -392,7 +410,6 @@ $(document).ready(function () {
             }
             if (flagColor == true && flagMaterial == true) {
                 counter++;
-                console.log(fabric.code)
                 $('.fabric_list .fabric_box #' + fabric.code).parent().addClass('active');
             } else {
                 $('.fabric_list .fabric_box #' + fabric.code).parent().removeClass('active');
@@ -435,15 +452,18 @@ $(document).ready(function () {
         let product = products.find(prod => prod.code == product_id);
         let productDesign = currentDesign.products.find(prod => prod.product_id == product_id);
 
+        $('.images_render').children().hide();
+        $('.images_render #' + product_id).show();
+
         // Handle change style for shirt only
         if (product_id == "product_003" || product_id == "product_007") {
             if (component_id == "component_002" && componentItem_id == "sleeve_002") {
                 let parentComponent = product.components.find(component => component.parentComponent == component_id);
-                $('#style_menu #'+parentComponent.code).hide();
+                $('#style_menu #' + parentComponent.code).hide();
             }
             if (component_id == "component_002" && componentItem_id !== "sleeve_002") {
                 let parentComponent = product.components.find(component => component.parentComponent == component_id);
-                $('#style_menu #'+parentComponent.code).show();
+                $('#style_menu #' + parentComponent.code).show();
             }
         }
 

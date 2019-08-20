@@ -468,7 +468,7 @@ $(document).ready(function () {
 
     $('.action .add_to_cart').click(function () {
         let measureVal = $('.garment_block_extra .box_opt_fix .checked').attr('rel')
-        delete currentDesign.img;
+        currentDesign.products.map(product => { delete product.img; return product });
         $('.loading_general').show()
         if (measureVal == "0")
             if (checkMeasurement()) {
@@ -499,7 +499,7 @@ $(document).ready(function () {
             }
         else {
             currentDesign.quantity = 1;
-            delete currentDesign.measure;
+            currentDesign.products.map(product => { delete product.measure; return product });
             if(!pos) {
                 currentDesign.quantity = 1;
             } else {
