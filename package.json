@@ -30,7 +30,8 @@
     "morgan": "^1.9.1",
     "nodemailer": "^6.1.1",
     "path": "^0.12.7",
-    "randomatic": "^3.1.1"
+    "randomatic": "^3.1.1",
+    "socket.io": "^2.2.0"
   },
   "devDependencies": {
     "nodemon": "^1.18.11"

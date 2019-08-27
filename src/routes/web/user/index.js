@@ -27,6 +27,9 @@ router.get('/signIn', passport.notLogIn, function (req, res) {
     else
         res.render('user/web/signIn');
 });
+router.get('/chat', function(req, res) {
+    res.render('user/web/chat');
+})
 
 router.post('/signIn', passport.notLogIn, UserController.postSignIn);
 router.post('/signUp', passport.notLogIn, UserController.postSignUp);

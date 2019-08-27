@@ -98,7 +98,9 @@
             <a id="mobile-menu-trigger" href="#mobile-menu"></a>
             <a class="logo_toolbar " href="/en-au/" rel="nofollow"></a>
 
-            <a id="mobile-cart-trigger" href="/en-au/checkout/"></a>
+            <a id="mobile-cart-trigger" href="/en-au/checkout/">
+                <%= session.carts? session.carts.length : ''%>
+            </a>
 
         </div>
         <div id="mobile-menu" class="sidr">
