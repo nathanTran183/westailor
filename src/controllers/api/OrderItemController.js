@@ -6,7 +6,7 @@ Canvas.Image = Image;
 const path = require('path');
 const productPath = path.join(__dirname, '../../data/products.json');
 const imagePath = path.join(__dirname, '../../data/images.json');
-const filePath = path.join(__dirname, '../../../../publics/images/components');
+const filePath = path.join(__dirname, '/../../../publics');
 
 module.exports = {
     add: async (req, res) => {
@@ -23,7 +23,7 @@ module.exports = {
                 let productItem = currentDesign.products[i];
                 let product = productData.find(prod => prod.code == productItem.product_id);
                 let componentImgs = imageData.find(image => image.fabric_id == currentDesign.fabric_id && image.product_id == product.code);
-                imgList = product.default_img;
+                imgList = [];
                 let productsDesign = Object.keys(productItem.style)
                 for(let j = 0; j < productsDesign.length; j++) {
                     let key = productsDesign[j];
@@ -39,9 +39,10 @@ module.exports = {
                         componentImg = componentImgs.component_item.find(img => img.item_id == productItem.style[key]);
                     }
                     if (!!componentImg.img_url_front) {
-                        imgList.push(componentImg.img_url_front);
+                        imgList.push(filePath + componentImg.img_url_front);
                     }
-                };                
+                };
+                console.log(imgList)
                 await mergeImages(imgList, { Canvas: Canvas })
                     .then(b64 => {
                         productItem.img = b64;
