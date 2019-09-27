@@ -2,8 +2,8 @@ const path = require('path');
 // require and configure dotenv, will load vars in .env in PROCESS.ENV
 const dotenv = require('dotenv');
 const env = process.env.NODE_ENV || 'development';
-const result = dotenv.config({ debug: true, path: path.join(__dirname, `../env/${env}.env`)});
-console.log(result)
+// const result = dotenv.config({ debug: true, path: path.join(__dirname, `../env/${env}.env`)});
+// console.log(result)
 
 const Joi = require('joi');
 
