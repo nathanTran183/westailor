@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
+    "start_dev": "nodemon server/app.js",
+    "start_stg": "node server/app.js",
+    "start": "node dist/app.js",
+    "build": "babel server --out-dir dist"
   },
   "author": "Duy Phuc TRAN",
   "license": "ISC",

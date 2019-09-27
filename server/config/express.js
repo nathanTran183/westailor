@@ -22,7 +22,7 @@ if (config.env === 'development') {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(Path.join(__dirname,"../publics")));
-app.use('/bower_components', express.static(Path.join(__dirname,"../bower_components")));
+app.use('/bower_components', express.static(Path.join(__dirname,"../../bower_components")));
 app.set('view engine', 'ejs');
 app.set('views', Path.join(__dirname, '../src/views'));
 app.use(cookieParser());

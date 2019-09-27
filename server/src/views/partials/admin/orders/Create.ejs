@@ -1,0 +1,642 @@
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <%
+        // message the validation
+        if (messages.errors) {
+        for (i = 0; i < messages.errors.length; i++) {
+        %>
+        <div class="alert alert-danger">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Fail !</strong> <%= messages.errors[i].msg %>
+        </div>
+        <%
+        }
+        }
+
+        // message the reason change password fail
+        if (messages.reason_fail) {
+        %>
+        <div class="alert alert-warning">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <%= messages.reason_fail %>
+        </div>
+        <%
+        }
+
+        // message if success
+        if (messages.success) {
+        %>
+        <div class="alert alert-success">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <%= messages.success %>
+        </div>
+        <%
+        }
+        %>
+
+        <h1>
+            Create new order
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/admin/orders/pending"><i class="fa fa-shopping-cart"></i>Order List</a></li>
+            <li class="active">Create Order</li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">Cart Items</h3>
+                    </div>
+                    <div class="box-body">
+                        <table id="tableListPendingCarts" class="table table-bordered table-striped" width="100%">
+                            <thead>
+                                <th></th>
+                                <th>Item</th>
+                                <th>Fabric</th>
+                                <th>Style</th>
+                                <th>Measure</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>Total Price</th>
+                                <th></th>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <form id="panel-insert-order" action="/admin/orders/create" method="post" class="form-horizontal">
+                    <div class="col-md-5">
+                        <div class="box box-primary">
+                            <div id="buyer_info">
+                                <div class="box-header">
+                                    <h3 class="box-title">Buyer Information</h3>
+                                    <hr>
+                                </div>
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        <label for="type" class="col-sm-3 control-label">Email/Phone number</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="search" name="search"
+                                                placeholder="Buyer Email/Phone number">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="shipping_info">
+                                <div class="box-header">
+                                    <h3 class="box-title">Shipping Information</h3>
+                                    <hr>
+                                </div>
+                                <div class="box-body">
+    
+                                    <div class="form-group">
+                                        <label for="type" class="col-sm-3 control-label">Full Name</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" required class="form-control" id="name" name="name"
+                                                placeholder="Receiver Full Name">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="street" class="col-sm-3 control-label">Address</label>
+                                        <div class="col-sm-9">
+                                            <textarea class="form-control" id="street" name="street"
+                                                placeholder="Receiver Address"></textarea>
+                                        </div>
+                                    </div>
+    
+                                    <div class="form-group">
+                                        <label for="phone" class="col-sm-3 control-label">Phone Number</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" required class="form-control" id="phone" name="phone"
+                                                placeholder="Receiver Phone Number">
+                                        </div>
+                                    </div>
+    
+                                    <div class="form-group">
+                                        <label for="city" class="col-sm-3 control-label">City</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" required class="form-control" id="city" name="city"
+                                                placeholder="City">
+                                        </div>
+                                    </div>
+    
+                                    <div class="form-group">
+                                        <label for="zipcode" class="col-sm-3 control-label">Zip Code</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" required class="form-control" id="zipcode" name="zipcode"
+                                                placeholder="Zip Code">
+                                        </div>
+                                    </div>
+    
+                                    <div class="form-group">
+                                        <label for="id_iso_country" class="col-sm-3 control-label">Country</label>
+                                        <div class="col-sm-9">
+                                            <select class="form-control select2" id="id_iso_country" name="id_iso_country"
+                                                data-placeholder="Select A Country" style="width: 100%;">
+                                                <option value="AS">American Samoa</option>
+                                                <option value="AD">Andorra</option>
+                                                <option value="AU" selected="1">Australia</option>
+                                                <option value="AT">Austria</option>
+                                                <option value="BE">Belgium</option>
+                                                <option value="BJ">Benin (+$40)</option>
+                                                <option value="BG">Bulgaria</option>
+                                                <option value="CA">Canada</option>
+                                                <option value="CN">China</option>
+                                                <option value="CK">Cook Islands</option>
+                                                <option value="HR">Croatia</option>
+                                                <option value="CY">Cyprus</option>
+                                                <option value="CZ">Czech Republic</option>
+                                                <option value="DK">Denmark</option>
+                                                <option value="EE">Estonia</option>
+                                                <option value="FJ">Fiji</option>
+                                                <option value="FI">Finland</option>
+                                                <option value="FR">France</option>
+                                                <option value="DE">Germany</option>
+                                                <option value="GI">Gibraltar</option>
+                                                <option value="GR">Greece</option>
+                                                <option value="GL">Greenland</option>
+                                                <option value="GU">Guam</option>
+                                                <option value="GG">Guernsey</option>
+                                                <option value="HK">Hong Kong</option>
+                                                <option value="HU">Hungary</option>
+                                                <option value="IS">Iceland</option>
+                                                <option value="IE">Ireland</option>
+                                                <option value="IL">Israel</option>
+                                                <option value="IT">Italy</option>
+                                                <option value="JP">Japan (+$25)</option>
+                                                <option value="JE">Jersey</option>
+                                                <option value="LV">Latvia</option>
+                                                <option value="LI">Liechtenstein</option>
+                                                <option value="LT">Lithuania</option>
+                                                <option value="LU">Luxembourg</option>
+                                                <option value="MO">Macau</option>
+                                                <option value="MT">Malta</option>
+                                                <option value="MQ">Martinique (+$40)</option>
+                                                <option value="MX">Mexico</option>
+                                                <option value="MC">Monaco</option>
+                                                <option value="ME">Montenegro</option>
+                                                <option value="NL">Netherlands</option>
+                                                <option value="NC">New Caledonia</option>
+                                                <option value="NZ">New Zealand</option>
+                                                <option value="NU">Niue</option>
+                                                <option value="NO">Norway</option>
+                                                <option value="PG">Papua New Guinea</option>
+                                                <option value="PL">Poland</option>
+                                                <option value="PT">Portugal</option>
+                                                <option value="RO">Romania (+$40)</option>
+                                                <option value="RU">Russia</option>
+                                                <option value="WS">Samoa</option>
+                                                <option value="SG">Singapore</option>
+                                                <option value="SK">Slovakia</option>
+                                                <option value="SI">Slovenia</option>
+                                                <option value="SB">Solomon Islands</option>
+                                                <option value="KR">South Korea</option>
+                                                <option value="ES">Spain</option>
+                                                <option value="SE">Sweden</option>
+                                                <option value="PF">Tahiti (French Polynesia)</option>
+                                                <option value="TL">Timor East</option>
+                                                <option value="TO">Tonga</option>
+                                                <option value="TV">Tuvalu</option>
+                                                <option value="AE">United Arab Emirates</option>
+                                                <option value="GB">United Kingdom (UK)</option>
+                                                <option value="US">United States (US)</option>
+                                                <option value="VU">Vanuatu</option>
+                                                <option value="VA">Vatican City</option>
+                                            </select>
+                                        </div>
+                                    </div>
+    
+                                    <div class="form-group">
+                                        <label for="province" class="col-sm-3 control-label">State</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="province" name="province"
+                                                placeholder="Province/State">
+                                        </div>
+                                    </div>
+    
+                                    <!-- <div class="form-group">
+                                        <label for="store_type" class="col-sm-3 control-label">Store Type</label>
+                                        <div class="col-sm-9">
+                                            <select class="form-control select2" id="store_type" name="store_type"
+                                                multiple="multiple" data-placeholder="Select store type"
+                                                style="width: 100%;">
+                                                <% products.forEach(function(storeType) { %>
+                                                <option value="<%= storeType.code %>"><%= storeType.name%></option>
+                                                <% }); %>
+                                            </select>
+                                        </div>
+                                    </div> -->
+    
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-4">
+                                            <button type="submit" class="btn btn-success btn-flat"><i
+                                                    class="fa fa-save"></i>
+                                                Submit
+                                            </button>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <button type="button" id="clear-carts" class="btn btn-warning btn-flat"><i
+                                                    class="fa fa-shopping-cart"></i>
+                                                New Order
+                                            </button>
+                                        </div>
+                                    </div>
+    
+                                </div>
+                            </div>
+                            
+                            <!-- /.box-body -->
+                        </div>
+                    </div>
+                    <div class="col-md-7" id="order_item">
+                        <div class="box">
+                            <div id="product_config">
+                                <div class="box-header">
+                                    <h3 class="box-title">Product</h3>
+
+                                </div>
+                                <div class="box-body">
+
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">Product</label>
+                                        <div class="col-sm-6">
+                                            <select class="form-control select2" id="item_id" name="item_id"
+                                                data-placeholder="Select A Product" style="width: 100%;">
+                                                <% items.forEach(item => { %>
+                                                <option value="<%= item.id %>"><%= item.name %></option>
+                                                <% }) %>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">Fabric</label>
+                                        <div class="col-sm-6">
+                                            <select class="form-control select2" id="fabric_id" name="fabric_id"
+                                                data-placeholder="Select A Fabric" style="width: 100%;">
+                                                <% fabrics.forEach(fabric => { 
+                                                    if(fabric.items.some(prod => prod.item_id == "item_001")) {
+                                                    %>
+                                                <option value="<%= fabric.code %>"><%= fabric.code %> - <%= fabric.name%></option>
+                                                <% }}) %>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label"
+                                            style="text-transform: capitalize">Quantity</label>
+                                        <div class="col-sm-6">
+                                            <input type="number" class="form-control" id="quantity"
+                                                name="quantity" min="1" step="1" value="1" />
+                                            <h4 id="total_price">Total price: </4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div id="style_config">
+                                <div class="box-header">
+                                    <h3 class="box-title">Style</h3>
+                                </div><div class="box-body">
+                                    <% items[0].products.forEach(productId => { 
+                                        let product = products.find(prod => prod.code == productId); %>
+                                        <h4 style="text-align: center; text-transform: uppercase"><%= product.name %></h4>                                        
+                                    <% product.components.forEach(component => { %>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label" style="text-transform: capitalize"><%= component.name%></label>
+                                        <div class="col-sm-6">
+                                            <select class="form-control select2" id="<%= component.code %>" product="<%= productId %>" name="<%= component.code %>"
+                                                style="width: 100%;">
+                                                <% component.componentItems.forEach(item => { %>
+                                                <option value="<%= item.code %>"><%= item.name%>
+                                                </option>
+                                                <% }) %>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <% }) }) %>
+                                </div>
+                            </div>
+                            <hr>
+                            <div id="measure_config">
+                                <div class="box-header">
+                                    <h3 class="box-title">Measure</h3>
+                                </div>
+                                <div class="box-body">
+                                    <% items[0].products.forEach(productId => { 
+                                        let product = products.find(prod => prod.code == productId); %>
+                                        <h4 style="text-align: center; text-transform: uppercase"><%= product.name %></h4>
+                                    <% product.measure.forEach(measurePart => { %>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label"
+                                            style="text-transform: capitalize"><%= measurePart %></label>
+                                        <div class="col-sm-6">
+                                            <input type="number" class="form-control" id="<%= measurePart %>" product="<%= productId %>"
+                                                name="<%= measurePart %>">
+                                        </div>
+                                    </div>
+                                    <% }) }) %>
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div style="margin-bottom: 20px; text-align: center">
+                                    <button id="add_to_cart" type="button" class="btn btn-flat btn-primary"><i
+                                            class="fa fa-cart-plus"></i>
+                                        Add to cart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>
+<script>
+    function getTotalPrice(fabrics) {
+        let item_id = $('#product_config #item_id').val();
+        let fabric_id = $('#product_config #fabric_id').val();
+        let quantity = $('#product_config #quantity').val();
+        let fabric = fabrics.find(fabr => fabr.code == fabric_id);
+        let price = fabric.items.find(prod => prod.item_id == item_id).price;
+        let total_price = price * quantity;
+        $('#product_config #total_price').html('Total Price: ' + quantity + ' x ' + price + '$ = <b>' + total_price + '$</b>')
+    };
+
+    $(document).ready(function () {
+        let products = <%- JSON.stringify(products) %>;
+        let fabrics = <%- JSON.stringify(fabrics) %>;
+        let items = <%- JSON.stringify(items) %>;
+
+        let tableListPendingCarts = $('#tableListPendingCarts').DataTable({
+            "searching": false,
+            "ordering": false,
+            "paging": false,
+            "ajax": {
+                url: '/api/orders/orderItems',
+                type: 'GET',
+                dataSrc: 'orderItems'
+            },
+            "columns": [
+                {
+                    'data': function (data) {
+                        return data.idx + 1;
+                    },
+                    'render': function (data) {
+                        return data;
+                    },
+                    "width": "5%"
+                },
+                {
+                    'data': function (data) {
+                        let item = items.find(itm => itm.id == data.item_id);
+                        return item.name;
+                    },
+                    'render': function (data) {
+                        return data;
+                    },
+                    "width": "10%"
+                },
+                {
+                    'data': function (data) {
+                        let fabric = fabrics.find(fabric => fabric.code == data.fabric_id)
+                        return "Code: <b>" + fabric.code + "</b><br>Name: <b>" + fabric.name + "</b>";
+                    },
+                    'render': function (data) {
+                        return data;
+                    },
+                    "width": "15%"
+                },
+                {
+                    'data': function (data) {
+                        let result = "";
+                        data.products.forEach(productItem => {
+                            let product = products.find(product => product.code == productItem.product_id);
+                            result += "<b style='text-transform: uppercase'>" + product.name + "</b><br>";
+                            Object.keys(productItem.style).forEach(component => {
+                                let type = product.components.find(comp => comp.code == component);
+                                let value = type.componentItems.find(item => item.code == productItem.style[component])
+                                result += type.name + ": <b>" + value.name + "</b><br>"
+                            })
+                            result+= "<p></p>";
+                        })
+                        
+                        return result;
+                    },
+                    'render': function (data) {
+                        return data;
+                    },
+                    "width": "25%"
+                },
+                {
+                    'data': function (data) {
+                        let result = "";
+                        data.products.forEach(productItem => {
+                            let product = products.find(product => product.code == productItem.product_id);
+                            result += "<b style='text-transform: uppercase'>" + product.name + "</b><br>";
+                            Object.keys(productItem.measure).forEach(item => {
+                                result += item + ": <b>" + productItem.measure[item] + "(cm)</b><br>"
+                            });
+                            result+= "<p></p>";
+                        })
+                        return result;
+                    },
+                    'render': function (data) {
+                        return data;
+                    },
+                    "width": "20%"
+                },
+                {
+                    'data': 'quantity',
+                    "width": "5%"
+                },
+                {
+                    'data': 'price',
+                    "width": "7%"
+                },
+                {
+                    'data': function (data) {
+                        return data.price * data.quantity;
+                    },
+                    'render': function (data) {
+                        return data;
+                    },
+                    "width": "8%"
+                },
+                {
+                    'data': 'idx',
+                    'render': function (data) {
+                        return "<a href='#' rel='" + data + "' title='Delete' class='confirmDeleteItem btn btn-danger btn-flat'><span class='fa fa-trash' aria-hidden='true'></span></a>";
+                    },
+                    "width": "5%"
+                },
+            ],
+            "drawCallback": function (settings, json) {
+                $('.confirmDeleteItem').click(function (event) {
+                    var r = confirm("Do you want to delete this item!");
+                    if (r == true) {
+                        $.ajax({
+                            type: 'POST',
+                            contentType: 'application/json',
+                            url: '/api/orders/removeItem/' + $('.confirmDeleteItem').attr('rel'),
+                            success: function (data) {
+                                tableListPendingCarts.ajax.reload();
+                                alert('Item deleted!');
+                            },
+                            error: function (error) {
+                                alert('Fail! Cannot delete item');
+                            }
+                        });
+                    }
+                });
+            }
+        });
+
+        getTotalPrice(fabrics);
+
+        $('#clear-carts').click(function() {
+            $.ajax({
+                type: 'POST',
+                contentType: 'application/json',
+                url: '/api/orders/clearItem',
+                success: function (data) {
+                    tableListPendingCarts.ajax.reload();
+                    $('#order_item #measure_config input').each(function (idx, item) {
+                        $(item).val("")
+                    });
+                    $('#panel-insert-order input, textarea').each(function (idx, item) {
+                        $(item).val("")
+                    });
+                },
+                error: function (error) {
+                    alert('Fail! Cannot delete item');
+                }
+            });
+        })
+
+        $('#add_to_cart').click(function () {
+            let flag = true;
+            let orderItem = {}
+            $('#order_item #product_config select').each(function (idx, item) {
+                orderItem[$(item).attr('id')] = $(item).val()
+            });
+            orderItem.quantity = +$('#product_config #quantity').val();
+            let fabric = fabrics.find(fabr => fabr.code == orderItem.fabric_id);
+            orderItem.price = fabric.items.find(item => item.item_id == orderItem.item_id).price;
+            orderItem.products = [];
+            let item = items.find(itm => itm.id == orderItem.item_id);
+            item.products.forEach(productItem => {
+                let product = {
+                    product_id: productItem
+                };
+                product.style = {}
+                $('#order_item #style_config select[product="'+productItem+'"]').each(function (idx, item) {
+                    product.style[$(item).attr('id')] = $(item).val()
+                });
+
+                product.measure = {}
+                $('#order_item #measure_config input[product="'+productItem+'"]').each(function (idx, item) {
+                    if (!$(item).val()) {
+                        flag = false;
+                        return false;
+                    }
+                    product.measure[$(item).attr('id')] = +$(item).val()
+                });
+                orderItem.products.push(product);
+            })
+            
+
+            if (flag == true) {
+                $.ajax({
+                    type: 'POST',
+                    data: JSON.stringify({
+                        data: orderItem
+                    }),
+                    contentType: 'application/json',
+                    url: '/api/orders/orderItem',
+                    success: function (data) {
+                        alert('Item added!');
+                        tableListPendingCarts.ajax.reload();
+                        window.scrollTo(0, 0);
+                    },
+                    error: function (error) {
+                        alert(error.message);
+                        // console.log(error);
+                    }
+                });
+            } else {
+                alert('All Item information must be filled!');
+            }
+
+        });
+
+        $('#product_config #item_id').change(function (event) {
+            let itemId = $(this).children("option:selected").val();
+            let item = items.find(item => item.id == itemId);
+            $('#product_config #fabric_id').empty();
+            fabrics.forEach(fabric => {
+                if (fabric.items.some(item => item.item_id == itemId)) {
+                    let appendStr = '<option value="' + fabric.code + '">' + fabric.code + ' - ' + fabric.name + '</option>'
+                    $('#product_config #fabric_id').append(appendStr)
+                }
+            });
+
+            $('#style_config .box-body').empty();
+            $('#measure_config .box-body').empty();
+
+            item.products.forEach(productId => {
+                let product = products.find(prod => prod.code == productId);
+                $('#style_config .box-body').append('<h4 style="text-align: center; text-transform: uppercase">' + product.name + '</h4>')
+                product.components.forEach(component => {
+                    let appendStyle = `
+                <div class="form-group">
+                    <label class="col-sm-4 control-label"
+                        style="text-transform: capitalize">${component.name}</label>
+                    <div class="col-sm-6">
+                        <select class="form-control select2" product="${product.code}" id="${component.code}"
+                            name="${component.code}" style="width: 100%;">
+                        </select>
+                    </div>
+                </div>`;
+                    $('#style_config .box-body').append(appendStyle);
+                    component.componentItems.forEach(item => {
+                        $('#style_config .box-body #' + component.code).append('<option value="' + item.code + '">' + item.name + '</option>')
+                    })
+                });
+
+                $('#measure_config .box-body').append('<h4 style="text-align: center; text-transform: uppercase">' + product.name + '</h4>')
+                product.measure.forEach(measure => {
+                    let appendStr = `
+                <div class="form-group">
+                    <label class="col-sm-4 control-label"
+                        style="text-transform: capitalize">${measure}</label>
+                    <div class="col-sm-6">
+                        <input type="number" required product="${product.code}" class="form-control" id="${measure}"
+                            name="${measure}">
+                    </div>
+                </div>`
+                    $('#measure_config .box-body').append(appendStr)
+                })
+            })
+            setTimeout(function () { $('.select2').select2() });
+            getTotalPrice(fabrics);
+        });
+
+        $('#product_config #quantity').change(function () {
+            getTotalPrice(fabrics);
+        });
+    })
+</script>

@@ -1,0 +1,121 @@
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            User Detail
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/users"><i class="fa fa-dashboard"></i> User list</a></li>
+            <li class="active">User Detail</li>
+        </ol>
+    </section>
+
+    <section class="content">
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="box box-primary profile col-md-4">
+                    <div class="box-body box-profile panel-profile" style="width:100%">
+
+                        <h3 class="profile-username text-center"><%= user.full_name %></h3>
+
+                        <p class="text-muted text-center">Status:
+                            <% if(user.status == true) { %>
+                            <span class="label label-primary ">Active</span>
+                            <% } else  { %>
+                            <span class="label label-danger">Deactived</span>
+                            <% } %>
+                        </p>
+
+                        <ul class="list-group list-group-unbordered">
+                            <li class="list-group-item">
+                                <b>User ID</b> <a class="pull-right"><%= user._id %></a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Email</b> <a class="pull-right"><%= user.email %></a>
+                            </li>
+                        </ul>
+
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+            <div class="col-md-8">
+
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#settings" data-toggle="tab">Basic information</a></li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="settings">
+                            <form id="panel-update-info" class="form-horizontal">
+
+                                <div class="form-group">
+                                    <label for="full_name" class="col-sm-2 control-label">Full name</label>
+
+                                    <div class="col-sm-10">
+                                        <input type="text" disabled class="form-control" id="full_name" name="full_name"
+                                            placeholder="First name" value="<%= user.full_name %>">
+                                    </div>
+
+
+
+                                </div>
+                                <div class="form-group">
+                                    <label for="gender" class="col-sm-2 control-label">Gender</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" disabled class="form-control" id="point" name="point"
+                                            placeholder="Gender" <% if(user.gender == true){ %> value="Male"
+                                            <% } else {%> value="Female" <%}%>>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="dob" class="col-sm-2 control-label">Phone Number</label>
+
+                                <div class="col-sm-10">
+                                    <input type="text" disabled class="datepicker form-control pull-right" id="phone_number"
+                                           name="phone_number" placeholder="Phone number"
+                                           value="<%= user.phone_number %>">
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="dob" class="col-sm-2 control-label">Point</label>
+
+                                    <div class="col-sm-10">
+                                        <input type="text" disabled class="form-control" id="point" name="point"
+                                            placeholder="Point" value="<%= user.point %>">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="dob" class="col-sm-2 control-label">Created at</label>
+
+                                    <div class="col-sm-10">
+                                        <% let createDate = new Date(user.createdAt).toLocaleString(); %>
+                                        <input type="text" disabled class="form-control" id="point" name="point"
+                                            placeholder="Last name" value="<%= createDate%>">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="dob" class="col-sm-2 control-label">Updated at</label>
+
+                                    <div class="col-sm-10">
+                                        <% let updateDate = new Date(user.updatedAt).toLocaleString();; %>
+
+                                        <input type="text" disabled class="form-control" id="point" name="point"
+                                            placeholder="Last name" value="<%= updateDate %>">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- /.tab-pane -->
+                    </div>
+                    <!-- /.tab-content -->
+                </div>
+            </div>
+            <div class="col-md-2">
+            </div>
+        </div>
+    </section>
+</div>
