@@ -7,8 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start_dev": "nodemon server/app.js",
     "start_stg": "node server/app.js",
-    "start": "node dist/app.js",
-    "build": "babel server --out-dir dist"
+    "start": "node dist/app.js"
   },
   "author": "Duy Phuc TRAN",
   "license": "ISC",
